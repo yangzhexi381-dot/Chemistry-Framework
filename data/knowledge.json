@@ -1,0 +1,1469 @@
+{
+  "nodes": [
+    {
+      "id": "qm.hamiltonian",
+      "type": "concept",
+      "title": "哈密顿算符",
+      "statement": "哈密顿算符 H 表示模型中的总能量算符。",
+      "description": "",
+      "equations": [
+        "H=H^\\dagger"
+      ],
+      "scope": "有限维、时间不显含的厄米哈密顿算符",
+      "assumptions": [
+        "封闭系统的静态哈密顿量"
+      ],
+      "limitations": [
+        "开放系统或时变哈密顿量需要扩展处理"
+      ],
+      "domain": [
+        "quantum_statistical_mechanics"
+      ],
+      "units": {},
+      "claim_status": "defined",
+      "review_status": "draft",
+      "sources": [],
+      "tags": []
+    },
+    {
+      "id": "qm.eigenproblem",
+      "type": "result",
+      "title": "定态本征方程",
+      "statement": "求解 H|n>=E_n|n>，得到模型的能量本征态及本征值。",
+      "description": "",
+      "equations": [
+        "\\hat H|n\\rangle=E_n|n\\rangle"
+      ],
+      "scope": "有限维厄米 H",
+      "assumptions": [
+        "静态 H",
+        "本征态按简并度逐一计数"
+      ],
+      "limitations": [
+        "它本身不规定热平衡布居"
+      ],
+      "domain": [
+        "quantum_statistical_mechanics"
+      ],
+      "units": {},
+      "claim_status": "exact_within_model",
+      "review_status": "draft",
+      "sources": [],
+      "tags": []
+    },
+    {
+      "id": "qm.spectrum",
+      "type": "state",
+      "title": "微观能谱与态",
+      "statement": "能谱由逐态计数的 (|n>, E_n) 对构成。",
+      "description": "",
+      "equations": [
+        "\\{(|n\\rangle,E_n)\\}_{n=1}^{d}"
+      ],
+      "scope": "有限维厄米 H",
+      "assumptions": [
+        "本征态构成正交完备基"
+      ],
+      "limitations": [
+        "连续谱需积分与正确状态密度"
+      ],
+      "domain": [
+        "quantum_statistical_mechanics"
+      ],
+      "units": {},
+      "claim_status": "defined",
+      "review_status": "draft",
+      "sources": [],
+      "tags": []
+    },
+    {
+      "id": "stat.bath",
+      "type": "assumption",
+      "title": "热库及弱耦合假设",
+      "statement": "小系统和足够大热库处于热平衡，总能量守恒，且相互作用能可忽略。",
+      "description": "",
+      "equations": [],
+      "scope": "有限热库趋于大热库的物理构造",
+      "assumptions": [
+        "热库态数随能量平滑变化",
+        "小系统与热库耦合足够弱",
+        "总体系等能微观态的统计假设"
+      ],
+      "limitations": [
+        "强耦合、非平衡及小热库可能产生非正则修正"
+      ],
+      "domain": [
+        "quantum_statistical_mechanics"
+      ],
+      "units": {},
+      "claim_status": "defined",
+      "review_status": "draft",
+      "sources": [],
+      "tags": []
+    },
+    {
+      "id": "stat.beta",
+      "type": "definition",
+      "title": "倒温度参数 β",
+      "statement": "β 被定义为 1/(k_B T)。",
+      "description": "",
+      "equations": [
+        "\\beta=1/(k_BT)"
+      ],
+      "scope": "T>0 的正则系综",
+      "assumptions": [
+        "T>0"
+      ],
+      "limitations": [
+        "负温度体系、非平衡有效温度另需建模"
+      ],
+      "domain": [
+        "quantum_statistical_mechanics"
+      ],
+      "units": {
+        "beta": "1/J",
+        "T": "K",
+        "k_B": "J/K"
+      },
+      "claim_status": "defined",
+      "review_status": "draft",
+      "sources": [
+        {
+          "title": "BIPM SI defining constants",
+          "url": "https://www.bipm.org/en/measurement-units/si-defining-constants"
+        }
+      ],
+      "tags": []
+    },
+    {
+      "id": "stat.canonical",
+      "type": "model",
+      "title": "量子正则系综",
+      "statement": "在固定外参数和温度下，采用归一化 Gibbs 态。",
+      "description": "",
+      "equations": [
+        "\\rho=e^{-\\beta H}/\\mathrm{Tr}(e^{-\\beta H})"
+      ],
+      "scope": "有限维量子系统，T>0",
+      "assumptions": [
+        "热平衡",
+        "正则模型",
+        "有限维 H",
+        "T>0"
+      ],
+      "limitations": [
+        "正则分布不是仅由定态薛定谔方程推出的"
+      ],
+      "domain": [
+        "quantum_statistical_mechanics"
+      ],
+      "units": {},
+      "claim_status": "defined",
+      "review_status": "draft",
+      "sources": [
+        {
+          "title": "Quantum canonical ensemble — LibreTexts",
+          "url": "https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Advanced_Statistical_Mechanics_%28Tuckerman%29/10%3A_Fundamentals_of_quantum_statistical_mechanics/10.05%3A_The_quantum_equilibrium_ensembles/10.5.02%3A_The_canonical_ensemble"
+        }
+      ],
+      "tags": []
+    },
+    {
+      "id": "stat.weights",
+      "type": "result",
+      "title": "Boltzmann 权重",
+      "statement": "逐个能量本征态的未归一化权重是 exp(-βE_n)。",
+      "description": "",
+      "equations": [
+        "w_n=e^{-\\beta E_n}"
+      ],
+      "scope": "正则系综",
+      "assumptions": [
+        "能量本征态计数包含简并"
+      ],
+      "limitations": [
+        "非正则分布不一定适用"
+      ],
+      "domain": [
+        "quantum_statistical_mechanics"
+      ],
+      "units": {},
+      "claim_status": "exact_within_model",
+      "review_status": "draft",
+      "sources": [
+        {
+          "title": "Quantum canonical ensemble — LibreTexts",
+          "url": "https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Advanced_Statistical_Mechanics_%28Tuckerman%29/10%3A_Fundamentals_of_quantum_statistical_mechanics/10.05%3A_The_quantum_equilibrium_ensembles/10.5.02%3A_The_canonical_ensemble"
+        }
+      ],
+      "tags": []
+    },
+    {
+      "id": "stat.partition",
+      "type": "definition",
+      "title": "正则配分函数",
+      "statement": "配分函数是逐态 Boltzmann 权重的总和。",
+      "description": "",
+      "equations": [
+        "Z=\\mathrm{Tr}(e^{-\\beta H})=\\sum_n e^{-\\beta E_n}"
+      ],
+      "scope": "有限维正则系综",
+      "assumptions": [
+        "所有能量本征态逐一计数",
+        "T>0"
+      ],
+      "limitations": [
+        "不能仅对不同能量值求和而忽略简并"
+      ],
+      "domain": [
+        "quantum_statistical_mechanics"
+      ],
+      "units": {
+        "Z": "1"
+      },
+      "claim_status": "defined",
+      "review_status": "draft",
+      "sources": [
+        {
+          "title": "Quantum canonical ensemble — LibreTexts",
+          "url": "https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Advanced_Statistical_Mechanics_%28Tuckerman%29/10%3A_Fundamentals_of_quantum_statistical_mechanics/10.05%3A_The_quantum_equilibrium_ensembles/10.5.02%3A_The_canonical_ensemble"
+        },
+        {
+          "title": "Collections near equilibrium — LibreTexts",
+          "url": "https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Advanced_Theoretical_Chemistry_%28Simons%29/07%3A_Statistical_Mechanics/7.01%3A_Collections_of_Molecules_at_or_Near_Equilibrium"
+        }
+      ],
+      "tags": []
+    },
+    {
+      "id": "stat.prob",
+      "type": "result",
+      "title": "能量本征态布居",
+      "statement": "能量本征态 |n> 的占据概率为 p_n=exp(-βE_n)/Z。",
+      "description": "",
+      "equations": [
+        "p_n=e^{-\\beta E_n}/Z",
+        "\\sum_n p_n=1"
+      ],
+      "scope": "有限维正则系综",
+      "assumptions": [
+        "T>0",
+        "Z>0"
+      ],
+      "limitations": [
+        "对简并能级合计布居要乘简并度"
+      ],
+      "domain": [
+        "quantum_statistical_mechanics"
+      ],
+      "units": {
+        "p_n": "1"
+      },
+      "claim_status": "exact_within_model",
+      "review_status": "draft",
+      "sources": [
+        {
+          "title": "Quantum canonical ensemble — LibreTexts",
+          "url": "https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Advanced_Statistical_Mechanics_%28Tuckerman%29/10%3A_Fundamentals_of_quantum_statistical_mechanics/10.05%3A_The_quantum_equilibrium_ensembles/10.5.02%3A_The_canonical_ensemble"
+        }
+      ],
+      "tags": []
+    },
+    {
+      "id": "stat.mean_u",
+      "type": "observable",
+      "title": "平均内能 U",
+      "statement": "内能为所有能量本征态的统计平均。",
+      "description": "",
+      "equations": [
+        "U=\\sum_n p_n E_n=\\mathrm{Tr}(\\rho H)"
+      ],
+      "scope": "静态 H 的正则系综",
+      "assumptions": [
+        "系统与热库弱耦合"
+      ],
+      "limitations": [
+        "强耦合时系统能量定义需审慎"
+      ],
+      "domain": [
+        "quantum_statistical_mechanics"
+      ],
+      "units": {
+        "U": "J"
+      },
+      "claim_status": "defined",
+      "review_status": "draft",
+      "sources": [
+        {
+          "title": "Quantum canonical ensemble — LibreTexts",
+          "url": "https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Advanced_Statistical_Mechanics_%28Tuckerman%29/10%3A_Fundamentals_of_quantum_statistical_mechanics/10.05%3A_The_quantum_equilibrium_ensembles/10.5.02%3A_The_canonical_ensemble"
+        }
+      ],
+      "tags": []
+    },
+    {
+      "id": "stat.gibbs_s",
+      "type": "definition",
+      "title": "Gibbs–von Neumann 熵",
+      "statement": "量子 Gibbs–von Neumann 熵在能量本征基的 Gibbs 态中简化为 -k_B Σ p_n ln p_n。",
+      "description": "",
+      "equations": [
+        "S=-k_B\\mathrm{Tr}(\\rho\\ln\\rho)=-k_B\\sum_n p_n\\ln p_n"
+      ],
+      "scope": "有限维量子态",
+      "assumptions": [
+        "标准量子统计熵定义",
+        "正则态与 H 可同时对角化"
+      ],
+      "limitations": [
+        "一般非对角态不能直接用任意基中的对角元替代本征值"
+      ],
+      "domain": [
+        "quantum_statistical_mechanics"
+      ],
+      "units": {
+        "S": "J/K"
+      },
+      "claim_status": "defined",
+      "review_status": "draft",
+      "sources": [
+        {
+          "title": "Quantum canonical ensemble — LibreTexts",
+          "url": "https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Advanced_Statistical_Mechanics_%28Tuckerman%29/10%3A_Fundamentals_of_quantum_statistical_mechanics/10.05%3A_The_quantum_equilibrium_ensembles/10.5.02%3A_The_canonical_ensemble"
+        }
+      ],
+      "tags": []
+    },
+    {
+      "id": "thermo.f_def",
+      "type": "definition",
+      "title": "Helmholtz 自由能定义",
+      "statement": "F=U-TS。",
+      "description": "",
+      "equations": [
+        "F=U-TS"
+      ],
+      "scope": "固定 N,V 等外参数的平衡热力学",
+      "assumptions": [
+        "热平衡",
+        "明确所采用的功变量及外参数"
+      ],
+      "limitations": [
+        "开放粒子数或恒压体系对应不同的热力学势"
+      ],
+      "domain": [
+        "quantum_statistical_mechanics"
+      ],
+      "units": {
+        "F": "J"
+      },
+      "claim_status": "defined",
+      "review_status": "draft",
+      "sources": [
+        {
+          "title": "Helmholtz Free Energy — LibreTexts",
+          "url": "https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Supplemental_Modules_%28Physical_and_Theoretical_Chemistry%29/Thermodynamics/Energies_and_Potentials/Free_Energy/Helmholtz_%28Free%29_Energy"
+        }
+      ],
+      "tags": []
+    },
+    {
+      "id": "thermo.f_z",
+      "type": "result",
+      "title": "Helmholtz 自由能与配分函数",
+      "statement": "对于正则系综，F=-k_B T ln Z。",
+      "description": "",
+      "equations": [
+        "F=-k_B T\\ln Z"
+      ],
+      "scope": "有限维 Gibbs 正则态",
+      "assumptions": [
+        "T>0",
+        "采用正则 Gibbs 态及对应的热力学熵定义"
+      ],
+      "limitations": [
+        "不可直接套用到非平衡态"
+      ],
+      "domain": [
+        "quantum_statistical_mechanics"
+      ],
+      "units": {
+        "F": "J"
+      },
+      "claim_status": "exact_within_model",
+      "review_status": "draft",
+      "sources": [
+        {
+          "title": "Quantum canonical ensemble — LibreTexts",
+          "url": "https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Advanced_Statistical_Mechanics_%28Tuckerman%29/10%3A_Fundamentals_of_quantum_statistical_mechanics/10.05%3A_The_quantum_equilibrium_ensembles/10.5.02%3A_The_canonical_ensemble"
+        },
+        {
+          "title": "Helmholtz Free Energy — LibreTexts",
+          "url": "https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Supplemental_Modules_%28Physical_and_Theoretical_Chemistry%29/Thermodynamics/Energies_and_Potentials/Free_Energy/Helmholtz_%28Free%29_Energy"
+        }
+      ],
+      "tags": []
+    },
+    {
+      "id": "stat.u_deriv",
+      "type": "result",
+      "title": "内能的配分函数导数表达",
+      "statement": "在 H 不显含 β 时，U= -∂lnZ/∂β。",
+      "description": "",
+      "equations": [
+        "U=-\\left(\\partial\\ln Z/\\partial\\beta\\right)_{H}"
+      ],
+      "scope": "H 与 β 无显式依赖",
+      "assumptions": [
+        "求导过程中 H 固定"
+      ],
+      "limitations": [
+        "若有效 H 依赖温度，直接求导将包含附加项"
+      ],
+      "domain": [
+        "quantum_statistical_mechanics"
+      ],
+      "units": {
+        "U": "J"
+      },
+      "claim_status": "exact_within_model",
+      "review_status": "draft",
+      "sources": [
+        {
+          "title": "Quantum canonical ensemble — LibreTexts",
+          "url": "https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Advanced_Statistical_Mechanics_%28Tuckerman%29/10%3A_Fundamentals_of_quantum_statistical_mechanics/10.05%3A_The_quantum_equilibrium_ensembles/10.5.02%3A_The_canonical_ensemble"
+        }
+      ],
+      "tags": []
+    },
+    {
+      "id": "model.two_level",
+      "type": "model",
+      "title": "非简并双能级模型",
+      "statement": "能量为 E0=0、E1=Δ，Δ>0，两个能级简并度均为 1。",
+      "description": "",
+      "equations": [
+        "E_0=0,\\quad E_1=\\Delta>0",
+        "g_0=g_1=1"
+      ],
+      "scope": "孤立两态 Hilbert 空间中的正则系统",
+      "assumptions": [
+        "非简并",
+        "忽略其他能级",
+        "Δ 不随 T 变化"
+      ],
+      "limitations": [
+        "简并会改变高温布居极限",
+        "热激发到高能态可能失效"
+      ],
+      "domain": [
+        "quantum_statistical_mechanics"
+      ],
+      "units": {
+        "Delta": "J"
+      },
+      "claim_status": "defined",
+      "review_status": "draft",
+      "sources": [],
+      "tags": []
+    },
+    {
+      "id": "model.two_level_p1",
+      "type": "result",
+      "title": "双能级激发态布居",
+      "statement": "非简并双能级系统的激发态概率是 1/(1+exp(βΔ))。",
+      "description": "",
+      "equations": [
+        "p_1=\\frac{e^{-\\beta\\Delta}}{1+e^{-\\beta\\Delta}}=\\frac{1}{1+e^{\\beta\\Delta}}"
+      ],
+      "scope": "正则两态系统",
+      "assumptions": [
+        "E0=0",
+        "E1=Δ>0",
+        "g0=g1=1"
+      ],
+      "limitations": [
+        "有简并时公式需改为 g1 exp(-βΔ)/(g0+g1 exp(-βΔ))"
+      ],
+      "domain": [
+        "quantum_statistical_mechanics"
+      ],
+      "units": {
+        "p_1": "1"
+      },
+      "claim_status": "exact_within_model",
+      "review_status": "draft",
+      "sources": [
+        {
+          "title": "Quantum canonical ensemble — LibreTexts",
+          "url": "https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Advanced_Statistical_Mechanics_%28Tuckerman%29/10%3A_Fundamentals_of_quantum_statistical_mechanics/10.05%3A_The_quantum_equilibrium_ensembles/10.5.02%3A_The_canonical_ensemble"
+        }
+      ],
+      "tags": []
+    },
+    {
+      "id": "qm.variational_principle",
+      "type": "concept",
+      "title": "变分原理",
+      "statement": "对给定哈密顿量，归一化试探态的能量期望值不低于基态能量；有限试探空间不同，所得近似上界可不同。",
+      "description": "",
+      "equations": [
+        "E[ψ]=⟨ψ|H|ψ⟩/⟨ψ|ψ⟩ ≥ E₀"
+      ],
+      "scope": "适用于具有基态下界的哈密顿量；常用 Rayleigh–Ritz 表述。",
+      "assumptions": [
+        "同一哈密顿量",
+        "归一化试探态"
+      ],
+      "limitations": [
+        "不意味着不同近似方法给出相同有限精度结果；激发态需额外正交约束或方法。"
+      ],
+      "domain": [
+        "quantum_chemistry"
+      ],
+      "units": {},
+      "claim_status": "exact_within_model",
+      "review_status": "draft",
+      "sources": [],
+      "tags": [],
+      "presentation": {
+        "chemical_question": "",
+        "chemical_meaning": "对给定哈密顿量，归一化试探态的能量期望值不低于基态能量；有限试探空间不同，所得近似上界可不同。",
+        "intuitive_explanation": "对给定哈密顿量，归一化试探态的能量期望值不低于基态能量；有限试探空间不同，所得近似上界可不同。",
+        "math_depth": "optional",
+        "study_prompts": []
+      }
+    },
+    {
+      "id": "thermo.delta_r_g_standard",
+      "type": "observable",
+      "title": "标准反应 Gibbs 能变化 ΔᵣG°",
+      "statement": "在给定标准态下，ΔᵣG° 与平衡常数满足 ΔᵣG°=−RT ln K。",
+      "description": "",
+      "equations": [
+        "ΔᵣG°=−RT ln K"
+      ],
+      "scope": "明确温度、标准态及反应计量式。",
+      "assumptions": [
+        "热力学平衡定义适用"
+      ],
+      "limitations": [
+        "ΔᵣG° 单独不决定速率常数或活化自由能。"
+      ],
+      "domain": [
+        "thermodynamics"
+      ],
+      "units": {},
+      "claim_status": "exact_within_model",
+      "review_status": "draft",
+      "sources": [],
+      "tags": [],
+      "presentation": {
+        "chemical_question": "",
+        "chemical_meaning": "在给定标准态下，ΔᵣG° 与平衡常数满足 ΔᵣG°=−RT ln K。",
+        "intuitive_explanation": "在给定标准态下，ΔᵣG° 与平衡常数满足 ΔᵣG°=−RT ln K。",
+        "math_depth": "optional",
+        "study_prompts": []
+      }
+    },
+    {
+      "id": "kinetics.reaction_rate",
+      "type": "observable",
+      "title": "反应速率与动力学势垒",
+      "statement": "反应速率由动力学规律决定，通常依赖浓度、温度、反应路径及动力学参数。",
+      "description": "",
+      "equations": [],
+      "scope": "具体速率律依反应机理与实验条件确定。",
+      "assumptions": [
+        "需定义速率、体系和条件"
+      ],
+      "limitations": [
+        "不能由净反应 ΔᵣG° 单独反推出速率。"
+      ],
+      "domain": [
+        "chemical_kinetics"
+      ],
+      "units": {},
+      "claim_status": "empirical",
+      "review_status": "draft",
+      "sources": [],
+      "tags": [],
+      "presentation": {
+        "chemical_question": "",
+        "chemical_meaning": "反应速率由动力学规律决定，通常依赖浓度、温度、反应路径及动力学参数。",
+        "intuitive_explanation": "反应速率由动力学规律决定，通常依赖浓度、温度、反应路径及动力学参数。",
+        "math_depth": "optional",
+        "study_prompts": []
+      }
+    },
+    {
+      "id": "analysis.xrd_phase_assignment",
+      "type": "measurement_method",
+      "title": "XRD 物相归属",
+      "statement": "粉末 XRD 物相归属需综合衍射峰位置、强度、线形、背景及样品/基底信息。",
+      "description": "",
+      "equations": [],
+      "scope": "所用仪器、辐射源、样品形态与参考数据库限定匹配。",
+      "assumptions": [
+        "仪器校准及样品信息可用"
+      ],
+      "limitations": [
+        "单一卡片部分匹配不足以确认唯一物相或合成成败。"
+      ],
+      "domain": [
+        "analytical_chemistry",
+        "materials_chemistry"
+      ],
+      "units": {},
+      "claim_status": "defined",
+      "review_status": "draft",
+      "sources": [],
+      "tags": [],
+      "presentation": {
+        "chemical_question": "",
+        "chemical_meaning": "粉末 XRD 物相归属需综合衍射峰位置、强度、线形、背景及样品/基底信息。",
+        "intuitive_explanation": "粉末 XRD 物相归属需综合衍射峰位置、强度、线形、背景及样品/基底信息。",
+        "math_depth": "optional",
+        "study_prompts": []
+      }
+    },
+    {
+      "id": "analysis.xrd_inverse_problem",
+      "type": "concept",
+      "title": "XRD 物相识别的逆问题",
+      "statement": "由有限且可能重叠的衍射信号推断样品物相通常非唯一，需要候选比较和独立表征约束。",
+      "description": "",
+      "equations": [],
+      "scope": "候选相和数据质量受样品、仪器及数据库范围影响。",
+      "assumptions": [
+        "原始谱线可获得"
+      ],
+      "limitations": [
+        "未完全匹配既不自动证明失败，也不自动证明新相。"
+      ],
+      "domain": [
+        "analytical_chemistry",
+        "materials_chemistry"
+      ],
+      "units": {},
+      "claim_status": "exact_within_model",
+      "review_status": "draft",
+      "sources": [],
+      "tags": [],
+      "presentation": {
+        "chemical_question": "",
+        "chemical_meaning": "由有限且可能重叠的衍射信号推断样品物相通常非唯一，需要候选比较和独立表征约束。",
+        "intuitive_explanation": "由有限且可能重叠的衍射信号推断样品物相通常非唯一，需要候选比较和独立表征约束。",
+        "math_depth": "optional",
+        "study_prompts": []
+      }
+    },
+    {
+      "id": "qm.variational_energy_bound",
+      "type": "result",
+      "title": "变分能量上界",
+      "statement": "给定哈密顿量下，归一化试探态的能量期望不低于基态能量。",
+      "description": "",
+      "equations": [
+        "E[ψ]=⟨ψ|H|ψ⟩/⟨ψ|ψ⟩ ≥ E₀"
+      ],
+      "scope": "具有基态下界的哈密顿量及其允许试探态。",
+      "assumptions": [],
+      "limitations": [
+        "该结论不保证不同有限试探空间结果相同。"
+      ],
+      "domain": [
+        "quantum_chemistry"
+      ],
+      "units": {},
+      "claim_status": "exact_within_model",
+      "review_status": "draft",
+      "sources": [],
+      "tags": [],
+      "presentation": {
+        "chemical_question": "",
+        "chemical_meaning": "给定哈密顿量下，归一化试探态的能量期望不低于基态能量。",
+        "intuitive_explanation": "给定哈密顿量下，归一化试探态的能量期望不低于基态能量。",
+        "math_depth": "optional",
+        "study_prompts": []
+      }
+    },
+    {
+      "id": "thermo.equilibrium_constant",
+      "type": "observable",
+      "title": "平衡常数 K",
+      "statement": "K 表征给定温度和标准态约定下的平衡组成关系。",
+      "description": "",
+      "equations": [],
+      "scope": "需明确反应式、温度及活度标准态。",
+      "assumptions": [],
+      "limitations": [],
+      "domain": [
+        "thermodynamics"
+      ],
+      "units": {},
+      "claim_status": "defined",
+      "review_status": "draft",
+      "sources": [],
+      "tags": [],
+      "presentation": {
+        "chemical_question": "",
+        "chemical_meaning": "K 表征给定温度和标准态约定下的平衡组成关系。",
+        "intuitive_explanation": "K 表征给定温度和标准态约定下的平衡组成关系。",
+        "math_depth": "optional",
+        "study_prompts": []
+      }
+    },
+    {
+      "id": "kinetics.thermo_rate_distinction",
+      "type": "result",
+      "title": "平衡驱动力不唯一决定速率",
+      "statement": "标准反应 Gibbs 能变化描述平衡倾向，单独不能确定反应速率。",
+      "description": "",
+      "equations": [],
+      "scope": "反应动力学与热力学的区分。",
+      "assumptions": [],
+      "limitations": [
+        "具体速率仍需动力学数据或机理模型。"
+      ],
+      "domain": [
+        "thermodynamics",
+        "chemical_kinetics"
+      ],
+      "units": {},
+      "claim_status": "exact_within_model",
+      "review_status": "draft",
+      "sources": [],
+      "tags": [],
+      "presentation": {
+        "chemical_question": "",
+        "chemical_meaning": "标准反应 Gibbs 能变化描述平衡倾向，单独不能确定反应速率。",
+        "intuitive_explanation": "标准反应 Gibbs 能变化描述平衡倾向，单独不能确定反应速率。",
+        "math_depth": "optional",
+        "study_prompts": []
+      }
+    },
+    {
+      "id": "battery.lead_acid",
+      "type": "chemical_process",
+      "title": "铅酸蓄电池的放电反应",
+      "statement": "放电时，负极 Pb 被氧化为 PbSO₄，正极 PbO₂ 被还原为 PbSO₄；硫酸参与总反应。",
+      "description": "它把电极反应、电解质组成、化学能与电能转换连接在同一器件中。",
+      "equations": "Pb + PbO₂ + 2H₂SO₄ → 2PbSO₄ + 2H₂O",
+      "scope": "铅酸蓄电池放电过程的理想化总反应",
+      "assumptions": "给定温度、压力与反应方向；忽略副反应",
+      "limitations": "真实电池还受活度、传质、内阻、极化、结构与老化影响",
+      "domain": [
+        "electrochemistry"
+      ],
+      "units": {},
+      "claim_status": "defined",
+      "review_status": "textbook_structure",
+      "sources": [
+        {
+          "title": "傅献彩、侯文华主编，《物理化学》（第六版）下册，第八至第十章",
+          "url": "https://xuanshu.hep.com.cn/front/book/findBookDetails?bookId=62409959938b7cc2960ee8d5"
+        }
+      ],
+      "tags": [
+        "电化学",
+        "电池体系"
+      ],
+      "presentation": {
+        "chemical_question": "铅酸蓄电池的放电反应",
+        "chemical_meaning": "放电时，负极 Pb 被氧化为 PbSO₄，正极 PbO₂ 被还原为 PbSO₄；硫酸参与总反应。",
+        "intuitive_explanation": "它把电极反应、电解质组成、化学能与电能转换连接在同一器件中。",
+        "math_depth": "optional",
+        "study_prompts": []
+      }
+    },
+    {
+      "id": "battery.electrolyte",
+      "type": "concept",
+      "title": "电解质溶液与离子输运",
+      "statement": "硫酸水溶液中的离子承担电荷传递；其组成、活度和电导会随放电状态变化。",
+      "description": "电极中的电子流与电解液中的离子迁移共同构成闭合电流回路。",
+      "equations": "κ = G·l/A； I = 1/2 Σ mᵢzᵢ²",
+      "scope": "均匀电解质溶液的宏观描述",
+      "assumptions": "离子强度表达式采用质量摩尔浓度记法",
+      "limitations": "浓溶液需要考虑非理想性；溶液中的电流不能简单看作单一离子运动",
+      "domain": [
+        "electrochemistry"
+      ],
+      "units": {},
+      "claim_status": "defined",
+      "review_status": "textbook_structure",
+      "sources": [
+        {
+          "title": "傅献彩、侯文华主编，《物理化学》（第六版）下册，第八至第十章",
+          "url": "https://xuanshu.hep.com.cn/front/book/findBookDetails?bookId=62409959938b7cc2960ee8d5"
+        }
+      ],
+      "tags": [
+        "电化学",
+        "电池体系"
+      ],
+      "presentation": {
+        "chemical_question": "电解质溶液与离子输运",
+        "chemical_meaning": "硫酸水溶液中的离子承担电荷传递；其组成、活度和电导会随放电状态变化。",
+        "intuitive_explanation": "电极中的电子流与电解液中的离子迁移共同构成闭合电流回路。",
+        "math_depth": "optional",
+        "study_prompts": []
+      }
+    },
+    {
+      "id": "battery.emf",
+      "type": "concept",
+      "title": "可逆电池电动势",
+      "statement": "电动势对应可逆极限下电池反应的热力学驱动力，可由电池反应 Gibbs 能变化联系。",
+      "description": "电动势是开路、趋于可逆条件下的状态量；负载下测得的是端电压。",
+      "equations": "ΔᵣG = −nFE； E = E° − (RT/nF) ln Q",
+      "scope": "可逆电池反应与明确的电池反应式",
+      "assumptions": "符号依照反应方向和电池书写约定；活度用于 Nernst 方程",
+      "limitations": "实际端电压会因电流、内阻、极化及浓度变化偏离可逆电动势",
+      "domain": [
+        "electrochemistry"
+      ],
+      "units": {},
+      "claim_status": "defined",
+      "review_status": "textbook_structure",
+      "sources": [
+        {
+          "title": "傅献彩、侯文华主编，《物理化学》（第六版）下册，第八至第十章",
+          "url": "https://xuanshu.hep.com.cn/front/book/findBookDetails?bookId=62409959938b7cc2960ee8d5"
+        }
+      ],
+      "tags": [
+        "电化学",
+        "电池体系"
+      ],
+      "presentation": {
+        "chemical_question": "可逆电池电动势",
+        "chemical_meaning": "电动势对应可逆极限下电池反应的热力学驱动力，可由电池反应 Gibbs 能变化联系。",
+        "intuitive_explanation": "电动势是开路、趋于可逆条件下的状态量；负载下测得的是端电压。",
+        "math_depth": "optional",
+        "study_prompts": []
+      }
+    },
+    {
+      "id": "battery.polarization",
+      "type": "concept",
+      "title": "极化与过电势",
+      "statement": "电流通过电池时，电极反应动力学、物质传递和电解质电阻会使电极状态偏离平衡。",
+      "description": "负载越强或传质越受限，实际工作电压通常越偏离可逆电动势。",
+      "equations": "η = E₍实际₎ − E₍平衡₎； 放电时可定性写作 U端 = E可逆 − IR内 − 极化损失",
+      "scope": "电池有限电流运行时",
+      "assumptions": "放电符号约定；IR项为简化欧姆压降",
+      "limitations": "真实器件的等效参数随荷电状态、温度、老化和电流变化",
+      "domain": [
+        "electrochemistry"
+      ],
+      "units": {},
+      "claim_status": "defined",
+      "review_status": "textbook_structure",
+      "sources": [
+        {
+          "title": "傅献彩、侯文华主编，《物理化学》（第六版）下册，第八至第十章",
+          "url": "https://xuanshu.hep.com.cn/front/book/findBookDetails?bookId=62409959938b7cc2960ee8d5"
+        }
+      ],
+      "tags": [
+        "电化学",
+        "电池体系"
+      ],
+      "presentation": {
+        "chemical_question": "极化与过电势",
+        "chemical_meaning": "电流通过电池时，电极反应动力学、物质传递和电解质电阻会使电极状态偏离平衡。",
+        "intuitive_explanation": "负载越强或传质越受限，实际工作电压通常越偏离可逆电动势。",
+        "math_depth": "optional",
+        "study_prompts": []
+      }
+    },
+    {
+      "id": "battery.faraday",
+      "type": "law",
+      "title": "Faraday电解定律",
+      "statement": "电极反应的物质变化量与通过的电量相关，比例由电子计量数决定。",
+      "description": "它把可测电流积分与反应进度联系起来。",
+      "equations": "Q = ∫I dt； n物质 = Q/(zF)",
+      "scope": "已明确电极反应及其电子计量数",
+      "assumptions": "假设电量对应所考察的电极反应",
+      "limitations": "存在副反应时，不能把总电量全部归给目标反应",
+      "domain": [
+        "electrochemistry"
+      ],
+      "units": {},
+      "claim_status": "defined",
+      "review_status": "textbook_structure",
+      "sources": [
+        {
+          "title": "傅献彩、侯文华主编，《物理化学》（第六版）下册，第八至第十章",
+          "url": "https://xuanshu.hep.com.cn/front/book/findBookDetails?bookId=62409959938b7cc2960ee8d5"
+        }
+      ],
+      "tags": [
+        "电化学",
+        "电池体系"
+      ],
+      "presentation": {
+        "chemical_question": "Faraday电解定律",
+        "chemical_meaning": "电极反应的物质变化量与通过的电量相关，比例由电子计量数决定。",
+        "intuitive_explanation": "它把可测电流积分与反应进度联系起来。",
+        "math_depth": "optional",
+        "study_prompts": []
+      }
+    },
+    {
+      "id": "battery.activity",
+      "type": "concept",
+      "title": "活度与非理想电解质",
+      "statement": "电池电势由反应物和产物的化学势决定；浓溶液中活度通常不能直接用浓度替代。",
+      "description": "放电导致硫酸参与反应，电解液组成和活度变化，因此平衡电势也随状态改变。",
+      "equations": "μᵢ = μᵢ° + RT ln aᵢ",
+      "scope": "给定温度和标准态约定的溶液热力学",
+      "assumptions": "电解质平均活度因子可用于处理不可单独测量的单离子活度",
+      "limitations": "活度系数依赖组成、温度和所采用的模型",
+      "domain": [
+        "electrochemistry"
+      ],
+      "units": {},
+      "claim_status": "defined",
+      "review_status": "textbook_structure",
+      "sources": [
+        {
+          "title": "傅献彩、侯文华主编，《物理化学》（第六版）下册，第八至第十章",
+          "url": "https://xuanshu.hep.com.cn/front/book/findBookDetails?bookId=62409959938b7cc2960ee8d5"
+        }
+      ],
+      "tags": [
+        "电化学",
+        "电池体系"
+      ],
+      "presentation": {
+        "chemical_question": "活度与非理想电解质",
+        "chemical_meaning": "电池电势由反应物和产物的化学势决定；浓溶液中活度通常不能直接用浓度替代。",
+        "intuitive_explanation": "放电导致硫酸参与反应，电解液组成和活度变化，因此平衡电势也随状态改变。",
+        "math_depth": "optional",
+        "study_prompts": []
+      }
+    },
+    {
+      "id": "battery.measurement",
+      "type": "measurement_method",
+      "title": "电池电势的测量与状态判断",
+      "statement": "开路电势可用于分析反应热力学；端电压、电流、容量等则描述实际运行表现。",
+      "description": "测量量回答的问题不同：电动势不是放电容量，电流也不是储能量。",
+      "equations": "P = UI； Q = ∫I dt",
+      "scope": "指定器件、温度、荷电状态和测量条件",
+      "assumptions": "明确开路或带载条件与电流方向",
+      "limitations": "单一读数不足以确定电池健康状态或完整反应机理",
+      "domain": [
+        "electrochemistry"
+      ],
+      "units": {},
+      "claim_status": "defined",
+      "review_status": "textbook_structure",
+      "sources": [
+        {
+          "title": "傅献彩、侯文华主编，《物理化学》（第六版）下册，第八至第十章",
+          "url": "https://xuanshu.hep.com.cn/front/book/findBookDetails?bookId=62409959938b7cc2960ee8d5"
+        }
+      ],
+      "tags": [
+        "电化学",
+        "电池体系"
+      ],
+      "presentation": {
+        "chemical_question": "电池电势的测量与状态判断",
+        "chemical_meaning": "开路电势可用于分析反应热力学；端电压、电流、容量等则描述实际运行表现。",
+        "intuitive_explanation": "测量量回答的问题不同：电动势不是放电容量，电流也不是储能量。",
+        "math_depth": "optional",
+        "study_prompts": []
+      }
+    }
+  ],
+  "relations": [
+    {
+      "id": "rel.spectral",
+      "type": "exact_derivation",
+      "premises": [
+        "qm.hamiltonian",
+        "qm.eigenproblem"
+      ],
+      "conclusion": "qm.spectrum",
+      "claim": "求解厄米本征值问题可得到本征态与对应能级。",
+      "conditions": [
+        "有限维厄米 H"
+      ],
+      "steps": [
+        "解 H|n>=E_n|n>",
+        "利用谱定理构建正交完备本征态集"
+      ],
+      "scope": "有限维静态量子系统",
+      "limitations": [
+        "并不蕴含热平衡概率分布"
+      ],
+      "error_control": null,
+      "review_status": "draft",
+      "sources": [],
+      "tests": [
+        "finite_hermitian_spectrum"
+      ]
+    },
+    {
+      "id": "rel.bath_to_gibbs",
+      "type": "controlled_approximation",
+      "premises": [
+        "stat.bath",
+        "qm.spectrum",
+        "stat.beta"
+      ],
+      "conclusion": "stat.canonical",
+      "claim": "以热库态数比值并在热库足够大时作一阶熵展开，得到正则权重。",
+      "conditions": [
+        "总系统等能微观态假设",
+        "热库远大于小系统",
+        "弱耦合",
+        "光滑热库熵"
+      ],
+      "steps": [
+        "P(n) ∝ Ω_B(E_total-E_n)",
+        "S_B(E_total-E_n)=S_B(E_total)-E_n/T + O(E_n^2)（在固定总能量附近）",
+        "归一化后得到 exp(-βE_n)/Z"
+      ],
+      "scope": "大热库、近热平衡条件",
+      "limitations": [
+        "有限热库有高阶熵修正",
+        "弱耦合不足可能失效"
+      ],
+      "error_control": "忽略热库熵展开的二阶及以上修正；需按热库热容等尺度评估",
+      "review_status": "draft",
+      "sources": [
+        {
+          "title": "Collections near equilibrium — LibreTexts",
+          "url": "https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Advanced_Theoretical_Chemistry_%28Simons%29/07%3A_Statistical_Mechanics/7.01%3A_Collections_of_Molecules_at_or_Near_Equilibrium"
+        }
+      ],
+      "tests": [
+        "no_direct_qm_to_canonical"
+      ]
+    },
+    {
+      "id": "rel.canonical_to_weights",
+      "type": "exact_derivation",
+      "premises": [
+        "stat.canonical",
+        "qm.spectrum",
+        "stat.beta"
+      ],
+      "conclusion": "stat.weights",
+      "claim": "Gibbs 态在能量本征基下给出 e^{-βE_n} 权重。",
+      "conditions": [
+        "已采用 Gibbs 正则态"
+      ],
+      "steps": [
+        "将 e^{-βH} 作用在 H 的本征态上"
+      ],
+      "scope": "有限维正则模型",
+      "limitations": [],
+      "error_control": null,
+      "review_status": "draft",
+      "sources": [
+        {
+          "title": "Quantum canonical ensemble — LibreTexts",
+          "url": "https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Advanced_Statistical_Mechanics_%28Tuckerman%29/10%3A_Fundamentals_of_quantum_statistical_mechanics/10.05%3A_The_quantum_equilibrium_ensembles/10.5.02%3A_The_canonical_ensemble"
+        }
+      ],
+      "tests": []
+    },
+    {
+      "id": "rel.partition_def",
+      "type": "definition",
+      "premises": [
+        "stat.weights",
+        "qm.spectrum"
+      ],
+      "conclusion": "stat.partition",
+      "claim": "对全部能量本征态的 Boltzmann 权重求和定义配分函数。",
+      "conditions": [
+        "逐态计数，简并能级重复计数"
+      ],
+      "steps": [
+        "Z=Σ_n w_n=Tr(e^{-βH})"
+      ],
+      "scope": "有限维正则模型",
+      "limitations": [],
+      "error_control": null,
+      "review_status": "draft",
+      "sources": [
+        {
+          "title": "Quantum canonical ensemble — LibreTexts",
+          "url": "https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Advanced_Statistical_Mechanics_%28Tuckerman%29/10%3A_Fundamentals_of_quantum_statistical_mechanics/10.05%3A_The_quantum_equilibrium_ensembles/10.5.02%3A_The_canonical_ensemble"
+        },
+        {
+          "title": "Collections near equilibrium — LibreTexts",
+          "url": "https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Advanced_Theoretical_Chemistry_%28Simons%29/07%3A_Statistical_Mechanics/7.01%3A_Collections_of_Molecules_at_or_Near_Equilibrium"
+        }
+      ],
+      "tests": [
+        "degeneracy_counting"
+      ]
+    },
+    {
+      "id": "rel.normalize",
+      "type": "exact_derivation",
+      "premises": [
+        "stat.weights",
+        "stat.partition"
+      ],
+      "conclusion": "stat.prob",
+      "claim": "将 Boltzmann 权重除以正的 Z 得归一化概率。",
+      "conditions": [
+        "T>0",
+        "有限维 Hilbert 空间"
+      ],
+      "steps": [
+        "p_n=w_n/Z",
+        "Σ_n p_n=(Σ_n w_n)/Z=1"
+      ],
+      "scope": "有限维正则模型",
+      "limitations": [],
+      "error_control": null,
+      "review_status": "draft",
+      "sources": [
+        {
+          "title": "Quantum canonical ensemble — LibreTexts",
+          "url": "https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Advanced_Statistical_Mechanics_%28Tuckerman%29/10%3A_Fundamentals_of_quantum_statistical_mechanics/10.05%3A_The_quantum_equilibrium_ensembles/10.5.02%3A_The_canonical_ensemble"
+        }
+      ],
+      "tests": [
+        "probability_normalization"
+      ]
+    },
+    {
+      "id": "rel.mean_energy_def",
+      "type": "definition",
+      "premises": [
+        "qm.spectrum",
+        "stat.prob"
+      ],
+      "conclusion": "stat.mean_u",
+      "claim": "按布居对能量求期望值得到 U。",
+      "conditions": [
+        "正则布居"
+      ],
+      "steps": [
+        "U=Σ_n p_n E_n"
+      ],
+      "scope": "有限维正则模型",
+      "limitations": [],
+      "error_control": null,
+      "review_status": "draft",
+      "sources": [
+        {
+          "title": "Quantum canonical ensemble — LibreTexts",
+          "url": "https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Advanced_Statistical_Mechanics_%28Tuckerman%29/10%3A_Fundamentals_of_quantum_statistical_mechanics/10.05%3A_The_quantum_equilibrium_ensembles/10.5.02%3A_The_canonical_ensemble"
+        }
+      ],
+      "tests": []
+    },
+    {
+      "id": "rel.entropy_free_energy",
+      "type": "exact_derivation",
+      "premises": [
+        "stat.prob",
+        "stat.partition",
+        "stat.mean_u",
+        "stat.gibbs_s",
+        "thermo.f_def"
+      ],
+      "conclusion": "thermo.f_z",
+      "claim": "将 Gibbs 熵与正则概率代入 F=U-TS，得到 F=-k_BT lnZ。",
+      "conditions": [
+        "热平衡",
+        "T>0",
+        "采用 Gibbs 熵与 Helmholtz F 定义"
+      ],
+      "steps": [
+        "ln p_n=-βE_n-lnZ",
+        "S=-k Σp ln p=k β U+k lnZ",
+        "F=U-T(k β U+k lnZ)=-kT lnZ"
+      ],
+      "scope": "有限维正则态",
+      "limitations": [],
+      "error_control": null,
+      "review_status": "draft",
+      "sources": [
+        {
+          "title": "Quantum canonical ensemble — LibreTexts",
+          "url": "https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Advanced_Statistical_Mechanics_%28Tuckerman%29/10%3A_Fundamentals_of_quantum_statistical_mechanics/10.05%3A_The_quantum_equilibrium_ensembles/10.5.02%3A_The_canonical_ensemble"
+        },
+        {
+          "title": "Helmholtz Free Energy — LibreTexts",
+          "url": "https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Supplemental_Modules_%28Physical_and_Theoretical_Chemistry%29/Thermodynamics/Energies_and_Potentials/Free_Energy/Helmholtz_%28Free%29_Energy"
+        }
+      ],
+      "tests": [
+        "free_energy_identity"
+      ]
+    },
+    {
+      "id": "rel.u_deriv",
+      "type": "exact_derivation",
+      "premises": [
+        "stat.partition",
+        "stat.prob",
+        "stat.mean_u"
+      ],
+      "conclusion": "stat.u_deriv",
+      "claim": "固定 H 时，对 β 求导可求平均内能。",
+      "conditions": [
+        "谱及其简并度对 β 无显式依赖"
+      ],
+      "steps": [
+        "dZ/dβ=-Σ_n E_n exp(-βE_n)",
+        "-dlnZ/dβ=Σ_n p_n E_n"
+      ],
+      "scope": "固定 H 的有限维正则模型",
+      "limitations": [],
+      "error_control": null,
+      "review_status": "draft",
+      "sources": [
+        {
+          "title": "Quantum canonical ensemble — LibreTexts",
+          "url": "https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Advanced_Statistical_Mechanics_%28Tuckerman%29/10%3A_Fundamentals_of_quantum_statistical_mechanics/10.05%3A_The_quantum_equilibrium_ensembles/10.5.02%3A_The_canonical_ensemble"
+        }
+      ],
+      "tests": [
+        "energy_derivative"
+      ]
+    },
+    {
+      "id": "rel.two_level_specialization",
+      "type": "model_specialization",
+      "premises": [
+        "stat.canonical",
+        "model.two_level"
+      ],
+      "conclusion": "model.two_level_p1",
+      "claim": "将正则分布限制到非简并两态模型。",
+      "conditions": [
+        "g0=g1=1",
+        "Δ>0",
+        "E0=0"
+      ],
+      "steps": [
+        "Z=1+exp(-βΔ)",
+        "p1=exp(-βΔ)/Z"
+      ],
+      "scope": "非简并双能级模型",
+      "limitations": [],
+      "error_control": null,
+      "review_status": "draft",
+      "sources": [
+        {
+          "title": "Quantum canonical ensemble — LibreTexts",
+          "url": "https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Advanced_Statistical_Mechanics_%28Tuckerman%29/10%3A_Fundamentals_of_quantum_statistical_mechanics/10.05%3A_The_quantum_equilibrium_ensembles/10.5.02%3A_The_canonical_ensemble"
+        }
+      ],
+      "tests": [
+        "two_level_limits",
+        "two_level_monotonicity"
+      ]
+    },
+    {
+      "id": "rel.xrd_inverse",
+      "type": "explanation",
+      "premises": [
+        "analysis.xrd_phase_assignment"
+      ],
+      "conclusion": "analysis.xrd_inverse_problem",
+      "claim": "单一卡片不能解释全部观测峰时，物相归属仍存在非唯一性。",
+      "conditions": [
+        "原始数据与仪器/基底信息可用"
+      ],
+      "steps": [
+        "比较多个候选解释",
+        "通过空白与独立表征缩小候选集"
+      ],
+      "scope": "材料表征",
+      "limitations": [
+        "需要具体谱图才能作样品级判断"
+      ],
+      "error_control": null,
+      "review_status": "draft",
+      "sources": [],
+      "tests": []
+    },
+    {
+      "id": "rel.variational_bound",
+      "type": "exact_derivation",
+      "premises": [
+        "qm.hamiltonian",
+        "qm.variational_principle"
+      ],
+      "conclusion": "qm.variational_energy_bound",
+      "claim": "给定哈密顿量与归一化试探态的能量期望不低于基态能量。",
+      "conditions": [
+        "H 有基态下界",
+        "试探态属于定义域且归一化"
+      ],
+      "steps": [
+        "应用 Rayleigh–Ritz 变分原理"
+      ],
+      "scope": "基态变分方法",
+      "limitations": [
+        "不保证不同有限试探空间所得数值相同"
+      ],
+      "error_control": null,
+      "review_status": "draft",
+      "sources": [],
+      "tests": []
+    },
+    {
+      "id": "rel.delta_g_equilibrium",
+      "type": "exact_derivation",
+      "premises": [
+        "thermo.delta_r_g_standard"
+      ],
+      "conclusion": "thermo.equilibrium_constant",
+      "claim": "标准反应 Gibbs 能变化与平衡常数满足 ΔᵣG°=−RT ln K。",
+      "conditions": [
+        "固定温度、标准态及反应计量式"
+      ],
+      "steps": [
+        "ΔᵣG°=−RT ln K"
+      ],
+      "scope": "化学平衡",
+      "limitations": [
+        "不提供反应速率信息"
+      ],
+      "error_control": null,
+      "review_status": "draft",
+      "sources": [],
+      "tests": []
+    },
+    {
+      "id": "rel.thermo_not_kinetics",
+      "type": "explanation",
+      "premises": [
+        "thermo.delta_r_g_standard",
+        "kinetics.reaction_rate"
+      ],
+      "conclusion": "kinetics.thermo_rate_distinction",
+      "claim": "平衡热力学量 ΔᵣG° 不能单独决定反应速率。",
+      "conditions": [
+        "需给定实际反应路径与条件"
+      ],
+      "steps": [
+        "热力学约束平衡位置",
+        "速率由动力学路径及势垒决定"
+      ],
+      "scope": "反应动力学",
+      "limitations": [
+        "具体速率律仍需实验或机理模型"
+      ],
+      "error_control": null,
+      "review_status": "draft",
+      "sources": [],
+      "tests": []
+    }
+  ],
+  "inquiries": [],
+  "evidence": [],
+  "science_cases": [
+    {
+      "id": "mo_vb",
+      "tag": "STRUCTURE",
+      "title": "MO 与 VB 都使用变分原理，结果必然相同吗？",
+      "keys": [
+        "MO",
+        "VB",
+        "变分"
+      ],
+      "nodes": [
+        "qm.variational_principle"
+      ],
+      "reasonable": "MO 与 VB 都建立在量子力学基础上，也都能使用变分原理。",
+      "gap": "使用同一变分原理不代表使用相同的试探波函数空间、截断方式或数值实现。变分原理约束的是相对于所选试探空间的能量上界；不同有限空间可得到不同近似结果。",
+      "alternatives": [
+        "两种方法的有限基组/相关处理不同，能量与解释可以不同。",
+        "若在同一哈密顿量下都达到完备描述，物理预测应趋于一致；差别常来自近似与表述目标。"
+      ],
+      "test": "选定同一分子、同一核构型与哈密顿量，明确两边的试探空间和电子相关处理，再比较可观测量及基组收敛。",
+      "answer": "不能据此推出“所有实际计算结果相同”。"
+    },
+    {
+      "id": "thermo_kinetics",
+      "tag": "THERMODYNAMICS",
+      "title": "ΔᵣG 越负，反应一定越快吗？",
+      "keys": [
+        "Gibbs",
+        "自由能",
+        "快"
+      ],
+      "nodes": [
+        "thermo.delta_r_g_standard",
+        "kinetics.reaction_rate"
+      ],
+      "reasonable": "在适用的标准态定义下，ΔᵣG° 与平衡常数相关，描述平衡倾向。",
+      "gap": "平衡驱动力与反应速率是不同量。速率还取决于路径、活化自由能、动力学参数、浓度和传质等；仅凭 ΔᵣG° 无法唯一确定速率。",
+      "alternatives": [
+        "净反应热力学相同的反应可有不同反应路径与势垒。",
+        "催化剂可改变动力学路径而不改变给定状态下的平衡常数。"
+      ],
+      "test": "在相同温度、浓度和相态条件下测定速率常数或初速，并独立测定/估算势垒；不要用 ΔᵣG° 替代动力学测量。",
+      "answer": "不能。ΔᵣG° 不能单独决定反应快慢。"
+    },
+    {
+      "id": "xrd_inverse",
+      "tag": "ANALYTICAL CHEMISTRY",
+      "title": "XRD 不能与标准卡片完全匹配，说明合成失败吗？",
+      "keys": [
+        "XRD",
+        "卡片",
+        "衍射",
+        "合成失败"
+      ],
+      "nodes": [
+        "analysis.xrd_phase_assignment",
+        "analysis.xrd_inverse_problem"
+      ],
+      "reasonable": "标准物相归属需要核对峰位、相对强度、基底贡献、背景与测量条件；明显不符值得调查。",
+      "gap": "一张卡片不能解释所有峰，不等于样品没有研究价值，也不能据此确认新物相或判定合成失败。物相识别是受限的逆问题。",
+      "alternatives": [
+        "可能存在混相、水合/前驱体相、择优取向、基底峰或仪器/制样差异。",
+        "材料可能已形成但结晶度低、晶粒小或与卡片数据库范围不匹配。"
+      ],
+      "test": "检查原始谱和基底空白，比较多个候选物相及强度/半峰宽；结合合成条件与 SEM、XPS、Raman 等独立表征。",
+      "answer": "不能。匹配不完整代表归属不确定，需要多证据判断。"
+    },
+    {
+      "id": "battery_voltage_capacity",
+      "title": "电池端电压更高，是否一定代表可放出的电量更多？",
+      "tag": "电化学 · 电池",
+      "keys": [
+        "铅酸蓄电池",
+        "端电压",
+        "放电容量",
+        "电池电压",
+        "电池电量"
+      ],
+      "answer": "不能由端电压单独推出放电容量。",
+      "reasonable": "端电压确实反映电池在特定荷电状态和负载下的电化学响应。",
+      "gap": "开路电势、带载端电压与可放电容量是不同物理量；温度、内阻、极化、截止电压和老化都会改变它们之间的关系。",
+      "alternatives": [
+        "荷电状态或电解液活度变化导致开路电势变化。",
+        "内阻和极化改变带载电压，但不等同于可用容量变化。",
+        "温度、放电倍率、截止条件和老化改变可放电容量。"
+      ],
+      "test": "在同一温度和规定放电倍率下测量完整放电曲线，统一截止电压并积分 I·dt；将开路电压、带载电压和容量分别报告。",
+      "nodes": [
+        "battery.lead_acid",
+        "battery.emf",
+        "battery.polarization",
+        "battery.measurement"
+      ]
+    }
+  ]
+}
