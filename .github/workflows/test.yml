@@ -1,0 +1,22 @@
+name: Chemistry Framework tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  unit-and-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run smoke and model regression tests
+        run: node --test tests/smoke.test.cjs
+      - name: Check JavaScript syntax
+        run: |
+          for f in src/*.js src/models/*.js; do node --check "$f"; done

@@ -6,7 +6,7 @@
 
 ## 在线预览
 
-启用 GitHub Pages 后，将本站地址补充到这里：`https://<你的用户名>.github.io/chemistry-framework/`。
+在线演示：[Chemistry Framework](https://yangzhexi381-dot.github.io/Chemistry-Framework/)（GitHub Pages）。
 
 ## 项目内容
 
@@ -65,7 +65,7 @@ node --test tests/smoke.test.cjs
 2. 将本压缩包**解压后**的全部文件和文件夹上传到仓库根目录，提交变更（Commit changes）。不要只上传 ZIP 文件。
 3. 打开仓库 **Settings → Pages → Build and deployment → Source: Deploy from a branch**。
 4. 选择 `main`、`/(root)` 并保存。
-5. 发布后访问 `https://<你的用户名>.github.io/chemistry-framework/`。
+5. 发布后访问 `https://yangzhexi381-dot.github.io/Chemistry-Framework/`。
 
 注意：GitHub Pages 不能运行服务器端 Python、数据库或私有模型 API；以后若接入 AI 文献检索，需要独立后端，且不能把 API Key 放进 `index.html`、JS、公开仓库或客户端可访问的配置。
 
@@ -84,6 +84,7 @@ git push -u origin main
 
 - **v0.3.1**：来源于此前单文件移动端演示。
 - **v0.3.1-github-starter**：只做文件组织和工程化发布，不声称增加新的科学模型或验证结果。
+- **v0.3.2（候选）**：修复 N₂O₄ 反应方向显示的属性名错误，补充模型回归测试；未修改科学计算假设。
 - 后续建议：逐个模型添加可复现实验/参考算例、自动化测试；知识节点添加证据来源与审校状态；再考虑引入打包工具和前端框架。
 
 ## 许可与引用
