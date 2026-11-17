@@ -980,6 +980,53 @@
         "math_depth": "optional",
         "study_prompts": []
       }
+    },
+    {
+      "id": "model.h2plus.frozen_1s_lcao",
+      "type": "model",
+      "title": "H₂⁺ 分子轨道 LCAO 计算模型",
+      "statement": "以两个固定指数的氢原子 1s 基函数求解 Hc=εSc，计算成键/反键态，并加入核间排斥得到总势能。",
+      "description": "独立空间求积验证解析矩阵元；有限基组误差与数值误差分别说明。",
+      "equations": [
+        "Hc=εSc",
+        "E=ε+1/R",
+        "ρ=|ψ|²"
+      ],
+      "scope": "单电子 H₂⁺，固定核、非相对论；R=0.1–100 bohr",
+      "assumptions": [
+        "Born–Oppenheimer 固定核近似",
+        "氢原子 1s 基函数指数固定为 1/a₀"
+      ],
+      "limitations": [
+        "不是精确分子参数或实验数据",
+        "不含核振动、基组优化或相对论修正",
+        "不能正确描述合核极限"
+      ],
+      "domain": [
+        "structure_bonding"
+      ],
+      "units": {
+        "R": "a₀",
+        "energy": "Eh",
+        "density": "a₀⁻³"
+      },
+      "claim_status": "exact_within_model",
+      "review_status": "numerically_checked_within_model",
+      "sources": [
+        {
+          "title": "P. W. Percival, SFU CHEM 260 lecture 12",
+          "url": "https://www.sfu.ca/~percival/CHEM260/260-12.pdf"
+        },
+        {
+          "title": "H₂⁺ model derivation and numerical verification",
+          "url": "docs/models/H2PLUS_LCAO.md"
+        }
+      ],
+      "tags": [
+        "H₂⁺",
+        "LCAO",
+        "结构与成键"
+      ]
     }
   ],
   "relations": [
@@ -1367,6 +1414,40 @@
       "review_status": "draft",
       "sources": [],
       "tests": []
+    },
+    {
+      "id": "rel.h2plus.variational_lcao",
+      "type": "model_specialization",
+      "premises": [
+        "qm.hamiltonian",
+        "qm.variational_principle"
+      ],
+      "conclusion": "model.h2plus.frozen_1s_lcao",
+      "claim": "在两个非正交 1s 基函数张成的子空间内，变分驻值给出广义本征方程。",
+      "conditions": [
+        "固定核距 R",
+        "固定基函数指数",
+        "使用重叠矩阵 S 归一化"
+      ],
+      "steps": [
+        "构建电子 Hamiltonian 与重叠矩阵",
+        "对 Rayleigh 商关于系数求驻值",
+        "在电子能上加核间排斥"
+      ],
+      "scope": "最小基组 H₂⁺",
+      "limitations": [
+        "基组内求解准确不等于完整空间的精确解"
+      ],
+      "review_status": "numerically_checked_within_model",
+      "sources": [
+        {
+          "title": "H₂⁺ model derivation and numerical verification",
+          "url": "docs/models/H2PLUS_LCAO.md"
+        }
+      ],
+      "tests": [
+        "tests/h2plus.test.cjs"
+      ]
     }
   ],
   "inquiries": [],

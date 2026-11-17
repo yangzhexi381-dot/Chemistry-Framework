@@ -1,5 +1,20 @@
 # Changelog
 
+## v0.5.0-dev — unmerged (2026-11-17)
+
+- Added frozen hydrogen 1s H₂⁺ LCAO integrals, symmetry solution of Hc=εSc, nuclear repulsion, BO energy curves and approximate density slices.
+- Added independent spatial-quadrature and scientific consistency tests; documented basis error and numeric references.
+- Added reversible electrochemical thermodynamics API as a technical reserve; no full cell dynamics or new electrochemical UI.
+- Included v0.4.1 baseline fixes below.
+
+
+## v0.4.1 — baseline audit (2026-11-17)
+
+- Stabilized both analytical equilibrium species and rejected unsupported floating-point scales.
+- Added extreme-input and Helmholtz-dissipation regression tests.
+- Cleared stale UI results after invalid calculations.
+
+
 ## v0.4.0 — candidate (2026-11-17)
 
 - Added dimensionally explicit N₂O₄ ⇌ 2NO₂ ideal-gas, fixed-T/V model with reaction extent, partial pressures, Q/K°, ΔᵣG, adjustable phenomenological rates and RK4 time evolution.
@@ -23,3 +38,7 @@
 - Excluded the internal v0.1.0 theory manuscript because it contains a private research case.
 - Fixed two pre-existing JavaScript parsing issues in the inline app script (trailing comma before `let db`; orphaned duplicate mode-handler body).
 - No third-party runtime dependency required.
+
+### Acceptance record
+
+See [QA report](docs/QA_REPORT.md) for the audited baseline, actual test results, viewport acceptance, independent review and outstanding limits. Browser acceptance is separate from the Node CI suite.

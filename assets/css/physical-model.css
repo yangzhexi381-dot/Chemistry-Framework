@@ -21,3 +21,8 @@
 .physical-doclink{margin:12px 0 0;font-size:12px}.physical-doclink a{color:var(--green)}
 @media(max-width:620px){.physical-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.physical-metrics strong{font-size:15px}.physical-controls{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.physical-controls label{font-size:11px}}
 @media(max-width:360px){.physical-controls{grid-template-columns:1fr}}
+
+.physical-controls select{padding:10px;border:1px solid var(--line);border-radius:8px;background:white;min-height:42px;max-width:100%}
+.physical-chartbox svg{display:block;width:100%;height:auto}.physical-chartbox+.physical-chartbox{margin-top:14px}
+
+@media(max-width:620px){.physical-chartbox svg text{font-size:20px}}

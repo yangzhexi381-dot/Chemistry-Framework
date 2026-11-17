@@ -1,0 +1,5 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CF responsive acceptance harness</title>
+<style>body{margin:0;font:14px sans-serif;background:#eee}header{padding:12px}iframe{display:block;border:1px solid #777;height:850px;background:white}select{padding:8px}</style>
+<header><label>Viewport width <select id="viewport"><option value="390">390 px — phone width</option><option value="768">768 px — tablet width</option><option value="1280">1280 px — desktop width</option></select></label> CSS viewport checks; this is not physical-device emulation.</header>
+<iframe title="Chemistry Framework responsive test" src="../index.html" width="390"></iframe>
+<script>document.querySelector('select').addEventListener('change',e=>document.querySelector('iframe').width=e.target.value);</script></html>

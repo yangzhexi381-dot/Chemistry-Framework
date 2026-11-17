@@ -95,7 +95,7 @@
       const initial=first.rateMolPerSec>0?'起始净正向（生成 NO₂）':first.rateMolPerSec<0?'起始净逆向（生成 N₂O₄）':'初始恰好平衡';
       $('#phys-status').textContent=`${initial}；${nearEq?'终态已在 1% 误差阈值内接近平衡':'终态尚未满足 1% 平衡阈值'}。积分步数：${data.numerical.totalIntegrationSteps.toLocaleString()}。`;
       requestAnimationFrame(()=>draw(data));
-    }catch(e){latest=null;msg.textContent='计算失败：'+e.message;msg.hidden=false;$('#phys-status').textContent='请修改输入参数后重新计算。';}
+    }catch(e){latest=null;section.querySelectorAll('.physical-metrics strong').forEach(el=>el.textContent='—');const canvas=$('#phys-chart');canvas.getContext('2d').clearRect(0,0,canvas.width,canvas.height);msg.textContent='计算失败：'+e.message;msg.hidden=false;$('#phys-status').textContent='请修改输入参数后重新计算。';}
   }
   $('#phys-run').addEventListener('click',run);
   $('#phys-reset').addEventListener('click',()=>{inputIds.forEach((k,i)=>$('#phys-'+k).value=defaults[i]);run();});
