@@ -79,12 +79,12 @@ test('invalid physical inputs and stiffness budget are explicitly rejected',()=>
   assert.throws(()=>m.simulate({...defaults,kappa:1e5,durationSec:1e5}),/stiff/);
 });
 
-test('v0.4 HTML references exactly the physical model and GUI modules',()=>{
+test('HTML loads physical model and GUI modules with current development version',()=>{
   const html=fs.readFileSync(path.join(__dirname,'..','index.html'),'utf8');
   assert.match(html,/src\/models\/n2o4-ideal-gas\.js/);
   assert.match(html,/src\/physical-workbench\.js/);
   assert.match(html,/assets\/css\/physical-model\.css/);
-  assert.match(html,/v0\.4\.0/);
+  assert.match(html,/v0\.5\.0-dev/);
 });
 
 
@@ -111,4 +111,12 @@ test('net rate dissipates Helmholtz free energy along both directions',()=>{
       assert.ok(A<=previous+1e-14);previous=A;
     }
   }
+});
+
+
+test('finite raw parameters cannot silently produce NaN through derived overflow',()=>{
+  assert.throws(()=>m.simulate({T:1e110,volumeM3:1e200,n4:1e200,n2:1e199,K:1e106,kappa:1e-220,durationSec:1,points:20}),/numerical scale/);
+  const ctx=m.setup(defaults);
+  assert.throws(()=>m.sample(ctx,defaults.n4+1,0),/bounds/);
+  assert.throws(()=>m.sample(ctx,0,NaN),/time/);
 });

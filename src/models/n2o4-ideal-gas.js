@@ -37,8 +37,10 @@
   }
 
   function sample(ctx, extent, timeSec){
+    if(!Number.isFinite(extent)||!Number.isFinite(timeSec)||timeSec<0)throw new RangeError('Invalid extent or sample time');
     const n4 = ctx.n4-extent;
     const n2 = ctx.n2+2*extent;
+    if(n4<0||n2<0)throw new RangeError('Sample lies outside physical amount bounds');
     const p4Pa = n4*R*ctx.T/ctx.volumeM3;
     const p2Pa = n2*R*ctx.T/ctx.volumeM3;
     const a4 = p4Pa/P_STANDARD;
@@ -47,6 +49,12 @@
     const ratio = Q/ctx.K;
     const dgOverRT = Math.log(ratio); // ±∞ is physically meaningful at an ideal-gas zero-amount boundary
     const rateMolPerSec = ctx.volumeM3*ctx.kappa*(ctx.K*a4-a2*a2);
+    const boundary=n4===0||n2===0;
+    if(![p4Pa,p2Pa,p4Pa+p2Pa,a4,a2,rateMolPerSec].every(Number.isFinite)||
+       Number.isNaN(Q)||Number.isNaN(ratio)||Number.isNaN(dgOverRT)||
+       (!boundary&&(!Number.isFinite(Q)||!Number.isFinite(ratio)||ratio===0||!Number.isFinite(R*ctx.T*dgOverRT)))){
+      throw new RangeError('Unsupported numerical scale in pressure, quotient or rate');
+    }
     return {
       timeSec, extentMol:extent, n4Mol:n4, n2Mol:n2,
       p4Pa, p2Pa, pTotalPa:p4Pa+p2Pa, a4, a2, Q,

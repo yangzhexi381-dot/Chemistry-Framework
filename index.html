@@ -1,5 +1,5 @@
 <!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Chemistry Framework · 浏览器版</title><link rel="stylesheet" href="assets/css/style.css"><link rel="stylesheet" href="assets/css/physical-model.css"></head>
-<body><header class="top"><a class="brand" href="#explore"><span class="mark">C·F</span><span><b>Chemistry Framework</b><small>化学世界模型 · 浏览器版</small></span></a><div class="version">MVP <i></i> v0.4.0</div></header>
+<body><header class="top"><a class="brand" href="#explore"><span class="mark">C·F</span><span><b>Chemistry Framework</b><small>化学世界模型 · 浏览器版</small></span></a><div class="version">MVP <i></i> v0.5.0-dev</div></header>
 <main><section class="hero"><div><div class="eyebrow">CHEMISTRY FIRST · KNOWLEDGE IN MOTION</div><h1>让化学问题成为<br><em>知识网络的入口。</em></h1><p>从物质、反应与测量出发，沿证据和理论逐层展开。未知保留为未知，猜想可以被检验。</p></div><div class="hero-orbit"><span>结构</span><span>反应</span><span>证据</span><div>化学<br>问题</div></div></section>
 <nav class="tabs"><button class="tab active" data-page="explore">01　探索化学</button><button class="tab" data-page="inquire">02　验证我的直觉</button><button class="tab" data-page="theory">03　理论工具</button><button class="tab" data-page="electrochem">04　电化学贯通</button><button class="tab" data-page="workbench">05　真实模型工作台</button></nav>
 <section id="explore" class="page active"><div class="section-head"><div><div class="eyebrow">KNOWLEDGE MAP</div><h2>化学知识网络</h2><p>选一个视角浏览，点击节点查看解释与边界。关系卡保留其全部前提。</p></div><div class="scope-chip"><span class="dot"></span><span id="node-count">加载知识中</span></div></div><div class="domain-nav" id="domains"></div><div class="map-layout"><div class="map-card"><div class="map-toolbar"><span><b>知识关系图</b><small>节点 · 关系 · 适用范围</small></span><div class="legend"><span><i class="chem"></i>化学</span><span><i class="theory"></i>理论</span></div></div><div class="graph-wrap" id="graph"></div></div><aside class="detail-card" id="detail"><div class="empty"><div class="empty-icon">⌖</div><b>选择一个知识节点</b><p>查看化学含义、解释层级、前提条件与关联关系。</p></div></aside></div><div class="relation-section"><div class="section-head compact"><div><div class="eyebrow">TRACEABLE LOGIC</div><h2>关系与前提</h2></div><span class="muted">超边视图：多个前提 → 结论</span></div><div id="relations" class="relation-grid"></div></div></section>
@@ -12,7 +12,7 @@
 <div class="model-controls"><button class="orbital-btn active" data-orbital="bonding">成键组合</button><button class="orbital-btn" data-orbital="antibonding">反键组合</button></div>
 <div class="orbital-layout"><div class="orbital-visual" id="orbital-visual"><svg viewBox="0 0 520 210" role="img" aria-label="H₂⁺分子轨道相位示意"><line x1="70" y1="155" x2="450" y2="155" class="orbital-axis"/><circle cx="200" cy="118" r="78" class="orbital-lobe left-phase"/><circle cx="320" cy="118" r="78" class="orbital-lobe right-phase"/><circle cx="200" cy="155" r="7" class="nucleus"/><circle cx="320" cy="155" r="7" class="nucleus"/><text x="200" y="184" class="orbital-label">核 A</text><text x="320" y="184" class="orbital-label">核 B</text><text x="200" y="103" class="phase-label">+</text><text x="320" y="103" class="phase-label">+</text><text x="260" y="35" class="node-label" id="orbital-svg-caption">同相叠加：核间电子密度增加</text></svg></div><div class="orbital-explain"><h4 id="orbital-title">σg 成键轨道</h4><div class="equation-display" id="orbital-equation">ψg ≈ N(1sA + 1sB)</div><p id="orbital-description">同相组合使核间区域的波函数振幅增强，电子密度增加；对 H₂⁺ 基态有利于稳定成键。</p><p class="model-boundary">颜色表示波函数正负相位，不代表正负电荷。轨道图为 LCAO 示意，不是数值电子密度图。</p></div></div>
 <div class="model-logic"><b>模型链</b><span>核间距 R</span><i>→</i><span>1s 轨道重叠 S</span><i>→</i><span>成键/反键能级分裂</span><i>→</i><span>电子分布与稳定性</span></div>
-<div class="model-foot"><b>教材连接：</b>微观粒子与薛定谔方程 → Born–Oppenheimer 固定核近似 → LCAO 与轨道对称性 → 成键和反键。<br><b>边界：</b>单电子 H₂⁺、非相对论、固定核近似；LCAO 是有限基组近似。它不是中性 H₂ 的完整双电子模型，也没有给出数值势能曲线。</div></div>
+<div class="model-foot"><b>教材连接：</b>微观粒子与薛定谔方程 → Born–Oppenheimer 固定核近似 → LCAO 与轨道对称性 → 成键和反键。<br><b>边界：</b>单电子 H₂⁺、非相对论、固定核近似；LCAO 是有限基组近似。它不是中性 H₂ 的完整双电子模型，数值计算见下方最小基组工作台。</div></div>
 <div class="model-card"><div class="model-heading"><div><div class="eyebrow">THERMODYNAMICS + KINETICS · N₂O₄ ⇌ 2NO₂</div><h3>同一个反应：平衡由热力学定位置，多久到达由动力学决定</h3><p>用真实气相反应把反应商、ΔᵣG、可逆速率和组成随时间变化放进同一模型。</p></div><span class="model-tag">理想气体 · 单步可逆模型</span></div>
 <div class="reaction-equation">N₂O₄(g) ⇌ 2 NO₂(g)</div>
 <div class="reaction-controls"><label>示范平衡常数 K<div><input id="eqK" type="range" min="1" max="10" step="0.1" value="5"><output id="eqK-out">5.0</output></div></label><label>共同速率尺度 λ<div><input id="rateScale" type="range" min="0.25" max="2" step="0.05" value="1"><output id="rateScale-out">1.00</output></div></label></div>
@@ -38,8 +38,10 @@
 <footer><span>结构校验 ≠ 科学事实核验 · 电化学模块为教学模拟</span><span id="retrieval-note">外部检索：未配置</span><span>查询记录保存在当前设备浏览器</span></footer></main><script src="src/models/h2plus.js"></script>
 <script src="src/models/n2o4.js"></script>
 <script src="src/models/lead-acid.js"></script>
+<script src="src/models/electrochemical-cell.js"></script>
 <script src="src/models/n2o4-ideal-gas.js"></script>
 <script src="src/app.js"></script>
 <script src="src/workbench.js"></script>
 <script src="src/physical-workbench.js"></script>
+<script src="src/h2plus-workbench.js"></script>
 </body></html>

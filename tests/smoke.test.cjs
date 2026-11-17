@@ -84,3 +84,14 @@ test('N2O4 rate scale changes approach speed but not equilibrium constant', () =
   assert.equal(slow.K, fast.K);
   assert.ok(fast.final.qratio > slow.final.qratio, 'higher λ approaches Q/K=1 more rapidly in this time window');
 });
+
+
+test('knowledge relations reference existing nodes and computational H2+ has provenance',()=>{
+  const d=JSON.parse(read('data/knowledge.json')),ids=new Set(d.nodes.map(n=>n.id));
+  for(const r of d.relations){
+    assert.ok(ids.has(r.conclusion),r.id);
+    for(const id of r.premises)assert.ok(ids.has(id),`${r.id}: ${id}`);
+  }
+  const n=d.nodes.find(n=>n.id==='model.h2plus.frozen_1s_lcao');
+  assert.ok(n.sources.length>=2&&n.assumptions.length>0&&n.limitations.length>0);
+});

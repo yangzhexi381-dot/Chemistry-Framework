@@ -89,3 +89,5 @@ Sources support standard equilibrium thermodynamic definitions; the chosen κ an
 The equilibrium evaluator now computes both species with independent stable expressions. With z=K°/(sN), n₄=2N/[4+z+√z√(z+8)] and n₂=2N/[1+√(1+8/z)]. This avoids subtracting nearly equal amounts. The extent integrator supports finite derived scales and 10⁻¹² ≤ z ≤ 10¹²; outside this numerical domain it throws, rather than returning a false equilibrium. This is a floating-point support boundary, not a physical law. Very small minor-species amounts reconstructed from extent still lose relative precision.
 
 Regression tests additionally check the sign of dA/dt=ΔᵣG·dξ/dt and monotonic Helmholtz free energy in both reaction directions. Failed UI calculations clear stale readouts and curves.
+
+Finite raw inputs alone do not guarantee finite intermediate arithmetic. Sample evaluation additionally rejects non-finite pressures, activities and rates, and invalid quotient/logarithm outputs away from genuine zero-amount boundaries. Q or ΔᵣG infinities are permitted only at physical ideal-mixture boundaries; unsupported overflow raises an explicit error.
