@@ -1,3 +1,7 @@
+# 动力学教材扩展
+
+本轮恢复后的数据、独立科学审核、完整性测试与浏览器验收结果见 [教材整合记录](TEXTBOOK_INTEGRATION.md)。以下旧记录仅适用于此前计算模型，不作为新增教材内容通过的依据。
+
 # v0.4.0 audit and v0.5.0-dev acceptance report
 
 Date: 2026-11-17 (Asia/Shanghai). Baseline main: `cb46800c2c77caa4bd2715a8789bf6bb54d15ec0`. Local baseline audit fix commit: `95672c0`; published GitHub fix commit: `fbd52dde997724d7bad8047aec0c9f47ab97318e` (identical tree). Final PR head is recorded by Git and the PR, rather than embedding a self-referential SHA in this document.

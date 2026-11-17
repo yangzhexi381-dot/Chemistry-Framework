@@ -1,6 +1,14 @@
 # Changelog
 
-## v0.5.0-dev — unmerged (2026-11-17)
+## v0.5.0-dev — kinetics learning (2026-11-18)
+
+- Added original chapter-based learning content for physical chemistry 11/12, with explicit assumptions, equations, reasoning, source pages and self-checks.
+- Added searchable learning UI and stable section/model routes.
+- Added curriculum completeness and search regression checks; retained existing scientific models.
+- Scope, independent scientific review and actual checks recorded in docs/TEXTBOOK_INTEGRATION.md.
+
+
+## v0.5.0-dev — H₂⁺ merged via PR #3 (2026-11-17)
 
 - Added frozen hydrogen 1s H₂⁺ LCAO integrals, symmetry solution of Hc=εSc, nuclear repulsion, BO energy curves and approximate density slices.
 - Added independent spatial-quadrature and scientific consistency tests; documented basis error and numeric references.
