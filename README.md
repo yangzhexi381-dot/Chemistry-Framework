@@ -49,6 +49,12 @@ chemistry-framework/
 └── README.md
 ```
 
+## 可选：AI 深度审查 API 桥接（尚未部署）
+
+新增实验性入口“验证我的直觉 → AI 深度审查”，通过独立 Node.js 后端安全调用 OpenAI Responses API。原有离线分析与科学计算保持独立；结果始终标注“模型生成、未核验”。**当前 GitHub Pages 不会自动具备 AI 能力**：需要自行部署后端、配置 OpenAI API Key、单独生成 CF 访问令牌，且真实调用会消耗 API 额度。
+
+完整的安全配置、电脑端启动、测试和部署说明见 [AI API 桥接说明](docs/AI_API_BRIDGE.md)。不要在公开仓库、网页 JS、聊天消息或前端输入框中填写 OpenAI API Key。
+
 ## 本地运行（电脑）
 
 本项目不需要 `npm install`。由于知识数据由 `fetch()` 载入，请**使用本地 HTTP 服务**，不要直接双击 `index.html` 并以 `file://` 方式打开。
