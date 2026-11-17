@@ -8,7 +8,6 @@
 - Added mathematical derivation, SI units, numerical-method bounds and IUPAC thermodynamic references.
 - No assertion of literature-derived kinetic rates or experimental calibration. Pending hosted multi-device acceptance.
 
-
 ## v0.3.2 — candidate (2026-11-17)
 
 - Fixed N₂O₄ UI direction classification to read `dgOverRT` returned by the kinetics model instead of undefined `dg`.
