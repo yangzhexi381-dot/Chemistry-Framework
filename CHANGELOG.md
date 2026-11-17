@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.4.1 — baseline audit (2026-11-17)
+
+- Stabilized both analytical equilibrium species and rejected unsupported floating-point scales.
+- Added extreme-input and Helmholtz-dissipation regression tests.
+- Cleared stale UI results after invalid calculations.
+
+
 ## v0.4.0 — candidate (2026-11-17)
 
 - Added dimensionally explicit N₂O₄ ⇌ 2NO₂ ideal-gas, fixed-T/V model with reaction extent, partial pressures, Q/K°, ΔᵣG, adjustable phenomenological rates and RK4 time evolution.

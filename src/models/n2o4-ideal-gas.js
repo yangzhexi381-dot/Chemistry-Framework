@@ -26,6 +26,13 @@
     if(n4 === 0 && n2 === 0) throw new RangeError('At least one species must initially be present');
     const totalNitrogenUnits = 2*n4+n2; // mol NO₂ formula units; conserved
     const s = R*T/(volumeM3*P_STANDARD); // mol^-1, p_i/p° = s*n_i
+    const activityScale=s*totalNitrogenUnits;
+    // Extent-based double precision cannot resolve arbitrarily disparate species.
+    const balanceRatio=K/activityScale;
+    if(!Number.isFinite(activityScale) || activityScale<=0 ||
+       !Number.isFinite(totalNitrogenUnits) || !Number.isFinite(balanceRatio) || balanceRatio<1e-12 || balanceRatio>1e12){
+      throw new RangeError('Unsupported numerical scale: require finite RTN/(Vp°) and 1e-12 ≤ K°/(sN) ≤ 1e12');
+    }
     return {T,volumeM3,n4,n2,K,kappa,totalNitrogenUnits,s};
   }
 
@@ -52,9 +59,11 @@
     // 2*n4+n2=N, Q=s*n2²/n4=K° gives:
     // 4s*n4²-(4s*N+K°)*n4+s*N²=0.
     // Stable quadratic root avoids subtracting two nearly equal terms.
-    const N=ctx.totalNitrogenUnits, B=4*ctx.s*N+ctx.K;
-    const n4Eq=2*ctx.s*N*N/(B+Math.sqrt(ctx.K*ctx.K+8*ctx.K*ctx.s*N));
-    const n2Eq=N-2*n4Eq;
+    const N=ctx.totalNitrogenUnits, z=ctx.K/(ctx.s*N);
+    const root=Math.sqrt(z)*Math.sqrt(z+8);
+    const n4Eq=2*N/(4+z+root);
+    // Calculate both roots stably; do not subtract nearly equal amounts.
+    const n2Eq=2*N/(1+Math.sqrt(1+8/z));
     return {n4Mol:n4Eq,n2Mol:n2Eq,extentMol:ctx.n4-n4Eq};
   }
 
@@ -75,7 +84,7 @@
     const maxRelaxation=ctx.volumeM3*ctx.kappa*(ctx.K*ctx.s+4*ctx.s*ctx.s*N);
     const segment=durationSec/points;
     const substeps=Math.max(1,Math.ceil(segment*maxRelaxation/0.20));
-    if(substeps*points>250000)throw new RangeError('Model is too stiff for the configured horizon; reduce duration or κ');
+    if(!Number.isFinite(maxRelaxation) || maxRelaxation<=0 || !Number.isFinite(segment) || substeps*points>250000)throw new RangeError('Model is too stiff for the configured horizon; reduce duration or κ');
     const h=segment/substeps;
     const rows=[];
     let x=0;

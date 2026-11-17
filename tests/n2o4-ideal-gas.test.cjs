@@ -86,3 +86,29 @@ test('v0.4 HTML references exactly the physical model and GUI modules',()=>{
   assert.match(html,/assets\/css\/physical-model\.css/);
   assert.match(html,/v0\.4\.0/);
 });
+
+
+test('extreme scales fail explicitly instead of emitting false equilibrium or overflow',()=>{
+  for(const patch of [{K:1e-40},{K:1e200},{T:1e308},{volumeM3:1e-320},{n4:1e308}]){
+    assert.throws(()=>m.simulate({...defaults,...patch}),/scale|stiff/);
+  }
+  for(const z of [2e-12,1e-8,1,1e8,5e11]){
+    const ctx=m.setup({...defaults,K:z*m.R*defaults.T/(defaults.volumeM3*100000)*(2*defaults.n4+defaults.n2)});
+    const eq=m.equilibrium(ctx);
+    close(ctx.s*eq.n2Mol**2/eq.n4Mol/ctx.K,1,1e-12);
+    close(2*eq.n4Mol+eq.n2Mol,ctx.totalNitrogenUnits,1e-17);
+  }
+});
+
+test('net rate dissipates Helmholtz free energy along both directions',()=>{
+  for(const n2 of [0,.0001,.01]){
+    const result=m.simulate({...defaults,n2});
+    let previous=Infinity;
+    for(const r of result.rows){
+      assert.ok(r.rateMolPerSec*r.deltaGJMol<=1e-15);
+      const mix=(n)=>n===0?0:n*(Math.log(result.params.s*n)-1);
+      const A= -r.n2Mol*Math.log(defaults.K)/2+mix(r.n4Mol)+mix(r.n2Mol);
+      assert.ok(A<=previous+1e-14);previous=A;
+    }
+  }
+});
