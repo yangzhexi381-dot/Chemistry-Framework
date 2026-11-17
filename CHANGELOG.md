@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.4.0 — candidate (2026-11-17)
+
+- Added dimensionally explicit N₂O₄ ⇌ 2NO₂ ideal-gas, fixed-T/V model with reaction extent, partial pressures, Q/K°, ΔᵣG, adjustable phenomenological rates and RK4 time evolution.
+- Added independent analytical equilibrium solution and nine scientific/engineering regression tests.
+- New interactive chart and controls while preserving the v0.3.2 normalized teaching demonstration.
+- Added mathematical derivation, SI units, numerical-method bounds and IUPAC thermodynamic references.
+- No assertion of literature-derived kinetic rates or experimental calibration. Pending hosted multi-device acceptance.
+
 ## v0.3.2 — candidate (2026-11-17)
 
 - Fixed N₂O₄ UI direction classification to read `dgOverRT` returned by the kinetics model instead of undefined `dg`.
