@@ -13,6 +13,8 @@ test('graph covers every published Chapter 11 section and retains textbook prove
   assert.deepEqual(n.assumptions,s.assumptions.slice(0,3));assert.deepEqual(n.limitations,s.pitfalls.slice(0,3));
   assert.ok(n.sources.some(source=>source.title.includes(s.source.printedPages.join('–'))));
   assert.ok(n.domain.includes('chemical_kinetics')&&n.review_status==='in_review');
+  assert.ok(!/^11\.\d+/.test(n.title),'numbered title '+n.id);
+  assert.ok(!/^11\.\d+/.test(n.graph_label),'numbered label '+n.id);
  }
 });
 test('graph relations have valid endpoints and conditional provenance',()=>{
@@ -29,8 +31,10 @@ test('graph relations have valid endpoints and conditional provenance',()=>{
  assert.ok(edges.some(r=>r.type==='learning_dependency'));
 });
 test('focused graph view and safe textbook link coexist with existing navigation',()=>{
- const code=read('src/app.js');assert.ok(code.includes('反应动力学'));
- assert.ok(code.includes("n.id.startsWith('kinetics.ch11.')"));
+ const code=read('src/app.js');assert.ok(code.includes("['热力学与动力学','thermo']"));
+ assert.ok(!code.includes("['反应动力学','kinetics11']"));
+ assert.ok(!code.includes("selectedDomain==='反应动力学'"));
+ assert.ok(code.includes("n.domain.includes('chemical_kinetics')"));
  assert.match(code,/curriculumLink=.*?pc\\.11/s);
  assert.ok(code.includes('深入推导、适用边界与自测'));
  assert.ok(code.includes('event.key===\'Enter\''));
