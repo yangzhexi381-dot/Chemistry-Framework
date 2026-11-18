@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.5.0-dev — readable hierarchical knowledge map (2026-11-18)
+
+- Replaced concentric node placement in each science region with a stable two-tier concept layout; centered sparse groups and spaced all 64 nodes without collision.
+- Added adaptive mobile initial focus, zoom-dependent labels, larger node hit targets and optional touch-pan mode without hijacking page scrolling.
+- Made real graph connectivity explicit (ten components and six currently unlinked concept nodes); no invented science relations, deleted nodes, or source data changes.
+- Added geometric collision tests and browser acceptance for actual mobile-sized Chromium context and existing theory/model routes.
+
+
 ## v0.5.0-dev — connected scientific knowledge map (2026-11-18)
 
 - Replaced the card-only primary atlas with an actual 64-node, 49-hyperrelation connected SVG visual network in six meaningful spatial regions.
