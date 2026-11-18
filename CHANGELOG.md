@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.5.0-dev — consolidate curriculum under Theory Tools (2026-11-18)
+
+- Removed redundant '教材知识' top-level tab. Chapter 11 learning content, search, self-checks and links now appear inside '理论工具'.
+- Preserved legacy `#learn/pc.11.x` deep links by activating the parent Theory Tools page; visiting `#theory` also loads curriculum content.
+- Added integration and optional browser regressions; scientific models and textbook datasets unchanged.
+
 ## v0.5.0-dev — Chapter 11 knowledge graph (2026-11-18)
 
 - Connected all ten kinetics chapter sections to the homepage knowledge map, adding 10 provenance-labelled nodes and 14 typed, conditional relations.

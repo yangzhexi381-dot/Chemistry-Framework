@@ -76,3 +76,7 @@
 @media(max-width:700px) { .curriculum-layout { grid-template-columns:1fr; } .curriculum-sidebar { position:static; max-height:none; display:grid; grid-template-columns:minmax(0,1fr); padding:15px; min-width:0; } #curriculum-sections { display:flex; gap:6px; overflow:auto; padding-bottom:6px; min-width:0; } #curriculum-sections a { flex-shrink:0; max-width:220px; background:#e7eee2; } .curriculum-history-note { margin-top:8px; padding-top:9px; } .curriculum-article { padding:18px; } .curriculum-article h2 { font-size:21px; } .curriculum-search { padding:16px; } .curriculum-search input { font-size:12px; padding:10px; } .curriculum-search button { padding:10px; } #learn>.section-head { flex-direction:column; align-items:flex-start; } .curriculum-sequence { flex-direction:column; gap:8px; } .curriculum-sequence a:last-child { text-align:left; } }
 
 .curriculum-entry .curriculum-pending { display:inline-block; margin:3px 0; font-size:12px; color:#667a6c; }
+
+/* Curriculum is a subsection of Theory Tools, not a separate page. */
+.theory-curriculum { margin-top:36px; padding-top:30px; border-top:1px solid var(--line); scroll-margin-top:18px; }
+@media (max-width:700px) { .theory-curriculum { margin-top:26px; padding-top:22px; } }
