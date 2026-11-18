@@ -174,3 +174,24 @@ button, a, textarea, input { touch-action: manipulation; } .graph-wrap svg{max-w
  .connected-graph .network-controls button{padding:7px 9px}
  .connected-graph .network-footnote{padding:11px 13px}
 }
+
+
+/* Readable scientific graph: stable conceptual rows, zoom-aware labels and mobile-safe touch. */
+.connected-graph .network-svg{touch-action:pan-y}
+.connected-graph .network-viewport.is-pan-mode .network-svg{touch-action:none}
+.connected-graph .network-node .network-hit-target{fill:transparent;stroke:none;filter:none;stroke-width:0;pointer-events:all}
+.connected-graph .network-node:hover .network-hit-target,.connected-graph .network-node:focus-visible .network-hit-target{stroke:none;filter:none}
+.connected-graph .network-node .network-label{font-size:16px;stroke:#f8fbf7;stroke-width:4px;letter-spacing:0}
+.connected-graph .network-node .network-secondary{display:none;font-size:12px;fill:#61766b}
+.connected-graph .network-viewport.is-detail-zoom .network-node .network-secondary{display:block}
+.connected-graph #network-pan-toggle[aria-pressed="true"]{background:#2f7455;color:#fff;border-color:#2f7455}
+.connected-graph .network-group-title{font-size:24px;fill:#2f5946}
+.connected-graph .network-group-subtitle{font-size:14px}
+.connected-graph .network-viewport.is-detail-zoom .network-group-title{font-weight:700}
+.connected-graph .network-viewport:focus-within{outline:2px solid #a3c1ab;outline-offset:-2px}
+@media(max-width:760px){
+ .connected-graph .network-viewport{height:420px}
+ .connected-graph .network-controls button{min-height:42px}
+ .connected-graph .network-controls-left{flex-wrap:wrap}
+ .connected-graph .network-controls-right>span:last-child{font-size:10px}
+}
