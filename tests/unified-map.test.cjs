@@ -12,6 +12,9 @@ test('the one atlas contains every existing scientific node and all relations',(
  assert.equal(groups.length,6);
  assert.deepEqual(map.groups.map(g=>[g.id,g.nodes.length]),[
  ['matter',15],['structure',13],['thermo',15],['kinetics',12],['electrochem',7],['analysis',2]]);
+ for(const group of map.groups){assert.ok(group.highlights?.length>=2);for(const id of group.highlights)assert.ok(group.nodes.some(n=>n.id===id),id);}
+ assert.ok(map.groups.find(g=>g.id==='matter').highlights.includes('matter.n2o4'));
+ assert.ok(map.groups.find(g=>g.id==='kinetics').highlights.includes('kinetics.ch11.3'));
  const ids=map.groups.flatMap(g=>g.nodes.map(n=>n.id));
  assert.equal(new Set(ids).size,data.nodes.length);
  assert.equal(ids.filter(id=>id.startsWith('kinetics.ch11.')).length,10);

@@ -105,3 +105,9 @@ button, a, textarea, input { touch-action: manipulation; } .graph-wrap svg{max-w
 @media(max-width:1000px){.map-layout.unified-map-layout{grid-template-columns:minmax(0,1fr)}.unified-map-layout #detail{position:static;max-height:none}}
 @media(max-width:720px){.atlas-grid{grid-template-columns:1fr}.atlas-link-grid{grid-template-columns:1fr}.atlas-path{gap:4px;padding:9px}.atlas-path-arrow{display:none}.atlas-jump{padding:7px 8px}.graph-wrap.unified-graph{padding:11px}.atlas-total{min-width:105px}.atlas-cluster{padding:15px}.atlas-hero{padding:14px}}
 @media(max-width:440px){.atlas-hero{flex-direction:column;align-items:stretch}.atlas-total{border-left:0;border-top:1px solid #d5e5d6;flex-direction:row;align-items:baseline;justify-content:space-between;gap:6px;text-align:left}.atlas-total strong{font-size:25px}.atlas-jump{font-size:11px}.atlas-all-relations>summary{display:block}.atlas-all-relations>summary small{display:block;text-align:left;margin-top:7px}}
+
+/* Atlas emphasis: show named scientific examples first while retaining all nodes in disclosure. */
+.atlas-grid{position:relative}
+.atlas-cluster{transition:border-color .15s ease,box-shadow .15s ease}
+.atlas-cluster:target{border-color:#8ab49b;box-shadow:0 0 0 3px #dbeade}
+@media(max-width:720px){.atlas-grid{padding-left:9px;border-left:2px solid #e0e9df}.atlas-cluster::after{content:'';position:absolute;left:-15px;top:23px;width:11px;height:11px;border:2px solid #d8e5dc;border-radius:50%;background:#7ca68d}}

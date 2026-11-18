@@ -21,7 +21,7 @@ function renderAtlas(){
  const host=$('#graph');host.classList.remove('materials-graph');host.classList.add('unified-graph');
  const chip=node=>'<button class="node atlas-node'+(selectedNode===node.id?' selected':'')+'" type="button" data-node="'+esc(node.id)+'" title="'+esc(node.title)+'">'+esc(node.graph_label||node.title)+'</button>';
  const sections=map.groups.map(g=>{
-  const featured=g.nodes.slice(0,6),rest=g.nodes.slice(6),open=atlasExpanded.has(g.id);
+  const featured=g.nodes.filter(n=>g.highlights.includes(n.id)),rest=g.nodes.filter(n=>!g.highlights.includes(n.id)),open=atlasExpanded.has(g.id);
   const chips=featured.map(chip).join('');
   const more=rest.length?'<details class="atlas-more" data-group="'+esc(g.id)+'"'+(open?' open':'')+'><summary>查看其余 '+rest.length+' 个知识点</summary><div class="atlas-nodes">'+rest.map(chip).join('')+'</div></details>':'';
   return '<section class="atlas-cluster atlas-'+esc(g.id)+'" id="atlas-'+esc(g.id)+'" data-atlas-group="'+esc(g.id)+'">'+
