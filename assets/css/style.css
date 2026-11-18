@@ -195,3 +195,63 @@ button, a, textarea, input { touch-action: manipulation; } .graph-wrap svg{max-w
  .connected-graph .network-controls-left{flex-wrap:wrap}
  .connected-graph .network-controls-right>span:last-child{font-size:10px}
 }
+
+
+/* v0.5 — semantic-zoom scientific architecture. All node circles remain in the same SVG. */
+.connected-graph .network-group rect{fill-opacity:.76;stroke-width:2.4}
+.connected-graph .network-group-title{font-size:34px;fill:#2c5946;font-weight:700}
+.connected-graph .network-group-subtitle{font-size:20px;fill:#7c9281}
+.connected-graph .network-group-count{font-size:18px;fill:#678975}
+.connected-graph .network-tier-line{stroke:#d5e3d7;stroke-width:1.6;stroke-dasharray:5 6}
+.connected-graph .network-tier-label{fill:#779485;font-size:14px;letter-spacing:.07em;pointer-events:none}
+.connected-graph .network-node circle:not(.network-hit-target){stroke-width:3.5}
+.connected-graph .network-node .network-hit-target{pointer-events:all;stroke:none}
+.connected-graph .network-node .network-label{
+  font-size:23px;fill:#254b39;stroke:#fbfdfb;stroke-width:4.5px;
+  paint-order:stroke;letter-spacing:0;pointer-events:none;line-height:1.25
+}
+.connected-graph .network-node .network-secondary{font-size:23px;fill:#526d5b}
+.connected-graph .network-node .network-primary{font-weight:600}
+.connected-graph .network-viewport.is-overview .network-node .network-label{
+ display:none!important
+}
+.connected-graph .network-viewport.is-overview .network-node.selected .network-label{
+ display:block!important
+}
+.connected-graph .network-viewport.is-overview .network-relation.is-local:not(.is-connected){
+ opacity:0;pointer-events:none
+}
+.connected-graph .network-viewport.is-overview .network-relation.is-cross:not(.is-connected){
+ stroke-opacity:.48;stroke-width:2.8
+}
+.connected-graph .network-viewport.is-domain-zoom .network-node .network-primary,
+.connected-graph .network-viewport.is-detail-zoom .network-node .network-label{
+ display:block
+}
+.connected-graph .network-viewport.is-domain-zoom .network-node .network-secondary{
+ display:none
+}
+.connected-graph .network-viewport.is-domain-zoom .network-node.selected .network-secondary,
+.connected-graph .network-viewport.is-domain-zoom .network-node:focus-visible .network-secondary,
+.connected-graph .network-viewport.is-domain-zoom .network-node:hover .network-secondary{
+ display:block
+}
+.connected-graph .network-viewport.is-detail-zoom .network-relation.is-local{
+ stroke-opacity:.44
+}
+.connected-graph .network-viewport .network-relation.is-connected{
+ opacity:1;stroke-opacity:1
+}
+.connected-graph .network-viewport.is-overview .network-node circle:not(.network-hit-target){
+ filter:drop-shadow(0 2px 3px #21462f22)
+}
+.connected-graph .network-viewport{background:linear-gradient(150deg,#fbfdf9,#f1f6ee)}
+.connected-graph .network-controls-right{max-width:390px;line-height:1.6}
+@media(max-width:760px){
+ .connected-graph .network-viewport{height:490px}
+ .connected-graph .network-controls-right>span:last-child{font-size:11px}
+ .connected-graph .network-intro p{font-size:12px}
+}
+@media(max-width:440px){
+ .connected-graph .network-viewport{height:450px}
+}
