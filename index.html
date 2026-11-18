@@ -1,9 +1,25 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Chemistry Framework · 浏览器版</title><link rel="stylesheet" href="assets/css/style.css?v=20261118-21"><link rel="stylesheet" href="assets/css/physical-model.css"><link rel="stylesheet" href="assets/css/curriculum.css"><link rel="stylesheet" href="assets/css/structure-studio.css"></head>
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Chemistry Framework · 浏览器版</title><link rel="stylesheet" href="assets/css/style.css?v=20261118-21"><link rel="stylesheet" href="assets/css/physical-model.css"><link rel="stylesheet" href="assets/css/curriculum.css"><link rel="stylesheet" href="assets/css/structure-studio.css"><link rel="stylesheet" href="assets/css/intuition.css?v=1"></head>
 <body><header class="top"><a class="brand" href="#explore"><span class="mark">C·F</span><span><b>Chemistry Framework</b><small>化学世界模型 · 浏览器版</small></span></a><div class="version">MVP <i></i> v0.5.0-dev</div></header>
 <main><section class="hero"><div><div class="eyebrow">CHEMISTRY FIRST · KNOWLEDGE IN MOTION</div><h1>让化学问题成为<br><em>知识网络的入口。</em></h1><p>从物质、反应与测量出发，沿证据和理论逐层展开。未知保留为未知，猜想可以被检验。</p></div><div class="hero-orbit"><span>结构</span><span>反应</span><span>证据</span><div>化学<br>问题</div></div></section>
 <nav class="tabs" aria-label="主要页面"><button class="tab active" data-page="explore">01　探索化学</button><button class="tab" data-page="inquire">02　验证我的直觉</button><button class="tab" data-page="theory">03　理论工具</button><button class="tab" data-page="workbench">04　体系与模型</button></nav>
 <section id="explore" class="page active"><div class="section-head"><div><div class="eyebrow">KNOWLEDGE MAP</div><h2>化学知识网络</h2><p>保留完整节点网络：先从六个领域查看总体架构，再放大查看节点、关联与理论推导。</p></div><div class="scope-chip"><span class="dot"></span><span id="node-count">加载知识中</span></div></div><div class="domain-nav" id="domains"></div><div class="map-layout unified-map-layout"><div class="map-card"><div class="map-toolbar"><span><b>知识关系图</b><small>节点 · 关系 · 适用范围</small></span><div class="legend"><span><i class="chem"></i>化学</span><span><i class="theory"></i>理论</span></div></div><div class="graph-wrap" id="graph"></div></div><aside class="detail-card" id="detail"><div class="empty"><div class="empty-icon">⌖</div><b>选择一个知识节点</b><p>查看化学含义、解释层级、前提条件与关联关系。</p></div></aside></div><div class="knowledge-bridge" data-knowledge-module="explore"></div><details class="atlas-all-relations"><summary><span>全部关系与前提</span><small>展开查阅完整的 49 条关系、假设及适用边界</small></summary><div class="relation-section"><div class="section-head compact"><div><div class="eyebrow">TRACEABLE LOGIC</div><h2>关系与前提</h2></div><span class="muted">多前提 → 结论</span></div><div id="relations" class="relation-grid"></div></div></details></section>
-<section id="inquire" class="page"><div class="section-head"><div><div class="eyebrow">INTUITION VALIDATION</div><h2>验证我的直觉</h2><p>把直觉拆成可检验命题，检查逻辑跳跃、替代解释与下一步证据。</p></div><span class="status-pill">●　证据状态可追踪</span></div><div class="inquiry-layout"><div class="form-card"><label class="field-label">选择一个科学压力测试</label><div id="case-list" class="case-list"></div><label class="field-label" for="intuition">或者写下你的直觉</label><textarea id="intuition" placeholder="例如：反应 Gibbs 自由能变化越负，反应就一定越快……"></textarea><div class="input-row"><input id="system" placeholder="体系 / 条件（可选）"><button id="analyze" class="primary">分析命题 <span>→</span></button></div><div class="fineprint">原型使用可审查的案例规则，不调用模型。</div><div class="saved-box"><h3>已保存的查询 <span id="saved-count"></span></h3><div id="saved-inquiries"></div></div></div><div id="analysis" class="analysis-card"><div class="empty"><div class="empty-icon">✳</div><b>分析结果会显示在这里</b><p>系统会区分合理部分、逻辑跳跃、证据缺口和可检验预测。</p></div></div></div><div class="knowledge-bridge" data-knowledge-module="inquire"></div></section>
+<section id="inquire" class="page">
+<div class="section-head"><div><h2>验证我的直觉</h2><p>从原问题找出关键词，沿知识网络核对条件，再查找能支持或反驳推断的文献。</p></div></div>
+<div class="inquiry-layout">
+  <div class="form-card">
+    <form id="intuit-form">
+      <label class="field-label" for="intuition">你想检验什么？</label>
+      <textarea id="intuition" required placeholder="例如：反应的 Gibbs 能变化越负，反应就一定越快吗？"></textarea>
+      <label class="field-label" for="system">体系与条件（可选）</label>
+      <div class="input-row"><input id="system" placeholder="例如：恒温恒压，持续光照"><button id="analyze" type="submit" class="primary" disabled>分析原命题 <span aria-hidden="true">→</span></button></div>
+    </form>
+    <details class="inquiry-examples"><summary>查看示例问题</summary><div id="case-list" class="case-list"></div></details>
+    <div class="saved-box"><h3>已保存的查询 <span id="saved-count"></span></h3><div id="saved-inquiries"></div></div>
+  </div>
+  <div id="analysis" class="analysis-card"><div class="empty"><b>输入一个问题开始检查</b><p>查看命中的概念、网络关系、适用条件和检索词。</p></div></div>
+</div>
+<div class="knowledge-bridge" data-knowledge-module="inquire"></div>
+</section>
 
 
 <section id="workbench" class="page"><div class="section-head"><div><div class="eyebrow">MODEL FIRST · CHEMISTRY IN REAL SYSTEMS</div><h2>真实模型工作台</h2><p>从具体物质和反应出发，显式展示状态、相互作用、可观测量与模型边界。</p></div><span class="status-pill">结构 · 热力学 · 动力学</span></div>
@@ -63,7 +79,7 @@
 </section>
 </div>
 </section>
-<footer><span>结构校验 ≠ 科学事实核验 · 电化学模块为教学模拟</span><span id="retrieval-note">外部检索：未配置</span><span>查询记录保存在当前设备浏览器</span></footer></main><script src="src/models/h2plus.js"></script>
+<footer><span>结构校验 ≠ 科学事实核验 · 电化学模块为教学模拟</span><span>文献题录由 Crossref 提供</span><span>查询记录保存在当前设备浏览器</span></footer></main><script src="src/models/h2plus.js"></script>
 <script src="src/models/n2o4.js"></script>
 <script src="src/models/lead-acid.js"></script>
 <script src="src/models/electrochemical-cell.js"></script>
@@ -72,7 +88,10 @@
 <script src="src/graph-views.js?v=20261118-18"></script>
 <script src="src/unified-map.js?v=20261118-18"></script>
 <script src="src/network-graph.js?v=20261118-20"></script>
-<script src="src/app.js?v=20261118-20"></script>
+<script src="src/intuition-analysis.js?v=1"></script>
+<script src="src/intuition-literature.js?v=1"></script>
+<script src="src/intuition-workbench.js?v=1"></script>
+<script src="src/app.js?v=20261118-intuition"></script>
 <script src="src/workbench.js"></script>
 <script src="src/physical-workbench.js"></script>
 <script src="src/h2plus-workbench.js"></script>

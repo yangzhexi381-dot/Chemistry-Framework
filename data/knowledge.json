@@ -505,6 +505,19 @@
       "id": "qm.variational_principle",
       "type": "concept",
       "title": "变分原理",
+      "search_aliases": [
+        "变分法",
+        "MO与VB",
+        "MO和VB",
+        "MO和价键理论",
+        "分子轨道与价键理论",
+        "variational principle",
+        "variational method"
+      ],
+      "literature_terms": [
+        "quantum chemical variational principle",
+        "valence bond and molecular orbital theory"
+      ],
       "statement": "对给定哈密顿量，归一化试探态的能量期望值不低于基态能量；有限试探空间不同，所得近似上界可不同。",
       "description": "",
       "equations": [
@@ -538,6 +551,16 @@
       "id": "thermo.delta_r_g_standard",
       "type": "observable",
       "title": "标准反应 Gibbs 能变化 ΔᵣG°",
+      "search_aliases": [
+        "标准反应吉布斯自由能",
+        "标准反应自由能",
+        "standard Gibbs energy of reaction",
+        "ΔrG°"
+      ],
+      "literature_terms": [
+        "standard Gibbs energy of reaction",
+        "thermodynamic equilibrium constant"
+      ],
       "statement": "在给定标准态下，ΔᵣG° 与平衡常数满足 ΔᵣG°=−RT ln K。",
       "description": "",
       "equations": [
@@ -570,6 +593,18 @@
       "id": "kinetics.reaction_rate",
       "type": "observable",
       "title": "反应速率与动力学势垒",
+      "search_aliases": [
+        "反应速率",
+        "反应快慢",
+        "动力学势垒",
+        "活化自由能",
+        "reaction rate",
+        "activation free energy"
+      ],
+      "literature_terms": [
+        "reaction kinetics",
+        "Gibbs energy of activation"
+      ],
       "statement": "反应速率由动力学规律决定，通常依赖浓度、温度、反应路径及动力学参数。",
       "description": "",
       "equations": [],
@@ -600,6 +635,19 @@
       "id": "analysis.xrd_phase_assignment",
       "type": "measurement_method",
       "title": "XRD 物相归属",
+      "search_aliases": [
+        "XRD",
+        "粉末衍射",
+        "粉末X射线衍射",
+        "衍射峰匹配",
+        "物相鉴定",
+        "粉末物相分析",
+        "powder X-ray diffraction",
+        "phase identification"
+      ],
+      "literature_terms": [
+        "powder X-ray diffraction phase identification"
+      ],
       "statement": "粉末 XRD 物相归属需综合衍射峰位置、强度、线形、背景及样品/基底信息。",
       "description": "",
       "equations": [],
@@ -718,6 +766,19 @@
       "id": "kinetics.thermo_rate_distinction",
       "type": "result",
       "title": "平衡驱动力不唯一决定速率",
+      "search_aliases": [
+        "热力学和动力学",
+        "热力学与动力学",
+        "热力学驱动力",
+        "自发反应速率",
+        "ΔᵣG",
+        "thermodynamic driving force",
+        "thermodynamic versus kinetic control"
+      ],
+      "literature_terms": [
+        "thermodynamic driving force",
+        "chemical reaction kinetics"
+      ],
       "statement": "标准反应 Gibbs 能变化描述平衡倾向，单独不能确定反应速率。",
       "description": "",
       "equations": [],
@@ -849,6 +910,19 @@
       "id": "battery.polarization",
       "type": "concept",
       "title": "极化与过电势",
+      "search_aliases": [
+        "电极极化",
+        "浓差极化",
+        "电化学极化",
+        "过电位",
+        "过电势",
+        "electrode polarization",
+        "overpotential"
+      ],
+      "literature_terms": [
+        "electrode overpotential",
+        "concentration polarization"
+      ],
       "statement": "电流通过电池时，电极反应动力学、物质传递和电解质电阻会使电极状态偏离平衡。",
       "description": "负载越强或传质越受限，实际工作电压通常越偏离可逆电动势。",
       "equations": "η = E₍实际₎ − E₍平衡₎； 放电时可定性写作 U端 = E可逆 − IR内 − 极化损失",
@@ -951,6 +1025,20 @@
       "id": "battery.measurement",
       "type": "measurement_method",
       "title": "电池电势的测量与状态判断",
+      "search_aliases": [
+        "开路电位",
+        "开路电势",
+        "开路电压",
+        "端电压",
+        "电池端电压",
+        "带载电压",
+        "open-circuit voltage",
+        "battery terminal voltage"
+      ],
+      "literature_terms": [
+        "battery open-circuit voltage",
+        "battery terminal voltage"
+      ],
       "statement": "开路电势可用于分析反应热力学；端电压、电流、容量等则描述实际运行表现。",
       "description": "测量量回答的问题不同：电动势不是放电容量，电流也不是储能量。",
       "equations": "P = UI； Q = ∫I dt",
@@ -985,6 +1073,17 @@
       "id": "model.h2plus.frozen_1s_lcao",
       "type": "model",
       "title": "H₂⁺ 分子轨道 LCAO 计算模型",
+      "search_aliases": [
+        "H₂⁺分子轨道",
+        "氢分子离子分子轨道",
+        "1s轨道线性组合",
+        "hydrogen molecular ion orbitals",
+        "hydrogen molecular ion LCAO"
+      ],
+      "literature_terms": [
+        "hydrogen molecular ion molecular orbitals",
+        "linear combination of atomic orbitals"
+      ],
       "statement": "以两个固定指数的氢原子 1s 基函数求解 Hc=εSc，计算成键/反键态，并加入核间排斥得到总势能。",
       "description": "独立空间求积验证解析矩阵元；有限基组误差与数值误差分别说明。",
       "equations": [
@@ -2375,6 +2474,234 @@
         "chemical_meaning": "1,3-丁二烯的分子式为 C₄H₆，其共轭四个碳 p 轨道可用于开链四中心 Hückel 教学模型。",
         "intuitive_explanation": "从分子式可确定元素计量，不能单独得到几何结构、电子态或动力学。"
       }
+    },
+    {
+      "id": "kinetics.photoexcitation",
+      "type": "chemical_process",
+      "title": "光激发与光化学驱动",
+      "graph_label": "光化学驱动",
+      "search_aliases": [
+        "光化学",
+        "光反应",
+        "光驱动",
+        "光激发",
+        "光照驱动",
+        "吸收光子",
+        "光子能量",
+        "单光子吸收",
+        "光化学反应",
+        "光催化",
+        "光致反应",
+        "photochemistry",
+        "photoexcitation",
+        "photochemical driving",
+        "light-driven reaction",
+        "hν=hc/λ"
+      ],
+      "literature_terms": [
+        "light-driven chemical reactions",
+        "molecular photoexcitation",
+        "nonequilibrium thermodynamics of photochemistry"
+      ],
+      "statement": "吸光使吸收体进入激发态，开启与基态热反应不同的路径。持续照明可以维持非平衡布居，也可能支持暗态下热力学不利的转化。",
+      "description": "光子把能量带入体系。激发态可以回到低能态，也可发生能量转移、电子转移或发生化学转化。产物取决于路径和竞争速率。",
+      "equations": [
+        "Eγ = hν = hc/λ₀",
+        "ΔE = E_f − E_i ≈ hν（共振单光子吸收）"
+      ],
+      "scope": "分子光化学中的单光子吸收和由照明驱动的反应路径。λ₀ 为真空波长。",
+      "assumptions": [
+        "激发由体系吸收的光子引起，单光子跃迁式使用吸收谱带内的光频率",
+        "跃迁的可达性同时受能量匹配和光与物质耦合约束"
+      ],
+      "limitations": [
+        "吸收的光能可通过再次发光、非辐射弛豫等通道耗散，也可部分转化为产物的化学自由能",
+        "判断外部照明驱动的过程须把入射与出射辐射、热和物质交换纳入系统边界，完整体系的总熵产生必须非负",
+        "仅由光子能量无法预测产物、反应速率或量子产率"
+      ],
+      "domain": [
+        "chemical_kinetics",
+        "quantum_chemistry"
+      ],
+      "units": {
+        "Eγ": "J / photon",
+        "h": "J s",
+        "ν": "Hz",
+        "c": "m/s",
+        "λ₀": "m"
+      },
+      "claim_status": "defined",
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "IUPAC Gold Book — photoexcitation (P04613)",
+          "url": "https://goldbook.iupac.org/terms/view/P04613"
+        },
+        {
+          "title": "IUPAC Gold Book — electromagnetic transition (08243)",
+          "url": "https://goldbook.iupac.org/terms/view/08243"
+        },
+        {
+          "title": "IUPAC Gold Book — photochemical reaction (P04585)",
+          "url": "https://goldbook.iupac.org/terms/view/P04585"
+        },
+        {
+          "title": "Penocchio, Rao & Esposito — Nonequilibrium thermodynamics of light-induced reactions",
+          "url": "https://doi.org/10.1063/5.0060774"
+        }
+      ],
+      "tags": [
+        "光化学",
+        "光激发",
+        "非平衡热力学"
+      ]
+    },
+    {
+      "id": "kinetics.photochemical_quantum_yield",
+      "type": "observable",
+      "title": "光化学量子产率（吸收光子基准）",
+      "graph_label": "量子产率",
+      "search_aliases": [
+        "量子产率",
+        "量子收率",
+        "光量子产率",
+        "吸收光子数",
+        "吸收的光子数",
+        "吸收光子通量",
+        "内部量子效率",
+        "quantum yield",
+        "photochemical yield",
+        "absorbed photon flux"
+      ],
+      "literature_terms": [
+        "photochemical quantum yield",
+        "absorbed photon flux",
+        "photochemical chain reactions"
+      ],
+      "statement": "给定波长下，某指定事件的量子产率等于事件数除以体系吸收的光子数。分子数和光子数也可同时换为物质的量。",
+      "description": "事件可以是指定产物的生成，也可以是反应物的消耗或指定的激发态过程。需要明确波长、计数边界和计数时间。",
+      "equations": [
+        "Φ(λ) = N_events/N_abs",
+        "Φ_diff(λ) = (dn_events/dt)/q_n,abs"
+      ],
+      "scope": "IUPAC 的单色激发定义。微分形式采用同一时间下的事件生成速率与吸收光子的物质的量速率。",
+      "assumptions": [
+        "分子和分母对应同一体系边界、激发波长及观察时段",
+        "用数目时分子与分母都用数目，用物质的量时两者都换算为 mol",
+        "用吸收光子数而非入射光子数，且分母大于零"
+      ],
+      "limitations": [
+        "荧光、非辐射弛豫或竞争反应可以降低指定光产物的量子产率，须另外确定各通道才能解释损失",
+        "每个光子引发多个产物生成事件的链反应可给出 Φ > 1。量子产率计数事件，能量转化效率需另作能量收支",
+        "宽带激发涉及吸收谱与波长依赖的产率，给出的综合数值应说明光谱与定义"
+      ],
+      "domain": [
+        "chemical_kinetics",
+        "photochemistry"
+      ],
+      "units": {
+        "Φ": "1",
+        "N_events": "events",
+        "N_abs": "photons",
+        "n_events": "mol",
+        "q_n,abs": "mol/s"
+      },
+      "claim_status": "defined",
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "IUPAC Gold Book — quantum yield (Q04991)",
+          "url": "https://goldbook.iupac.org/terms/view/Q04991"
+        },
+        {
+          "title": "IUPAC Gold Book — photophysical processes (P04647)",
+          "url": "https://goldbook.iupac.org/terms/view/P04647"
+        },
+        {
+          "title": "T. W. Shattuck, Colby College — Physical Chemistry, Chapter 5: Photochemistry and Surface Chemistry",
+          "url": "https://personal.colby.edu/personal/t/twshattu/PhysicalChemistryText/Part1/Ch5.pdf"
+        }
+      ],
+      "tags": [
+        "光化学",
+        "量子产率",
+        "吸收光子"
+      ]
+    },
+    {
+      "id": "thermo.gibbs_nonexpansion_work",
+      "type": "result",
+      "title": "Gibbs 能变化与非体积功",
+      "graph_label": "Gibbs 能与非体积功",
+      "search_aliases": [
+        "吉布斯自由能",
+        "吉布斯能",
+        "Gibbs 自由能",
+        "非体积功",
+        "非膨胀功",
+        "最大有用功",
+        "最大非体积功",
+        "最大非膨胀功",
+        "恒温恒压",
+        "等温等压",
+        "ΔG与Wf",
+        "ΔG=Wf",
+        "Wf=ΔG",
+        "ΔG和Wf",
+        "Gibbs energy",
+        "maximum non-expansion work",
+        "nonexpansion work"
+      ],
+      "literature_terms": [
+        "Gibbs energy nonexpansion work",
+        "maximum useful work constant temperature and pressure",
+        "reversible nonexpansion work"
+      ],
+      "statement": "封闭体系在恒温恒压下，外界对体系做的净非体积功 W_f,in ≥ ΔG，可逆时取等号。改用体系输出为正的约定时，最大净输出为 −ΔG。",
+      "description": "G = U + pV − TS。取流入体系的热与功为正，第一定律扣除体积功后给出 ΔG = W_f,in − TΔS_tot，其中 ΔS_tot 是体系和单一热库的总熵变，理想功源不携带熵。",
+      "equations": [
+        "G = U + pV − TS",
+        "ΔG = W_f,in − TΔS_tot",
+        "W_f,in ≥ ΔG；W_f,out = −W_f,in ≤ −ΔG"
+      ],
+      "scope": "封闭体系在同一温度 T、压力 p 的平衡端态之间变化，接触单一恒温热库和恒外压机械环境。W_f 表示净非体积功。",
+      "assumptions": [
+        "无物质跨边界，端态无宏观动能或势能变化，外压恒定且等于两端态的压力",
+        "热交换只涉及一个温度等于两端态温度的热库，其余非体积能量交换是功",
+        "W_f,in 以外界对体系做功为正，W_f,out 以体系对外做功为正，可逆时 ΔS_tot = 0"
+      ],
+      "limitations": [
+        "W_f,in = 0 时，满足上述条件的自发变化才可直接用 ΔG ≤ 0 判别；有外部驱动时须计入驱动输入",
+        "受持续照明、存在多个热库或存在物质交换时，须重新核算能量和熵收支。一般不能把光子能量直接代入 W_f,in",
+        "ΔG 是整个状态变化的能量差，单位为 J；ΔᵣG 是单位反应进度的 Gibbs 能变化率，单位为 J/mol"
+      ],
+      "domain": [
+        "thermodynamics"
+      ],
+      "units": {
+        "G": "J",
+        "W_f,in": "J",
+        "W_f,out": "J",
+        "T": "K",
+        "ΔS_tot": "J/K"
+      },
+      "claim_status": "exact_within_model",
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "Howard DeVoe — Thermodynamics and Chemistry, §5.8 Criteria for Spontaneity",
+          "url": "https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/DeVoes_Thermodynamics_and_Chemistry/05%3A_Thermodynamic_Potentials/5.08%3A_Criteria_for_Spontaneity"
+        },
+        {
+          "title": "Penocchio, Rao & Esposito — Nonequilibrium thermodynamics of light-induced reactions",
+          "url": "https://doi.org/10.1063/5.0060774"
+        }
+      ],
+      "tags": [
+        "Gibbs 能",
+        "非体积功",
+        "第二定律"
+      ]
     }
   ],
   "relations": [
@@ -3849,6 +4176,173 @@
           "title": "src/models/lead-acid.js"
         }
       ]
+    },
+    {
+      "id": "rel.photochemistry.electric_dipole_excitation",
+      "type": "conceptual_bridge",
+      "premises": [
+        "qm.spectrum",
+        "structure.c2v_symmetry"
+      ],
+      "conclusion": "kinetics.photoexcitation",
+      "claim": "单光子吸收的频率受能级差约束。电偶极近似中，跃迁还取决于初末态之间的跃迁偶极矩，分子对称性可用来判断某极化方向是否允许。",
+      "conditions": [
+        "考虑近共振单光子吸收",
+        "使用电偶极近似和明确的态对称性及光偏振"
+      ],
+      "steps": [
+        "由能谱找出接近 hν 的跃迁能级差",
+        "按电偶极算符及偏振检查跃迁矩阵元的对称性"
+      ],
+      "scope": "从量子能谱和对称性理解分子的光激发",
+      "limitations": [
+        "对称允许不能保证强吸收或形成指定产物",
+        "C₂ᵥ 的具体选律只适用于相应对称的体系"
+      ],
+      "error_control": null,
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "IUPAC Gold Book — electromagnetic transition (08243)",
+          "url": "https://goldbook.iupac.org/terms/view/08243"
+        }
+      ],
+      "tests": []
+    },
+    {
+      "id": "rel.photochemistry.absorbed_photons_to_yield",
+      "type": "definition_link",
+      "premises": [
+        "kinetics.photoexcitation",
+        "kinetics.reaction_rate"
+      ],
+      "conclusion": "kinetics.photochemical_quantum_yield",
+      "claim": "在指定波长与体系边界下，指定事件的速率除以同一时刻的吸收光子通量，得到微分量子产率。",
+      "conditions": [
+        "采用单色激发，指定事件的计数基准并使其与吸收通量单位匹配",
+        "同一时刻的吸收光子通量大于零"
+      ],
+      "steps": [
+        "明确目标事件和体系边界",
+        "分别表示目标事件速率与吸收光子通量",
+        "用同一计数基准计算比值"
+      ],
+      "scope": "光吸收、动力学速率与微分量子产率的定义关系",
+      "limitations": [
+        "无独立吸收通量时，产物速率本身不能给出吸收基准量子产率",
+        "若目标事件速率混有暗反应贡献，须明确所报告产率是否扣除该贡献"
+      ],
+      "error_control": null,
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "IUPAC Gold Book — quantum yield (Q04991)",
+          "url": "https://goldbook.iupac.org/terms/view/Q04991"
+        }
+      ],
+      "tests": []
+    },
+    {
+      "id": "rel.photochemistry.light_drive_boundary",
+      "type": "conceptual_distinction",
+      "premises": [
+        "thermo.gibbs_nonexpansion_work"
+      ],
+      "conclusion": "kinetics.photoexcitation",
+      "claim": "暗态恒温恒压判据作比较时，须把照明视为外部驱动；光激发可改变可达路径，即使部分净转化在给定暗态组成下有 ΔᵣG > 0。",
+      "conditions": [
+        "明确比较的温度、压力、化学组成与暗态反应方向",
+        "核算照明时纳入辐射能量和熵交换"
+      ],
+      "steps": [
+        "辨明暗态比较所用的系统边界",
+        "在受照系统中识别光吸收和后续化学路径",
+        "用系统与环境的能量守恒和总熵产生条件检查解释"
+      ],
+      "scope": "暗态 Gibbs 能判据与外部辐射驱动的概念区分",
+      "limitations": [
+        "暗态 ΔᵣG 的符号不能预测量子产率或受照体系的稳态组成",
+        "hν 是单个光子的能量，单独不能给出光源可转化为化学自由能的份额"
+      ],
+      "error_control": null,
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "IUPAC Gold Book — photochemical reaction (P04585)",
+          "url": "https://goldbook.iupac.org/terms/view/P04585"
+        },
+        {
+          "title": "Penocchio, Rao & Esposito — Nonequilibrium thermodynamics of light-induced reactions",
+          "url": "https://doi.org/10.1063/5.0060774"
+        }
+      ],
+      "tests": []
+    },
+    {
+      "id": "rel.thermo.reaction_gibbs_and_work",
+      "type": "conceptual_distinction",
+      "premises": [
+        "thermo.gibbs_nonexpansion_work"
+      ],
+      "conclusion": "thermo.delta_r_g_standard",
+      "claim": "恒温恒压下沿单一反应坐标有 dG = ΔᵣG dξ。求全程可逆非体积功需要积分实际 ΔᵣG，而标准反应值 ΔᵣG° 由选定标准态定义。",
+      "conditions": [
+        "温度、压力、计量式和标准态明确",
+        "反应进度 ξ 以 mol 计，比较过程中仅改变该反应的进度"
+      ],
+      "steps": [
+        "用 ΔᵣG = ΔᵣG° + RT ln Q 描述实际组成处的驱动力",
+        "沿初末反应进度积分得到 ΔG",
+        "在非体积功的可逆条件下将 ΔG 对应到净输入功"
+      ],
+      "scope": "Gibbs 能端态差、摩尔反应 Gibbs 能和标准反应 Gibbs 能之间的关系",
+      "limitations": [
+        "若组成变化使反应商 Q 变化，不能把 ΔᵣG° 直接乘以反应进度来替代全程功"
+      ],
+      "error_control": null,
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "Howard DeVoe — Thermodynamics and Chemistry, §11.7 Gibbs Energy and Reaction Equilibrium",
+          "url": "https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/DeVoes_Thermodynamics_and_Chemistry/11%3A_Reactions_and_Other_Chemical_Processes/11.07%3A_Gibbs_Energy_and_Reaction_Equilibrium"
+        },
+        {
+          "title": "Howard DeVoe — Thermodynamics and Chemistry, §11.8 The Thermodynamic Equilibrium Constant",
+          "url": "https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/DeVoes_Thermodynamics_and_Chemistry/11%3A_Reactions_and_Other_Chemical_Processes/11.08%3A_The_Thermodynamic_Equilibrium_Constant"
+        }
+      ],
+      "tests": []
+    },
+    {
+      "id": "rel.thermo.nonexpansion_work_cell",
+      "type": "conditional_derivation",
+      "premises": [
+        "thermo.gibbs_nonexpansion_work"
+      ],
+      "conclusion": "battery.emf",
+      "claim": "恒温恒压下，电功是可逆电池的非体积功。对固定的电池反应式，体系可逆输出的电功每摩尔反应进度为 nFE，故 ΔᵣG = −nFE。",
+      "conditions": [
+        "电池可逆，电功为唯一非体积功，若有液接则其电势可忽略",
+        "以给定反应方向定义电动势 E 和电子计量数 n"
+      ],
+      "steps": [
+        "将可逆输出功写为 −dG",
+        "用 nF dξ 把反应进度变化换算成转移电荷量",
+        "以 E 乘电荷量得到可逆输出电功"
+      ],
+      "scope": "将恒温恒压可逆非体积功应用于原电池",
+      "limitations": [
+        "负载下端电压受欧姆损失、极化和传质影响，不能直接代替可逆电动势"
+      ],
+      "error_control": null,
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "Howard DeVoe — Thermodynamics and Chemistry, §14.3 Molar Reaction Quantities of the Cell Reaction",
+          "url": "https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/DeVoes_Thermodynamics_and_Chemistry/14%3A_Galvanic_Cells/14.03%3A_Molar_Reaction_Quantities_of_the_Cell_Reaction"
+        }
+      ],
+      "tests": []
     }
   ],
   "inquiries": [],

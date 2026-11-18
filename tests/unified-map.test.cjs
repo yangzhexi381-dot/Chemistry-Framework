@@ -4,14 +4,14 @@ const data=JSON.parse(read('data/knowledge.json'));
 const {groups,idFor,build}=require('../src/unified-map.js');
 const map=build(data.nodes,data.relations);
 test('the one atlas contains every existing scientific node and all relations',()=>{
- assert.equal(data.nodes.length,64);
- assert.equal(data.relations.length,49);
- assert.equal(map.nodeCount,64);
- assert.equal(map.relationCount,49);
- assert.equal(map.assignedCount,64);
+ assert.equal(data.nodes.length,67);
+ assert.equal(data.relations.length,54);
+ assert.equal(map.nodeCount,67);
+ assert.equal(map.relationCount,54);
+ assert.equal(map.assignedCount,67);
  assert.equal(groups.length,6);
  assert.deepEqual(map.groups.map(g=>[g.id,g.nodes.length]),[
- ['matter',15],['structure',13],['thermo',15],['kinetics',12],['electrochem',7],['analysis',2]]);
+ ['matter',15],['structure',13],['thermo',16],['kinetics',14],['electrochem',7],['analysis',2]]);
  for(const group of map.groups){assert.ok(group.highlights?.length>=2);for(const id of group.highlights)assert.ok(group.nodes.some(n=>n.id===id),id);}
  assert.ok(map.groups.find(g=>g.id==='matter').highlights.includes('matter.n2o4'));
  assert.ok(map.groups.find(g=>g.id==='kinetics').highlights.includes('kinetics.ch11.3'));
@@ -20,10 +20,10 @@ test('the one atlas contains every existing scientific node and all relations',(
  assert.equal(ids.filter(id=>id.startsWith('kinetics.ch11.')).length,10);
  assert.equal(ids.filter(id=>id.startsWith('element.')||id.startsWith('matter.')).length,15);
 });
-test('all 49 stored relations remain accessible and eight true cross-field edges are distinguished',()=>{
- assert.equal(map.bridges.length,8);
+test('all 54 stored relations remain accessible and eleven true cross-field edges are distinguished',()=>{
+ assert.equal(map.bridges.length,11);
  const countInternal=map.groups.reduce((a,g)=>a+g.relations.length,0);
- assert.equal(countInternal+map.bridges.length,49);
+ assert.equal(countInternal+map.bridges.length,54);
  for(const edge of map.bridges){
   assert.ok(edge.groups.length>1);
   assert.ok(edge.premises?.length&&edge.conditions?.length&&edge.claim);

@@ -3,10 +3,10 @@ const root=path.resolve(__dirname,'..'),read=p=>fs.readFileSync(path.join(root,p
 const {reactionMechanismNode,completeRelations}=require('../src/graph-views.js');
 const knowledge=JSON.parse(read('data/knowledge.json')),nodes=knowledge.nodes.filter(reactionMechanismNode),relations=completeRelations(nodes,knowledge.relations);
 test('Reaction & Mechanism includes 10 kinetics sections, measurable rate and battery application',()=>{
-  assert.equal(nodes.length,13);assert.equal(nodes.filter(n=>/^kinetics\.ch11\.\d+$/.test(n.id)).length,10);
+  assert.equal(nodes.length,15);assert.equal(nodes.filter(n=>/^kinetics\.ch11\.\d+$/.test(n.id)).length,10);
   assert.ok(nodes.some(n=>n.id==='kinetics.reaction_rate'));
   assert.ok(nodes.some(n=>n.id==='battery.lead_acid'));
-  assert.equal(relations.length,14);
+  assert.equal(relations.length,15);
 });
 test('all visible relation constraints are self-contained and scientifically typed',()=>{
   const ids=new Set(nodes.map(n=>n.id));

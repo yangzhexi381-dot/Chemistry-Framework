@@ -1,0 +1,162 @@
+#inquire .inquiry-layout {
+  align-items: start;
+}
+
+#inquire .form-card,
+#inquire .analysis-card {
+  min-width: 0;
+}
+
+#inquire .form-card label {
+  display: block;
+  margin: 0 0 8px;
+}
+
+#inquire .form-card label[for="system"] {
+  margin-top: 14px;
+}
+
+#inquire .input-row {
+  margin-top: 0;
+}
+
+#inquire .input-row input,
+.literature-controls input {
+  min-width: 0;
+  flex: 1;
+}
+
+.inquiry-examples {
+  margin-top: 16px;
+}
+
+.inquiry-examples summary {
+  cursor: pointer;
+  color: var(--green);
+  padding-block: 5px;
+}
+
+.inquiry-examples .case-list {
+  margin: 10px 0 0;
+}
+
+#inquire .saved-item span,
+#inquire .analysis-card {
+  overflow-wrap: anywhere;
+}
+
+#inquire .analysis-card {
+  min-height: 0;
+}
+
+#inquire .analysis-block h4 {
+  font-size: 14px;
+}
+
+#inquire .analysis-block h5 {
+  font-size: 12px;
+  margin: 12px 0 7px;
+}
+
+#inquire .analysis-block p,
+#inquire .analysis-block li {
+  font-size: 13px;
+}
+
+#inquire .analysis-block p {
+  margin: 6px 0;
+}
+
+.inquiry-original {
+  white-space: pre-wrap;
+}
+
+#inquire .analysis-block .inquiry-keywords,
+#inquire .analysis-block .inquiry-evidence {
+  list-style: none;
+  padding: 0;
+}
+
+.inquiry-keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.inquiry-keywords li {
+  border-radius: 7px;
+  background: var(--mint);
+  padding: 3px 8px;
+}
+
+.inquiry-evidence > li {
+  padding: 10px 0;
+}
+
+.inquiry-evidence > li + li {
+  border-top: 1px solid var(--line);
+}
+
+.inquiry-evidence small {
+  display: block;
+  color: #62756d;
+  margin-top: 5px;
+}
+
+#inquire .analysis-block .inquiry-boundary {
+  color: #62756d;
+  font-size: 12px;
+}
+
+.inquiry-clauses {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.inquiry-clauses > li + li {
+  margin-top: 10px;
+}
+
+.literature-controls {
+  display: flex;
+  gap: 8px;
+  margin-top: 7px;
+}
+
+.literature-controls input {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font: inherit;
+  color: var(--ink);
+  background: #fff;
+}
+
+#inquire button:disabled {
+  opacity: .65;
+  cursor: wait;
+}
+
+#literature-results a {
+  color: var(--green);
+}
+
+#inquiry-result-heading {
+  scroll-margin-top: 1rem;
+}
+
+@media (max-width: 480px) {
+  #inquire .input-row,
+  .literature-controls {
+    flex-wrap: wrap;
+  }
+
+  #inquire .input-row input,
+  .literature-controls input {
+    flex-basis: 100%;
+  }
+
+  #inquire :is(.primary, .case-btn, .save-row button) {
+    min-height: 44px;
+  }
+}

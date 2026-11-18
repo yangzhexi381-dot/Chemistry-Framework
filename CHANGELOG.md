@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.5.0-dev — graph-linked intuition validation and literature search (2026-11-18)
+
+- Evaluate each submitted question from its own text and optional conditions. Show detected terms, clause-level checks, graph concepts and the conditions on relevant relations. Examples only populate the form.
+- Add three sourced knowledge nodes for photoexcitation, photochemical quantum yield and Gibbs energy with non-expansion work, along with five typed graph relations.
+- Enable browser-side Crossref metadata search for editable keywords, with DOI links, local inquiry records, and distinct states for empty results and failed requests.
+
 ## v0.5.0-dev — restore screenshot-style knowledge network and touch gestures (2026-11-18)
 
 - Returned home to a single spiral node-link diagram with dotted grid, green/purple concept dots and all existing science nodes/relations; removed oversized six-panel segmentation.
