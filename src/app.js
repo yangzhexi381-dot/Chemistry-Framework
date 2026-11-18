@@ -64,7 +64,7 @@ function renderAtlas(){
  const relationSVG=graph.edges.map(edge=>{
    const r=edge.relation,active=relationSelected(r),dim=selectedNode&&!active;
    const cls='network-relation'+(edge.cross?' is-cross':'')+(active?' is-connected':'')+(dim?' is-muted':'');
-   const limbs=edge.from.map(source=>'<path class="network-limb" d="'+curved(source,edge.joint||edge.end,edge.cross)+'"/>').join('');
+   const limbs=edge.from.map(source=>'<path class="network-limb" d="'+curved(source,edge.joint||edge.end,edge.cross)+'"'+(edge.joint?'':' marker-end="url(#network-arrow)"')+'/>').join('');
    const end=edge.joint?'<path class="network-final" d="'+curved(edge.joint,edge.end,edge.cross)+'" marker-end="url(#network-arrow)"/>':'';
    const joint=edge.joint?'<circle class="network-junction" cx="'+edge.joint.x+'" cy="'+edge.joint.y+'" r="3.7"/>':'';
    const title=r.claim+'；关系类型：'+r.type+'；条件：'+(r.conditions||[]).join('；');
