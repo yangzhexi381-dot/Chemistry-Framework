@@ -33,7 +33,7 @@ test('network geometry keeps six labelled groups without replacing actual depend
  }
  assert.deepEqual(new Set(net.edges.map(e=>e.relation.id)),new Set(d.relations.map(e=>e.id)));
  const index=read('index.html'),app=read('src/app.js'),css=read('assets/css/style.css');
- assert.match(index,/src="src\/network-graph\.js"/);
+ assert.match(index,/src="src\/network-graph\.js\?v=20261118-18"/);
  assert.ok(app.includes('CFNetworkGraph.build(map)'));
  assert.ok(app.includes('network-relation'));
  assert.ok(app.includes("const cls='node network-node"));

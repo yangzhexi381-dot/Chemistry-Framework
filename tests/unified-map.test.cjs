@@ -38,7 +38,7 @@ test('UI exposes the whole atlas without separate material or kinetics filter pa
  assert.ok(!app.includes("['物质与组成','entities']"));
  assert.ok(!app.includes("['反应与机理','reaction']"));
  assert.ok(app.includes('CFUnifiedMap.build(db.nodes,db.relations)'));
- assert.match(html,/src="src\/unified-map\.js"/);
+ assert.match(html,/src="src\/unified-map\.js\?v=20261118-18"/);
  assert.match(html,/class="map-layout unified-map-layout"/);
  assert.match(html,/class="atlas-all-relations"/);
  assert.match(read('tests/curriculum-browser.cjs'),/expectedGroups=\{matter:15,structure:13/);
