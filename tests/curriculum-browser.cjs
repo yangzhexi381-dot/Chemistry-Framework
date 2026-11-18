@@ -8,6 +8,15 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict');
   await page.goto(base+'#learn/pc.11.1');
   await page.waitForFunction(()=>document.querySelector('#curriculum-current h2'));
   assert.match(await page.locator('#curriculum-current h2').innerText(),/11.1/);
+  assert.equal(await page.locator('nav.tabs .tab').count(),5);
+  assert.equal(await page.locator('nav.tabs [data-page="learn"]').count(),0);
+  assert.ok(await page.locator('#theory').evaluate(node=>node.classList.contains('active')));
+  assert.ok(await page.locator('#learn').evaluate(node=>node.closest('.page')?.id==='theory'));
+  await page.goto(base+'#theory');
+  await page.waitForFunction(()=>document.querySelector('#curriculum-current h2'));
+  assert.ok(await page.locator('#theory').evaluate(node=>node.classList.contains('active')));
+  await page.goto(base+'#learn/pc.11.1');
+  await page.waitForFunction(()=>document.querySelector('#curriculum-current h2')?.textContent.includes('11.1'));
   assert.equal(await page.locator('#curriculum-chapter option').count(),1);
   for(const width of [390,768,1280]){
    await page.setViewportSize({width,height:900});

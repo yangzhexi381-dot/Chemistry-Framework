@@ -251,7 +251,11 @@
     const hash = global.location.hash.slice(1), isLearning = hash === 'learn' || hash.startsWith('learn/');
     if (isLearning) {
       pendingSectionScroll = hash.startsWith('learn/');
-      activatePage('learn'); clearQuery(); routeWarning = ''; selectRouteSection(); render();
+      activatePage('theory'); clearQuery(); routeWarning = ''; selectRouteSection(); render();
+      if (!started) load();
+      if (hash === 'learn') global.requestAnimationFrame(() => $('learn')?.scrollIntoView({ block: 'start' }));
+    } else if (hash === 'theory') {
+      activatePage('theory');
       if (!started) load();
     } else if (Object.hasOwn(modelRoutes, hash)) {
       const [pageId, anchor] = modelRoutes[hash]; activatePage(pageId);
