@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.5.0-dev — Chapter 11 knowledge graph (2026-11-18)
+
+- Connected all ten kinetics chapter sections to the homepage knowledge map, adding 10 provenance-labelled nodes and 14 typed, conditional relations.
+- Added focused Chapter 11 graph view and direct, safe links from graph node details to textbook sections.
+- Kept dependencies, conditional derivations and empirical relations distinct; added data/graph consistency regression checks.
+
 ## v0.5.0-dev — kinetics learning (2026-11-18)
 
 - Integrated physical chemistry Chapter 11 (11.1–11.10): original teaching notes, equations, reasoning, source pages, boundaries and self-checks. Chapter 12 remains unpublished.
