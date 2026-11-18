@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.5.0-dev — unified module and theory layout (2026-11-18)
+
+- Merged the electrochemistry and physical-model top-level navigation into one System & Models page without changing calculations or content.
+- Consolidated existing electrochemistry Chapters 8–10 and kinetics deep-theory content in one Theory Tools container; retained original text, formulae and provenance.
+- Preserved legacy electrochemistry, science-model and chapter routes, and added local/hosted browser acceptance for the layout and battery interactions.
+
+
 ## v0.5.0-dev — combine thermodynamics and kinetics view (2026-11-18)
 
 - Unified thermodynamics and kinetics under the single map filter '热力学与动力学'.
