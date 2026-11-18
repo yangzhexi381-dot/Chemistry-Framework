@@ -14,3 +14,16 @@ button, a, textarea, input { touch-action: manipulation; } .graph-wrap svg{max-w
 
 /* Chapter 11 graph: links to the full textbook page, and keyboard focus for nodes. */
 .graph-curriculum-link{margin:12px 0 0;font-size:12px;line-height:1.65}.graph-curriculum-link a{color:var(--green);text-underline-offset:3px}.node:focus{outline:none}.node:focus circle{stroke:#e6a46a;stroke-width:4}.graph-wrap .node{touch-action:manipulation}
+
+/* Shared knowledge pathways, sourced from knowledge.json. */
+.knowledge-bridge{margin:22px 0 28px;padding:18px;border:1px solid var(--line);border-radius:14px;background:#f0f5ee}
+.knowledge-bridge-heading h3{font-size:15px;margin:0 0 7px;color:#275944}.knowledge-bridge-heading p{font-size:12px;color:#657a6a;line-height:1.75;margin:0}
+.knowledge-bridge-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:11px;margin-top:16px}
+.knowledge-bridge-card{min-width:0;background:#fbfcfa;border:1px solid #dce8db;border-radius:10px;padding:14px}.knowledge-bridge-card h4{margin:0 0 9px;font-size:13px}
+.knowledge-bridge-nodes,.concept-links{display:flex;flex-wrap:wrap;gap:7px;margin:9px 0}
+.concept-link{display:inline-block;color:#246550;background:#e4f0e5;border:1px solid #c9ddcb;border-radius:7px;padding:6px 8px;font-size:11px;line-height:1.5;text-decoration:none}
+.concept-link:hover,.concept-link:focus-visible{background:#d4e9d6;text-decoration:underline}
+.knowledge-bridge-relation{font-size:11px;line-height:1.7;color:#455f50;margin:10px 0 5px}.knowledge-bridge-boundary{font-size:10px;color:#687d70;line-height:1.7;margin:6px 0 0}
+.model-knowledge-link,.model-cross-entry a{display:inline-block;color:#23634d;font-size:11px;margin:0 0 10px;text-decoration:underline;text-underline-offset:3px}
+.model-cross-entry{margin:4px 0 12px}.theory-card a{display:inline-block;margin-top:5px}
+@media(max-width:700px){.knowledge-bridge{margin:17px 0;padding:13px}.knowledge-bridge-grid{grid-template-columns:1fr}}

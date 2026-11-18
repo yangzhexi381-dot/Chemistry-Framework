@@ -2433,5 +2433,160 @@
         "battery.measurement"
       ]
     }
-  ]
+  ],
+  "module_paths": {
+    "explore": {
+      "title": "从概念出发",
+      "intro": "在不同学科之间追踪明确前提和关系类型。",
+      "paths": [
+        {
+          "title": "微观态与能谱",
+          "node_ids": [
+            "qm.hamiltonian",
+            "qm.eigenproblem",
+            "qm.spectrum"
+          ],
+          "relation_id": "rel.spectral"
+        },
+        {
+          "title": "从速率数据到机理",
+          "node_ids": [
+            "kinetics.ch11.2",
+            "kinetics.ch11.3",
+            "kinetics.ch11.10"
+          ],
+          "relation_id": "rel.kinetics11.mechanism_evidence"
+        }
+      ]
+    },
+    "inquire": {
+      "title": "从判断进入证据链",
+      "intro": "分清经验、机制和推论，检验假设与替代解释。",
+      "paths": [
+        {
+          "title": "热力学驱动力与反应快慢",
+          "node_ids": [
+            "thermo.delta_r_g_standard",
+            "kinetics.reaction_rate",
+            "kinetics.thermo_rate_distinction"
+          ],
+          "relation_id": "rel.thermo_not_kinetics"
+        },
+        {
+          "title": "如何验证反应机理",
+          "node_ids": [
+            "kinetics.ch11.3",
+            "kinetics.ch11.5",
+            "kinetics.ch11.10"
+          ],
+          "relation_id": "rel.kinetics11.mechanism_evidence"
+        },
+        {
+          "title": "XRD 物相反问题",
+          "node_ids": [
+            "analysis.xrd_phase_assignment",
+            "analysis.xrd_inverse_problem"
+          ],
+          "relation_id": "rel.xrd_inverse"
+        }
+      ]
+    },
+    "theory": {
+      "title": "从定义与约束贯通理论",
+      "intro": "区分严格推导、受控近似、经验规律与科学证据。",
+      "paths": [
+        {
+          "title": "能谱与统计权重",
+          "node_ids": [
+            "qm.spectrum",
+            "stat.weights",
+            "stat.partition"
+          ],
+          "relation_id": "rel.partition_def"
+        },
+        {
+          "title": "反应速率与积分动力学",
+          "node_ids": [
+            "kinetics.ch11.2",
+            "kinetics.ch11.3",
+            "kinetics.ch11.4"
+          ],
+          "relation_id": "rel.kinetics11.law_to_integral"
+        },
+        {
+          "title": "温度效应与活化能",
+          "node_ids": [
+            "kinetics.ch11.7",
+            "kinetics.ch11.8"
+          ],
+          "relation_id": "rel.kinetics11.activation_derivative"
+        }
+      ]
+    },
+    "electrochem": {
+      "title": "电化学的共享约束",
+      "intro": "用反应进度、离子输运、电极动力学和电势连接实际电池。",
+      "paths": [
+        {
+          "title": "可逆电动势与极化",
+          "node_ids": [
+            "battery.emf",
+            "battery.polarization",
+            "battery.measurement"
+          ],
+          "relation_id": null
+        },
+        {
+          "title": "电极速率与速率方程",
+          "node_ids": [
+            "kinetics.reaction_rate",
+            "kinetics.ch11.2",
+            "kinetics.ch11.3"
+          ],
+          "relation_id": "rel.kinetics11.rate_to_law"
+        },
+        {
+          "title": "电量与反应计量",
+          "node_ids": [
+            "battery.faraday",
+            "kinetics.ch11.2"
+          ],
+          "relation_id": null
+        }
+      ]
+    },
+    "workbench": {
+      "title": "计算模型所依赖的理论",
+      "intro": "区分真实体系、数值模型、待定参数和适用条件。",
+      "paths": [
+        {
+          "title": "H₂⁺：变分与分子轨道",
+          "node_ids": [
+            "qm.hamiltonian",
+            "qm.variational_principle",
+            "model.h2plus.frozen_1s_lcao"
+          ],
+          "relation_id": "rel.h2plus.variational_lcao"
+        },
+        {
+          "title": "N₂O₄：平衡与可逆过程",
+          "node_ids": [
+            "thermo.equilibrium_constant",
+            "kinetics.ch11.5",
+            "kinetics.ch11.6"
+          ],
+          "relation_id": "rel.kinetics11.detailed_balance"
+        },
+        {
+          "title": "浓度与时间响应",
+          "node_ids": [
+            "kinetics.ch11.2",
+            "kinetics.ch11.3",
+            "kinetics.ch11.4"
+          ],
+          "relation_id": "rel.kinetics11.law_to_integral"
+        }
+      ]
+    }
+  }
 }
