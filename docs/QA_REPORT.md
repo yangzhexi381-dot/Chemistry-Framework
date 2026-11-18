@@ -1,3 +1,7 @@
+# 浏览器验收自动化（2026-11-18）
+
+新增 `.github/workflows/browser-acceptance.yml`：PR 环境用临时 HTTP 服务运行 Chromium/Playwright；当 GitHub Pages 发布工作流成功结束时，以相应部署版本 SHA 检出源码，并对线上 Pages 地址进行相同的交互测试。检查包括第11章原有固定链接、理论工具页加载与旧路由、知识图谱至教材点击、搜索、自测、浏览器后退/前进、三种 CSS 宽度、模型路由和 503 恢复。测试脚本使用 Playwright 管理的 Chromium，不代表真实 Android 或 iOS 设备验收。实际通过记录以 GitHub Actions 本次运行结果为准；未运行时不得标为成功。
+
 # 理论工具内嵌教材知识（2026-11-18）
 
 本次仅调整信息架构：将原独立 `#learn` 页面嵌入 `#theory`，移除第06个顶层导航按钮。保留 `#learn/pc.11.x` 深链接和 `#learn` 旧入口，并让普通 `#theory` 导航首次打开时加载章节内容。第十一章的 JSON 数据、知识关系图、独立科学计算均未修改。

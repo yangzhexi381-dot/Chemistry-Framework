@@ -1,7 +1,7 @@
 /* Optional browser acceptance; requires local HTTP server and Playwright. */
 const {chromium}=require('playwright'),assert=require('node:assert/strict');
 (async()=>{
- const browser=await chromium.launch({executablePath:process.env.CF_CHROMIUM||'/usr/bin/chromium',headless:true,args:['--no-sandbox']});
+ const browser=await chromium.launch({executablePath:process.env.CF_CHROMIUM||chromium.executablePath(),headless:true,args:['--no-sandbox']});
  try{
   const page=await browser.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
   const base=process.env.CF_TEST_URL||'http://127.0.0.1:8765/';
@@ -33,6 +33,12 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict');
   await page.waitForFunction(()=>document.querySelector('#curriculum-current h2')?.textContent.includes('11.7'));
   await page.goBack();await page.waitForFunction(()=>document.querySelector('#curriculum-current h2')?.textContent.includes('11.1'));
   await page.goForward();await page.waitForFunction(()=>document.querySelector('#curriculum-current h2')?.textContent.includes('11.7'));
+  await page.goto(base+'#explore');
+  await page.getByRole('button',{name:'化学动力学 · 第11章'}).click();
+  await page.locator('.node[data-node="kinetics.ch11.4"]').click();
+  await page.locator('#detail a[href="#learn/pc.11.4"]').click();
+  await page.waitForFunction(()=>document.querySelector('#curriculum-current h2')?.textContent.includes('11.4'));
+  assert.ok(await page.locator('#theory').evaluate(e=>e.classList.contains('active')));
   await page.goto(base+'#model.n2o4');assert.ok(await page.locator('#workbench').evaluate(e=>e.classList.contains('active')));
   await page.goto(base+'#learn/pc.unknown.0');await page.waitForFunction(()=>document.querySelector('.curriculum-route-warning'));
   let fail=true;
@@ -43,6 +49,6 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict');
   fail=false;await page.getByRole('button',{name:'重试未加载内容',exact:true}).click();
   await page.waitForFunction(()=>document.querySelector('#curriculum-current h2')?.textContent.includes('11.1')&&document.querySelector('#curriculum-errors').hidden);
   assert.deepEqual(errors,[]);
-  console.log('PASS: chapter 11 links/search/self-check/history/model route/503 retry/three widths');
+  console.log('PASS: Theory Tools consolidation, graph-to-section navigation, chapter 11 links/search/self-check/history/model route/503 retry/three widths');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});
