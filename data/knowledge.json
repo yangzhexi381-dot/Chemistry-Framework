@@ -2879,6 +2879,73 @@
         }
       ],
       "tests": []
+    },
+    {
+      "id": "rel.kinetics.view.rate_definition",
+      "type": "definition_link",
+      "premises": [
+        "kinetics.reaction_rate"
+      ],
+      "conclusion": "kinetics.ch11.2",
+      "claim": "将反应快慢转化为可测的反应进度变化率，需要先明确反应计量数、体积约定和时间基准。",
+      "conditions": [
+        "给定总反应计量式",
+        "按适当的体系体积或反应进度定义速率"
+      ],
+      "steps": [
+        "建立反应进度 ξ",
+        "按计量系数联系各物种变化",
+        "再定义对时间的导数"
+      ],
+      "scope": "宏观反应速率的定义衔接，不推断特定实验机理",
+      "limitations": [
+        "计量反应式不自动决定速率方程或反应级数",
+        "非恒容体系须采用相应的体积与反应进度定义"
+      ],
+      "error_control": null,
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "傅献彩、侯文华等《物理化学》（第六版）下册，第十一章 11.2：化学反应速率的表示法"
+        }
+      ],
+      "tests": [
+        "reaction_mechanism_view_rate_link"
+      ]
+    },
+    {
+      "id": "rel.kinetics.view.battery_example",
+      "type": "application_example",
+      "premises": [
+        "kinetics.ch11.2"
+      ],
+      "conclusion": "battery.lead_acid",
+      "claim": "铅酸蓄电池的总放电反应可作为反应进度与化学计量关系的实例；从反应进度进一步推导电流还需要电子计量和法拉第效率等条件。",
+      "conditions": [
+        "讨论放电阶段并明确总反应式",
+        "物料与电荷守恒成立",
+        "将电流关联到目标反应时须考虑副反应与法拉第效率"
+      ],
+      "steps": [
+        "写出 Pb/PbO₂ 的放电总反应",
+        "据计量数定义反应进度变化",
+        "如需与电流联系，再引入电子计量和法拉第关系"
+      ],
+      "scope": "动力学定义应用于一个电化学过程的教学示例",
+      "limitations": [
+        "本关联不是铅酸蓄电池实测反应速率定律",
+        "未知电荷效率、极化与传质参数时不能据此预测电池电流"
+      ],
+      "error_control": null,
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "CF 铅酸蓄电池教学模型与物理化学第十一章反应速率定义"
+        }
+      ],
+      "tests": [
+        "reaction_mechanism_view_application"
+      ]
     }
   ],
   "inquiries": [],
