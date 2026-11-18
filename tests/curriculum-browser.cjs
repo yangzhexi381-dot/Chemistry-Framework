@@ -242,6 +242,7 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict');
   assert.match(await page.locator('#detail h3').innerText(),/量子产率/);
   await page.goto(base+'#inquire');
   await page.locator('#intuition').fill('Cr³⁺是否改变 UOR 的亚硝酸盐选择性？');
+  await page.locator('#system').clear();
   await page.locator('#analyze').click();
   await page.getByText('当前知识网络没有识别到足够明确的概念', {exact:false}).waitFor();
   assert.equal(await page.locator('#analysis a.concept-link').count(),0);
