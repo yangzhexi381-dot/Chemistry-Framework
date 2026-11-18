@@ -1,76 +1,125 @@
-/* Pure six-domain chemistry graph geometry. Every original node/edge remains.
-   Stable reading hierarchy and semantic label wrapping; no fabricated edges. */
+/* Chemistry Framework legacy-style connected spiral map, scaled for readable labels.
+   Geometry and label collision avoidance stay separate from scientific data and DOM. */
 (function(root){
 'use strict';
-const width=2440,height=1760;
-const centers=Object.freeze({
- matter:[440,450],structure:[1220,450],thermo:[2000,450],
- kinetics:[440,1300],electrochem:[1220,1300],analysis:[2000,1300]
-});
-const clamp=(v,min,max)=>Math.max(min,Math.min(max,v));
-const columns=Object.freeze([-210,0,210]);
-const rows=Object.freeze([-248,-112,35,163,288]);
-const approximateWidth=c=>/[\u2e80-\u9fff]/u.test(c)?1:/\s/.test(c)?0.38:0.62;
+const width=1840,height=1380,goldenAngle=2.399963229728653;
+const clamp=(value,min,max)=>Math.max(min,Math.min(max,value));
+const approximateWidth=char=>/[\u2e80-\u9fff]/u.test(char)?1:/\s/.test(char)?0.38:0.62;
 function labelLines(label,maxUnits=7.5){
- const lines=[];let line='',sum=0;
+ const lines=[];let part='',units=0;
  for(const char of Array.from(label)){
-  const amount=approximateWidth(char);
-  if(line&&sum+amount>maxUnits){lines.push(line);line='';sum=0;}
-  line+=char;sum+=amount;
+  const size=approximateWidth(char);
+  if(part&&units+size>maxUnits){lines.push(part);part='';units=0;}
+  part+=char;units+=size;
  }
- if(line)lines.push(line);
+ if(part)lines.push(part);
  return lines;
 }
-function build(atlas){
- const points=[],pointById=new Map();
- for(const group of atlas.groups){
-  const center=centers[group.id];
-  if(!center)throw new Error('Unknown graph region '+group.id);
-  const primary=group.nodes.filter(n=>group.highlights.includes(n.id));
-  const secondary=group.nodes.filter(n=>!group.highlights.includes(n.id));
-  if(primary.length>6||secondary.length>9)throw new Error('Graph region exceeds 3×5 grid '+group.id);
-  function position(items,firstRow,featured){
-   items.forEach((n,i)=>{
-    const row=firstRow+Math.floor(i/3),rowStart=Math.floor(i/3)*3;
-    const rowCount=Math.min(3,items.length-rowStart),within=i-rowStart;
-    const xOffsets=rowCount===1?[0]:rowCount===2?[-120,120]:columns;
-    const x=center[0]+xOffsets[within],y=center[1]+rows[row];
-    const label=n.graph_label||n.title,point={id:n.id,group:group.id,x,y,featured,title:n.title,label,lines:labelLines(label)};
-    points.push(point);pointById.set(n.id,point);
-   });
+const rectOverlap=(a,b)=>Math.max(0,Math.min(a.x+a.w,b.x+b.w)-Math.max(a.x,b.x))*
+ Math.max(0,Math.min(a.y+a.h,b.y+b.h)-Math.max(a.y,b.y));
+const directionalScore=(side,theta)=>{
+ const x=Math.cos(theta),y=Math.sin(theta);
+ const preference={east:x,west:-x,north:-y,south:y,
+  ne:(x-y)*.7,nw:(-x-y)*.7,se:(x+y)*.7,sw:(-x+y)*.7};
+ return -(preference[side]||0);
+};
+function placeLabels(points){
+ const placed=[];
+ const priority=[...points].sort((a,b)=>Number(b.featured)-Number(a.featured)||a.y-b.y);
+ for(const point of priority){
+  const lines=point.lines;
+  const w=Math.max(...lines.map(line=>Array.from(line).reduce((sum,c)=>sum+approximateWidth(c),0)))*17.8;
+  const h=lines.length*24;
+  const bases=[
+   {side:'east',dx:25,dy:-h/2,anchor:'start'},
+   {side:'west',dx:-25-w,dy:-h/2,anchor:'end'},
+   {side:'north',dx:-w/2,dy:-h-27,anchor:'middle'},
+   {side:'south',dx:-w/2,dy:26,anchor:'middle'},
+   {side:'ne',dx:21,dy:-h-23,anchor:'start'},
+   {side:'nw',dx:-21-w,dy:-h-23,anchor:'end'},
+   {side:'se',dx:21,dy:23,anchor:'start'},
+   {side:'sw',dx:-21-w,dy:23,anchor:'end'}
+  ];
+  const candidates=[];
+  for(const offset of [0,-25,25,-50,50])for(const base of bases){
+   candidates.push({x:point.x+base.dx,y:point.y+base.dy+offset,
+    w,h,side:base.side,anchor:base.anchor});
   }
-  position(primary,0,true);
-  position(secondary,2,false);
+  let best=null;
+  for(const candidate of candidates){
+   const overlap=placed.reduce((sum,r)=>sum+rectOverlap(candidate,r),0);
+   const outside=candidate.x<12||candidate.y<15||
+    candidate.x+candidate.w>width-12||candidate.y+candidate.h>height-15;
+   const score=overlap*50+(outside?100000:0)+
+    directionalScore(candidate.side,point.theta)*20+
+    Math.abs(candidate.y-point.y)*.05+Math.abs(candidate.x-point.x)*.05;
+   if(!best||score<best.score)best={...candidate,score};
+  }
+  const labelX=best.anchor==='start'?best.x:best.anchor==='end'?best.x+best.w:best.x+best.w/2;
+  point.labelX=labelX;
+  point.labelY=best.y+18;
+  point.labelAnchor=best.anchor;
+  point.labelBox={x:best.x,y:best.y,w:best.w,h:best.h};
+  placed.push(point.labelBox);
  }
+}
+function build(atlas){
+ const points=[],lookup=new Map();
+ // Preserve the original globally interleaved spiral rather than six separate boxes.
+ // The order moves from quantum/structure through state and kinetics to matter.
+ const order=['structure','thermo','kinetics','electrochem','matter','analysis'];
+ const groups=new Map(atlas.groups.map(g=>[g.id,g]));
+ for(const groupId of order){
+  const group=groups.get(groupId);
+  if(!group)throw new Error('Missing chemistry domain '+groupId);
+  for(const node of group.nodes){
+   const index=points.length,theta=index*goldenAngle;
+   const radius=63+77*Math.sqrt(index+1);
+   const point={id:node.id,group:groupId,featured:group.highlights.includes(node.id),
+    title:node.title,label:node.graph_label||node.title,
+    x:width/2+1.07*radius*Math.cos(theta),
+    y:height/2+.77*radius*Math.sin(theta),theta};
+   point.lines=labelLines(point.label);
+   lookup.set(node.id,point);
+   points.push(point);
+  }
+ }
+ placeLabels(points);
+ // Domain navigation focuses a representative concept on the SAME graph.
+ const centers=Object.fromEntries(atlas.groups.map(g=>{
+  const node=g.nodes.find(n=>g.highlights.includes(n.id))||g.nodes[0];
+  const pos=lookup.get(node.id);
+  return [g.id,[pos.x,pos.y]];
+ }));
  const edges=[];
  for(const relation of [...atlas.groups.flatMap(g=>g.relations),...atlas.bridges]){
-  const targets=[...relation.premises,relation.conclusion].map(id=>pointById.get(id));
-  if(targets.some(p=>!p))throw new Error('Unpositioned relation endpoint '+relation.id);
-  const cross=targets.some(p=>p.group!==targets[0].group);
-  const end=pointById.get(relation.conclusion),from=relation.premises.map(id=>pointById.get(id));
+  const from=relation.premises.map(id=>lookup.get(id));
+  const end=lookup.get(relation.conclusion);
+  if(!end||from.some(p=>!p))throw new Error('Unpositioned relation endpoint '+relation.id);
+  const cross=[...from,end].some(p=>p.group!==from[0].group);
   const joint=from.length>1?{
-   x:Math.round((from.reduce((s,p)=>s+p.x,0)/from.length+end.x)/2),
-   y:Math.round((from.reduce((s,p)=>s+p.y,0)/from.length+end.y)/2)
+   x:Math.round((from.reduce((sum,p)=>sum+p.x,0)/from.length+end.x)/2),
+   y:Math.round((from.reduce((sum,p)=>sum+p.y,0)/from.length+end.y)/2)
   }:null;
   edges.push({id:relation.id,relation,cross,from,end,joint});
  }
- // Coverage, not visual proximity, determines graph connectivity.
- const adj=new Map(points.map(p=>[p.id,new Set()]));
- for(const edge of edges)for(const source of edge.from){
-  adj.get(source.id).add(edge.end.id);adj.get(edge.end.id).add(source.id);
+ const adjacency=new Map(points.map(p=>[p.id,new Set()]));
+ for(const edge of edges)for(const p of edge.from){
+  adjacency.get(p.id).add(edge.end.id);adjacency.get(edge.end.id).add(p.id);
  }
- let componentCount=0;const visited=new Set();
- for(const point of points){
-  if(visited.has(point.id))continue;
-  componentCount++;
-  const queue=[point.id];visited.add(point.id);
-  while(queue.length)for(const next of adj.get(queue.pop()))if(!visited.has(next)){visited.add(next);queue.push(next);}
+ const visited=new Set();let componentCount=0;
+ for(const p of points){
+  if(visited.has(p.id))continue;
+  componentCount++;visited.add(p.id);
+  const stack=[p.id];
+  while(stack.length)for(const next of adjacency.get(stack.pop())){
+   if(!visited.has(next)){visited.add(next);stack.push(next);}
+  }
  }
- const unlinkedIds=points.filter(p=>adj.get(p.id).size===0).map(p=>p.id);
- return {width,height,centers,points,edges,count:points.length,relationCount:edges.length,
-  componentCount,unlinkedIds};
+ const unlinkedIds=points.filter(p=>adjacency.get(p.id).size===0).map(p=>p.id);
+ return {width,height,centers,points,edges,count:points.length,relationCount:edges.length,componentCount,unlinkedIds};
 }
-const api=Object.freeze({width,height,centers,build,clamp,labelLines,approximateWidth});
+const api=Object.freeze({width,height,build,clamp,labelLines,approximateWidth,rectOverlap});
 root.CFNetworkGraph=api;
 if(typeof module!=='undefined'&&module.exports)module.exports=api;
 })(typeof window!=='undefined'?window:globalThis);
