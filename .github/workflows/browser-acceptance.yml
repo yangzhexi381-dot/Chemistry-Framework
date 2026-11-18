@@ -1,0 +1,40 @@
+name: Browser acceptance
+on:
+  pull_request:
+  workflow_run:
+    workflows: ["pages build and deployment"]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  curriculum-browser:
+    if: github.event_name == 'pull_request' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact revision
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser test tooling
+        run: |
+          npm install --no-save --no-package-lock playwright
+          npx playwright install --with-deps chromium
+      - name: Acceptance — local PR or deployed site
+        env:
+          CF_TEST_URL: ${{ github.event_name == 'workflow_run' && 'https://yangzhexi381-dot.github.io/Chemistry-Framework/' || 'http://127.0.0.1:8765/' }}
+        run: |
+          if [ "$CF_TEST_URL" = 'http://127.0.0.1:8765/' ]; then
+            python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/cf-http.log 2>&1 &
+            for i in $(seq 1 20); do
+              if curl --fail --silent --output /dev/null http://127.0.0.1:8765/; then break; fi
+              sleep 1
+            done
+          fi
+          node tests/curriculum-browser.cjs
