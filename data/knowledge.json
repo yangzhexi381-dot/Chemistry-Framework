@@ -1507,6 +1507,314 @@
           "上式中[B]增大后rP趋于平台，能否断言B没有进入机理？"
         ]
       }
+    },
+    {
+      "id": "structure.infinite_well",
+      "type": "model",
+      "title": "势阱与量子化",
+      "graph_label": "势阱与量子化",
+      "model_ref": "well",
+      "statement": "在一维无限深势阱中，边界条件将可归一化本征函数限制为驻波，得到离散能谱。",
+      "description": "在一维无限深势阱中，边界条件将可归一化本征函数限制为驻波，得到离散能谱。",
+      "equations": [
+        "Eₙ=n²π²ℏ²/(2mL²)"
+      ],
+      "scope": "非相对论单粒子；一维势阱、无限高壁、固定 L",
+      "assumptions": [
+        "非相对论单粒子",
+        "一维势阱、无限高壁、固定 L"
+      ],
+      "limitations": [
+        "电子轨道不等于经典粒子轨迹",
+        "不把势阱结果直接套到真实氢原子"
+      ],
+      "domain": [
+        "quantum_chemistry",
+        "structure_bonding"
+      ],
+      "units": {},
+      "claim_status": "exact_within_model",
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "结构化学·交互实验室（用户上传 HTML，2026-11-18）：模型、公式与交互说明"
+        }
+      ],
+      "tags": [
+        "量子化学",
+        "结构化学",
+        "可视化模型"
+      ],
+      "presentation": {
+        "chemical_question": "势阱与量子化解释什么？",
+        "chemical_meaning": "在一维无限深势阱中，边界条件将可归一化本征函数限制为驻波，得到离散能谱。",
+        "intuitive_explanation": "电子轨道不等于经典粒子轨迹",
+        "math_depth": "optional"
+      }
+    },
+    {
+      "id": "structure.atomic_orbitals",
+      "type": "model",
+      "title": "氢原子轨道",
+      "graph_label": "氢原子轨道",
+      "model_ref": "orbitals",
+      "statement": "类氢原子的径向分布和角向球谐结构共同决定空间概率密度、相位及节点。",
+      "description": "类氢原子的径向分布和角向球谐结构共同决定空间概率密度、相位及节点。",
+      "equations": [
+        "ψₙₗₘ(r,θ,φ)=Rₙₗ(r)Yₗᵐ(θ,φ)"
+      ],
+      "scope": "单电子中心势、非相对论；轨道点云使用概率抽样",
+      "assumptions": [
+        "单电子中心势、非相对论",
+        "轨道点云使用概率抽样"
+      ],
+      "limitations": [
+        "颜色表示波函数相位，不是电荷符号",
+        "径向概率需包含球壳体积因子 r²"
+      ],
+      "domain": [
+        "quantum_chemistry",
+        "structure_bonding"
+      ],
+      "units": {},
+      "claim_status": "exact_within_model",
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "结构化学·交互实验室（用户上传 HTML，2026-11-18）：模型、公式与交互说明"
+        }
+      ],
+      "tags": [
+        "量子化学",
+        "结构化学",
+        "可视化模型"
+      ],
+      "presentation": {
+        "chemical_question": "氢原子轨道解释什么？",
+        "chemical_meaning": "类氢原子的径向分布和角向球谐结构共同决定空间概率密度、相位及节点。",
+        "intuitive_explanation": "颜色表示波函数相位，不是电荷符号",
+        "math_depth": "optional"
+      }
+    },
+    {
+      "id": "structure.atomic_terms",
+      "type": "model",
+      "title": "角动量与光谱项",
+      "graph_label": "角动量与光谱项",
+      "model_ref": "terms",
+      "statement": "通过多电子总轨道角动量 L、自旋 S 和总角动量 J 的耦合得到候选光谱项；等价电子还要满足交换反对称性。",
+      "description": "通过多电子总轨道角动量 L、自旋 S 和总角动量 J 的耦合得到候选光谱项；等价电子还要满足交换反对称性。",
+      "equations": [
+        "J=|L−S|,…,L+S"
+      ],
+      "scope": "LS 耦合近似；p² 等价电子状态满足泡利反对称性",
+      "assumptions": [
+        "LS 耦合近似",
+        "p² 等价电子状态满足泡利反对称性"
+      ],
+      "limitations": [
+        "角动量相加只能产生候选项，不能替代泡利筛选",
+        "能级简图不是实测能级排序"
+      ],
+      "domain": [
+        "quantum_chemistry",
+        "structure_bonding"
+      ],
+      "units": {},
+      "claim_status": "exact_within_model",
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "结构化学·交互实验室（用户上传 HTML，2026-11-18）：模型、公式与交互说明"
+        }
+      ],
+      "tags": [
+        "量子化学",
+        "结构化学",
+        "可视化模型"
+      ],
+      "presentation": {
+        "chemical_question": "角动量与光谱项解释什么？",
+        "chemical_meaning": "通过多电子总轨道角动量 L、自旋 S 和总角动量 J 的耦合得到候选光谱项；等价电子还要满足交换反对称性。",
+        "intuitive_explanation": "角动量相加只能产生候选项，不能替代泡利筛选",
+        "math_depth": "optional"
+      }
+    },
+    {
+      "id": "structure.two_state_coupling",
+      "type": "model",
+      "title": "双能级与轨道耦合",
+      "graph_label": "双能级与轨道耦合",
+      "model_ref": "coupling",
+      "statement": "正交两态哈密顿矩阵的本征值随耦合 V 发生排斥，模型可观察避免交叉和态混合。",
+      "description": "正交两态哈密顿矩阵的本征值随耦合 V 发生排斥，模型可观察避免交叉和态混合。",
+      "equations": [
+        "E±=±√[(Δ/2)²+V²]"
+      ],
+      "scope": "正交两态基组；H 的对角项为 ±Δ/2",
+      "assumptions": [
+        "正交两态基组",
+        "H 的对角项为 ±Δ/2"
+      ],
+      "limitations": [
+        "真实 H₂⁺ LCAO 一般具有重叠矩阵 S",
+        "单独看轨道系数正负不能判断物理成键"
+      ],
+      "domain": [
+        "quantum_chemistry",
+        "structure_bonding"
+      ],
+      "units": {},
+      "claim_status": "exact_within_model",
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "结构化学·交互实验室（用户上传 HTML，2026-11-18）：模型、公式与交互说明"
+        }
+      ],
+      "tags": [
+        "量子化学",
+        "结构化学",
+        "可视化模型"
+      ],
+      "presentation": {
+        "chemical_question": "双能级与轨道耦合解释什么？",
+        "chemical_meaning": "正交两态哈密顿矩阵的本征值随耦合 V 发生排斥，模型可观察避免交叉和态混合。",
+        "intuitive_explanation": "真实 H₂⁺ LCAO 一般具有重叠矩阵 S",
+        "math_depth": "optional"
+      }
+    },
+    {
+      "id": "structure.vibrational_spectra",
+      "type": "model",
+      "title": "势能面与振动光谱",
+      "graph_label": "势能面与振动光谱",
+      "model_ref": "spectra",
+      "statement": "谐振子与 Morse 势呈现不同的振动能级间距；振动光谱还受跃迁矩阵元与近似条件约束。",
+      "description": "谐振子与 Morse 势呈现不同的振动能级间距；振动光谱还受跃迁矩阵元与近似条件约束。",
+      "equations": [
+        "Eᵥ=(v+½)ℏω（谐振子）"
+      ],
+      "scope": "一维核振动坐标；光谱示意不使用真实分子的实验参数",
+      "assumptions": [
+        "一维核振动坐标",
+        "光谱示意不使用真实分子的实验参数"
+      ],
+      "limitations": [
+        "动画中的小球不是真实定态核轨迹",
+        "IR/Raman 峰强和 FC 柱图属于教学示意"
+      ],
+      "domain": [
+        "quantum_chemistry",
+        "structure_bonding"
+      ],
+      "units": {},
+      "claim_status": "exact_within_model",
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "结构化学·交互实验室（用户上传 HTML，2026-11-18）：模型、公式与交互说明"
+        }
+      ],
+      "tags": [
+        "量子化学",
+        "结构化学",
+        "可视化模型"
+      ],
+      "presentation": {
+        "chemical_question": "势能面与振动光谱解释什么？",
+        "chemical_meaning": "谐振子与 Morse 势呈现不同的振动能级间距；振动光谱还受跃迁矩阵元与近似条件约束。",
+        "intuitive_explanation": "动画中的小球不是真实定态核轨迹",
+        "math_depth": "optional"
+      }
+    },
+    {
+      "id": "structure.c2v_symmetry",
+      "type": "model",
+      "title": "分子对称性与选律",
+      "graph_label": "分子对称性与选律",
+      "model_ref": "symmetry",
+      "statement": "C₂ᵥ 群表示约束轨道的对称适应线性组合以及电偶极跃迁的对称允许条件。",
+      "description": "C₂ᵥ 群表示约束轨道的对称适应线性组合以及电偶极跃迁的对称允许条件。",
+      "equations": [
+        "Γᵢ⊗Γμ⊗Γ𝒇 ⊃ A₁"
+      ],
+      "scope": "H₂O C₂ᵥ 对称；z 为 C₂ 轴、分子取 xz 平面",
+      "assumptions": [
+        "H₂O C₂ᵥ 对称",
+        "z 为 C₂ 轴、分子取 xz 平面"
+      ],
+      "limitations": [
+        "表示直积含全对称表示是必要条件但不足以保证强度非零",
+        "改变坐标约定须同步改变轨道标签"
+      ],
+      "domain": [
+        "quantum_chemistry",
+        "structure_bonding"
+      ],
+      "units": {},
+      "claim_status": "exact_within_model",
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "结构化学·交互实验室（用户上传 HTML，2026-11-18）：模型、公式与交互说明"
+        }
+      ],
+      "tags": [
+        "量子化学",
+        "结构化学",
+        "可视化模型"
+      ],
+      "presentation": {
+        "chemical_question": "分子对称性与选律解释什么？",
+        "chemical_meaning": "C₂ᵥ 群表示约束轨道的对称适应线性组合以及电偶极跃迁的对称允许条件。",
+        "intuitive_explanation": "表示直积含全对称表示是必要条件但不足以保证强度非零",
+        "math_depth": "optional"
+      }
+    },
+    {
+      "id": "structure.huckel_pi",
+      "type": "model",
+      "title": "Hückel 共轭 π 体系",
+      "graph_label": "Hückel 共轭 π 体系",
+      "model_ref": "huckel",
+      "statement": "把局域 p 轨道视为基函数，在最近邻近似下求开链 N 中心哈密顿矩阵的能级和轨道系数。",
+      "description": "把局域 p 轨道视为基函数，在最近邻近似下求开链 N 中心哈密顿矩阵的能级和轨道系数。",
+      "equations": [
+        "Eₖ=α+2β cos[kπ/(N+1)]"
+      ],
+      "scope": "正交 p 轨道；开链 N=3–6、最近邻耦合 β",
+      "assumptions": [
+        "正交 p 轨道",
+        "开链 N=3–6、最近邻耦合 β"
+      ],
+      "limitations": [
+        "忽略电子相关和非最近邻相互作用",
+        "示意能量是模型本征值而非实测光电子谱"
+      ],
+      "domain": [
+        "quantum_chemistry",
+        "structure_bonding"
+      ],
+      "units": {},
+      "claim_status": "exact_within_model",
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "结构化学·交互实验室（用户上传 HTML，2026-11-18）：模型、公式与交互说明"
+        }
+      ],
+      "tags": [
+        "量子化学",
+        "结构化学",
+        "可视化模型"
+      ],
+      "presentation": {
+        "chemical_question": "Hückel 共轭 π 体系解释什么？",
+        "chemical_meaning": "把局域 p 轨道视为基函数，在最近邻近似下求开链 N 中心哈密顿矩阵的能级和轨道系数。",
+        "intuitive_explanation": "忽略电子相关和非最近邻相互作用",
+        "math_depth": "optional"
+      }
     }
   ],
   "relations": [
@@ -2335,6 +2643,242 @@
         }
       ],
       "tests": []
+    },
+    {
+      "id": "rel.structure.well",
+      "type": "conditional_derivation",
+      "premises": [
+        "qm.hamiltonian",
+        "qm.eigenproblem"
+      ],
+      "conclusion": "structure.infinite_well",
+      "claim": "对非相对论一维无限深势阱，本征方程结合两端 Dirichlet 边界条件得到正弦驻波及离散能谱。",
+      "conditions": [
+        "固定宽度与无限高势垒",
+        "波函数满足 ψ(0)=ψ(L)=0"
+      ],
+      "steps": [
+        "解微分本征方程",
+        "施加边界条件",
+        "归一化并求能量"
+      ],
+      "scope": "结构化学交互模型的定义、约束与联系",
+      "limitations": [
+        "不能推断所有束缚态都按 n² 分布"
+      ],
+      "error_control": null,
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "结构化学·交互实验室：模型公式及说明"
+        }
+      ],
+      "tests": []
+    },
+    {
+      "id": "rel.structure.atom",
+      "type": "modeling_specialization",
+      "premises": [
+        "qm.eigenproblem"
+      ],
+      "conclusion": "structure.atomic_orbitals",
+      "claim": "在库仑中心势中分离薛定谔方程，得到径向函数与球谐函数构成的空间波函数。",
+      "conditions": [
+        "非相对论单电子中心势"
+      ],
+      "steps": [
+        "球坐标分离变量",
+        "识别径向与角向节点"
+      ],
+      "scope": "结构化学交互模型的定义、约束与联系",
+      "limitations": [
+        "不能用经典轨道诠释概率云"
+      ],
+      "error_control": null,
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "结构化学·交互实验室：模型公式及说明"
+        }
+      ],
+      "tests": []
+    },
+    {
+      "id": "rel.structure.terms",
+      "type": "symmetry_constraint",
+      "premises": [
+        "structure.atomic_orbitals"
+      ],
+      "conclusion": "structure.atomic_terms",
+      "claim": "多个电子的角动量耦合须同时满足交换反对称性。",
+      "conditions": [
+        "LS 耦合适用",
+        "等价电子遵守泡利原理"
+      ],
+      "steps": [
+        "合成 L 和 S",
+        "耦合 J",
+        "筛除不允许的交换对称性"
+      ],
+      "scope": "结构化学交互模型的定义、约束与联系",
+      "limitations": [
+        "强自旋轨道耦合时须使用其他耦合方案"
+      ],
+      "error_control": null,
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "结构化学·交互实验室：模型公式及说明"
+        }
+      ],
+      "tests": []
+    },
+    {
+      "id": "rel.structure.two",
+      "type": "exact_derivation",
+      "premises": [
+        "qm.eigenproblem"
+      ],
+      "conclusion": "structure.two_state_coupling",
+      "claim": "二阶实对称哈密顿矩阵的本征值产生 E± 和非零耦合时的避免交叉。",
+      "conditions": [
+        "选取正交两态基底",
+        "矩阵为厄米实对称"
+      ],
+      "steps": [
+        "写特征行列式",
+        "求二次方程根",
+        "归一化本征向量"
+      ],
+      "scope": "结构化学交互模型的定义、约束与联系",
+      "limitations": [
+        "不等价于非正交 LCAO 的广义本征方程"
+      ],
+      "error_control": null,
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "结构化学·交互实验室：模型公式及说明"
+        }
+      ],
+      "tests": []
+    },
+    {
+      "id": "rel.structure.morse",
+      "type": "modeling_specialization",
+      "premises": [
+        "qm.spectrum"
+      ],
+      "conclusion": "structure.vibrational_spectra",
+      "claim": "围绕势能极小值的谐振子近似给出等间距振动能级，Morse 势描述一类非谐效应。",
+      "conditions": [
+        "Born–Oppenheimer 电子势能面近似",
+        "一维振动模型"
+      ],
+      "steps": [
+        "定义核坐标势能",
+        "求对应振动能级",
+        "与选择定则结合分析光谱"
+      ],
+      "scope": "结构化学交互模型的定义、约束与联系",
+      "limitations": [
+        "示意谱强不作为实验预测"
+      ],
+      "error_control": null,
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "结构化学·交互实验室：模型公式及说明"
+        }
+      ],
+      "tests": []
+    },
+    {
+      "id": "rel.structure.sym",
+      "type": "symmetry_constraint",
+      "premises": [
+        "structure.atomic_orbitals",
+        "structure.two_state_coupling"
+      ],
+      "conclusion": "structure.c2v_symmetry",
+      "claim": "轨道的对称类型限制可非零耦合的矩阵元以及电偶极跃迁允许条件。",
+      "conditions": [
+        "C₂ᵥ 对称和固定坐标约定"
+      ],
+      "steps": [
+        "构造 SALC",
+        "判定不可约表示",
+        "检查 Γᵢ⊗Γμ⊗Γ𝒇 是否含 A₁"
+      ],
+      "scope": "结构化学交互模型的定义、约束与联系",
+      "limitations": [
+        "对称允许不保证非零跃迁强度"
+      ],
+      "error_control": null,
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "结构化学·交互实验室：模型公式及说明"
+        }
+      ],
+      "tests": []
+    },
+    {
+      "id": "rel.structure.huckel",
+      "type": "modeling_generalization",
+      "premises": [
+        "structure.two_state_coupling"
+      ],
+      "conclusion": "structure.huckel_pi",
+      "claim": "从二阶轨道耦合推广到 N 阶最近邻开链矩阵，能级和轨道系数仍由本征值问题确定。",
+      "conditions": [
+        "等价 p 轨道、正交最近邻、开链"
+      ],
+      "steps": [
+        "构造三对角矩阵",
+        "求特征值与系数"
+      ],
+      "scope": "结构化学交互模型的定义、约束与联系",
+      "limitations": [
+        "电子-电子作用等不包含在模型中"
+      ],
+      "error_control": null,
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "结构化学·交互实验室：模型公式及说明"
+        }
+      ],
+      "tests": []
+    },
+    {
+      "id": "rel.structure.h2plus",
+      "type": "conceptual_bridge",
+      "premises": [
+        "structure.two_state_coupling",
+        "qm.variational_principle"
+      ],
+      "conclusion": "model.h2plus.frozen_1s_lcao",
+      "claim": "双能级耦合解释能级分裂的矩阵结构，而真实 H₂⁺ 固定核 LCAO 需要处理基函数重叠。",
+      "conditions": [
+        "有限基组与变分近似"
+      ],
+      "steps": [
+        "先解正交双态特征值问题",
+        "再加入重叠矩阵 S 检查 Hc=ESc"
+      ],
+      "scope": "结构化学交互模型的定义、约束与联系",
+      "limitations": [
+        "不能直接把正交双态能级当作 H₂⁺ 总能量"
+      ],
+      "error_control": null,
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "结构化学·交互实验室：模型公式及说明"
+        }
+      ],
+      "tests": []
     }
   ],
   "inquiries": [],
@@ -2520,6 +3064,33 @@
             "kinetics.ch11.8"
           ],
           "relation_id": "rel.kinetics11.activation_derivative"
+        },
+        {
+          "title": "边界条件与原子结构",
+          "node_ids": [
+            "qm.eigenproblem",
+            "structure.infinite_well",
+            "structure.atomic_orbitals"
+          ],
+          "relation_id": "rel.structure.well"
+        },
+        {
+          "title": "从轨道耦合到共轭体系",
+          "node_ids": [
+            "structure.two_state_coupling",
+            "structure.c2v_symmetry",
+            "structure.huckel_pi"
+          ],
+          "relation_id": "rel.structure.huckel"
+        },
+        {
+          "title": "振动、对称性和光谱",
+          "node_ids": [
+            "structure.vibrational_spectra",
+            "structure.c2v_symmetry",
+            "structure.atomic_terms"
+          ],
+          "relation_id": "rel.structure.sym"
         }
       ]
     },
@@ -2585,6 +3156,24 @@
             "kinetics.ch11.4"
           ],
           "relation_id": "rel.kinetics11.law_to_integral"
+        },
+        {
+          "title": "量子态、轨道与电子结构",
+          "node_ids": [
+            "structure.infinite_well",
+            "structure.atomic_orbitals",
+            "structure.two_state_coupling"
+          ],
+          "relation_id": "rel.structure.two"
+        },
+        {
+          "title": "H₂⁺ 与正交双态模型的边界",
+          "node_ids": [
+            "qm.variational_principle",
+            "structure.two_state_coupling",
+            "model.h2plus.frozen_1s_lcao"
+          ],
+          "relation_id": "rel.structure.h2plus"
         }
       ]
     }
