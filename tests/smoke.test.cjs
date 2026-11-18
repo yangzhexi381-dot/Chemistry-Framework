@@ -19,7 +19,7 @@ test('all static assets referenced by index exist', () => {
   const html = read('index.html');
   const files = [...html.matchAll(/(?:src|href)="((?:src|assets)\/[^"]+)"/g)].map(x => x[1]);
   assert.ok(files.length >= 5);
-  for (const f of files) assert.ok(fs.existsSync(path.join(root, f)), `missing ${f}`);
+  for (const f of files) assert.ok(fs.existsSync(path.join(root, f.split('?')[0])), `missing ${f}`);
 });
 
 test('N2O4 educational kinetics model responds to K', () => {

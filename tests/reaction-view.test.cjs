@@ -25,6 +25,6 @@ test('other views and all source text remain intact; canonical knowledge routes 
   assert.match(app,/selectedDomain==='热力学与动力学'/);
   assert.match(app,/selectedDomain==='反应与机理'/);
   assert.match(app,/CFGraphViews\.reactionMechanismNode/);
-  assert.match(read('index.html'),/src="src\/graph-views\.js"/);
+  assert.match(read('index.html'),/src="src\/graph-views\.js\?v=20261118-18"/);
   for(let i=1;i<=10;i++)assert.ok(knowledge.nodes.some(n=>n.id==='kinetics.ch11.'+i&&n.curriculum_ref==='pc.11.'+i));
 });
