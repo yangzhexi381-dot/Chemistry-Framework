@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.5.0-dev — unified chemistry knowledge atlas (2026-11-18)
+
+- Replaced seven disjoint graph-perspective buttons and overlapping spiral plot with one unified six-layer knowledge atlas, presenting all 64 science nodes and 49 existing relations in a coherent page.
+- Preserved material/species, structure, statistical thermodynamics, kinetics, electrochemistry and analytical nodes; added eight evidenced cross-domain bridge cards to show actual inter-field relations without inventing mechanisms.
+- Added responsive group overview, local anchors, detail inspection, collapsed source relations and deep links. No chemistry source data or numerical model calculations changed.
+- Added deterministic grouping/counts and hosted Playwright Chromium acceptance for all routes and viewport widths.
+
+
 ## v0.5.0-dev — restore Materials & Composition graph (2026-11-18)
 
 - Repaired a permanently empty graph view caused by filtering for node types absent from the original knowledge data.

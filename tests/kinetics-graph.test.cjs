@@ -31,7 +31,8 @@ test('graph relations have valid endpoints and conditional provenance',()=>{
  assert.ok(edges.some(r=>r.type==='learning_dependency'));
 });
 test('focused graph view and safe textbook link coexist with existing navigation',()=>{
- const code=read('src/app.js');assert.ok(code.includes("['热力学与动力学','thermo']"));
+ const code=read('src/app.js');assert.ok(code.includes("const views=[['全部视角','全部']]"));
+ assert.ok(code.includes('CFUnifiedMap.build(db.nodes,db.relations)'));
  assert.ok(!code.includes("['反应动力学','kinetics11']"));
  assert.ok(!code.includes("selectedDomain==='反应动力学'"));
  assert.ok(read('src/graph-views.js').includes("domain.includes('chemical_kinetics')"));
