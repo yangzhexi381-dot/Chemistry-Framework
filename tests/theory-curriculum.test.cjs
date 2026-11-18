@@ -26,7 +26,8 @@ test('legacy chapter and workbench links still navigate with the correct parent 
   assert.match(controller,/activatePage\('theory'\); clearQuery\(\)/);
   assert.match(controller,/hash === 'theory'[\s\S]*?if \(!started\) load\(\)/);
   assert.match(controller,/hash === 'learn'[\s\S]*?scrollIntoView/);
-  assert.match(html,/href="#learn\/pc\.11\.1"/);
+  assert.match(html,/href="#concept\/model\.h2plus\.frozen_1s_lcao"/);
+  assert.match(read('src/app.js'),/href="#learn\/\$\{esc\(n\.curriculum_ref\)\}"/);
   assert.doesNotMatch(controller,/activatePage\('learn'\)/);
   assert.match(read('src/app.js'),/href="#learn\/\$\{esc\(n\.curriculum_ref\)\}"/);
 });
