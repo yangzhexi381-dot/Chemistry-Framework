@@ -30,7 +30,12 @@ function networkApplyCamera(){
  clampCamera();
  const svg=document.getElementById('network-svg');
  if(svg)svg.setAttribute('viewBox',[networkCamera.x,networkCamera.y,networkCamera.w,networkCamera.h].join(' '));
- document.getElementById('network-viewport')?.classList.toggle('is-detail-zoom',networkCamera.w<=700);
+ const viewport=document.getElementById('network-viewport');
+ if(viewport){
+  viewport.classList.toggle('is-overview',networkCamera.w>1120);
+  viewport.classList.toggle('is-domain-zoom',networkCamera.w<=1120&&networkCamera.w>570);
+  viewport.classList.toggle('is-detail-zoom',networkCamera.w<=570);
+ }
  const zoom=document.getElementById('network-zoom-label');
  if(zoom)zoom.textContent=Math.round(CFNetworkGraph.width/networkCamera.w*100)+'%';
 }
@@ -41,11 +46,11 @@ function networkZoom(factor){
 }
 function networkFocusGroup(id){
  const pos=CFNetworkGraph.centers[id];if(!pos)return;
- networkCamera={x:pos[0]-300,y:pos[1]-250,w:600,h:500};networkApplyCamera();
+ networkCamera={x:pos[0]-360,y:pos[1]-385,w:720,h:770};networkApplyCamera();
 }
 function networkFocusNode(id){
  const n=networkData?.points.find(p=>p.id===id);if(!n)return;
- networkCamera={x:n.x-235,y:n.y-195,w:470,h:390};networkApplyCamera();
+ networkCamera={x:n.x-240,y:n.y-220,w:480,h:440};networkApplyCamera();
 }
 function renderAtlas(){
  const map=CFUnifiedMap.build(db.nodes,db.relations);
@@ -65,7 +70,7 @@ function renderAtlas(){
  };
  const relationSVG=graph.edges.map(edge=>{
    const r=edge.relation,active=relationSelected(r),dim=selectedNode&&!active;
-   const cls='network-relation'+(edge.cross?' is-cross':'')+(active?' is-connected':'')+(dim?' is-muted':'');
+   const cls='network-relation'+(edge.cross?' is-cross':' is-local')+(active?' is-connected':'')+(dim?' is-muted':'');
    const limbs=edge.from.map(source=>'<path class="network-limb" d="'+curved(source,edge.joint||edge.end,edge.cross)+'"'+(edge.joint?'':' marker-end="url(#network-arrow)"')+'/>').join('');
    const end=edge.joint?'<path class="network-final" d="'+curved(edge.joint,edge.end,edge.cross)+'" marker-end="url(#network-arrow)"/>':'';
    const joint=edge.joint?'<circle class="network-junction" cx="'+edge.joint.x+'" cy="'+edge.joint.y+'" r="3.7"/>':'';
@@ -74,21 +79,24 @@ function renderAtlas(){
  }).join('');
  const groupSVG=map.groups.map(g=>{
   const c=CFNetworkGraph.centers[g.id];
-  return '<g class="network-group" data-group="'+esc(g.id)+'"><rect x="'+(c[0]-220)+'" y="'+(c[1]-235)+'" width="440" height="468" rx="30"/>'+
-    '<text class="network-group-title" x="'+(c[0]-189)+'" y="'+(c[1]-188)+'">'+esc(g.number+'  '+g.title)+'</text>'+
-    '<text class="network-group-subtitle" x="'+(c[0]-188)+'" y="'+(c[1]-163)+'">'+esc(g.subtitle)+'</text>'+
-    '<text class="network-group-count" x="'+(c[0]+181)+'" y="'+(c[1]-188)+'" text-anchor="end">'+g.nodes.length+' 节点</text></g>';
+  return '<g class="network-group" data-group="'+esc(g.id)+'"><rect x="'+(c[0]-352)+'" y="'+(c[1]-375)+'" width="704" height="750" rx="32"/>'+
+    '<text class="network-group-title" x="'+(c[0]-306)+'" y="'+(c[1]-321)+'">'+esc(g.number+'  '+g.title)+'</text>'+
+    '<text class="network-group-subtitle" x="'+(c[0]-305)+'" y="'+(c[1]-290)+'">'+esc(g.subtitle)+'</text>'+
+    '<text class="network-group-count" x="'+(c[0]+302)+'" y="'+(c[1]-321)+'" text-anchor="end">'+g.nodes.length+' 节点</text>'+
+    '<line class="network-tier-line" x1="'+(c[0]-302)+'" y1="'+(c[1]-42)+'" x2="'+(c[0]+302)+'" y2="'+(c[1]-42)+'"/>'+
+    '<text class="network-tier-label" x="'+(c[0]-305)+'" y="'+(c[1]-65)+'">核心概念</text>'+
+    '<text class="network-tier-label" x="'+(c[0]-305)+'" y="'+(c[1]-17)+'">关联拓展</text></g>';
  }).join('');
  const activeIds=new Set();if(selectedNode)for(const e of graph.edges)if(relationSelected(e.relation))for(const id of [...e.relation.premises,e.relation.conclusion])activeIds.add(id);
  const nodeSVG=graph.points.map(p=>{
   const n=byId.get(p.id),chosen=selectedNode===p.id,related=activeIds.has(p.id);
   const isDim=selectedNode&&!chosen&&!related;
   const cls='node network-node'+(chosen?' selected':'')+(related?' is-related':'')+(isDim?' is-muted':'');
-  const maxChars=p.featured?8:6;const label=p.label.length>maxChars?p.label.slice(0,maxChars-1)+'…':p.label;
+  const labelLines=p.lines.map((line,i)=>'<tspan x="'+p.x.toFixed(1)+'" dy="'+(i===0?0:27)+'">'+esc(line)+'</tspan>').join('');
   return '<g class="'+cls+'" data-node="'+esc(p.id)+'" data-group="'+esc(p.group)+'" role="button" tabindex="0" aria-label="'+esc(n.title)+'"><title>'+esc(n.title)+'</title>'+
-    '<circle cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="'+(chosen?12:p.featured?10:7)+'" fill="'+colors[p.group]+'"/>'+
-    '<circle class="network-hit-target" cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="22" fill="transparent"/>'+
-    '<text class="network-label'+(p.featured||chosen?'':' network-secondary')+'" x="'+p.x.toFixed(1)+'" y="'+(p.y+24).toFixed(1)+'">'+esc(label)+'</text></g>';
+    '<circle cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="'+(chosen?17:p.featured?15:12)+'" fill="'+colors[p.group]+'"/>'+
+    '<circle class="network-hit-target" cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="30" fill="transparent"/>'+
+    '<text class="network-label'+(p.featured?' network-primary':' network-secondary')+'" x="'+p.x.toFixed(1)+'" y="'+(p.y+34).toFixed(1)+'">'+labelLines+'</text></g>';
  }).join('');
  const diagram='<svg id="network-svg" class="network-svg" viewBox="0 0 '+graph.width+' '+graph.height+'" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="64 个化学知识节点与 49 条带条件关系的统一交互网络"><defs><marker id="network-arrow" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L6 3 L0 6" fill="none" stroke="#6f9c81" stroke-width="1.3"/></marker></defs>'+groupSVG+relationSVG+nodeSVG+'</svg>';
  const chip=node=>'<button class="atlas-node'+(selectedNode===node.id?' selected':'')+'" type="button" data-node="'+esc(node.id)+'" title="'+esc(node.title)+'">'+esc(node.graph_label||node.title)+'</button>';
@@ -104,14 +112,14 @@ function renderAtlas(){
   const groupNames=relation.groups.map(id=>CFUnifiedMap.groups.find(g=>g.id===id)?.label||id).join(' · ');
   return '<a class="atlas-bridge" data-relation="'+esc(relation.id)+'" href="#concept/'+esc(relation.conclusion)+'"><span class="atlas-bridge-domain">'+esc(groupNames)+'</span><b>'+esc(byId.get(relation.conclusion)?.title||relation.conclusion)+'</b><span class="atlas-bridge-claim">'+esc(relation.claim)+'</span><small>类型：'+esc(relation.type)+' · '+esc((relation.conditions||[]).slice(0,2).join('；')||'详见适用条件')+'</small></a>';
  };
- host.innerHTML='<div class="network-intro"><div><strong>一张网络，保留每一个节点</strong><p>全部 64 个节点、49 条既有关系都在图中。浅色为领域内部关系，深色为真实跨领域联系；多前提关系通过汇合点指向结论。</p></div><span>6 个领域 · 8 条跨领域关系</span></div>'+
-  '<div class="network-controls"><div class="network-controls-left"><button type="button" id="network-zoom-in" aria-label="放大网络">放大 ＋</button><button type="button" id="network-zoom-out" aria-label="缩小网络">缩小 −</button><button type="button" id="network-reset">完整网络</button><button type="button" id="network-pan-toggle" aria-pressed="false">手指平移：关</button></div><div class="network-controls-right"><span id="network-zoom-label">100%</span><span>点节点看详情；手机默认可正常滚动页面</span></div></div>'+
+ host.innerHTML='<div class="network-intro"><div><strong>一张知识架构，从全局逐层放大</strong><p>64 个节点始终保留。全局先看六个领域与跨域关系；进入一个领域后显示核心概念，再放大可看完整名称、内部连线和多前提汇合点。</p></div><span>6 个领域 · 8 条跨领域关系</span></div>'+
+  '<div class="network-controls"><div class="network-controls-left"><button type="button" id="network-zoom-in" aria-label="放大网络">放大 ＋</button><button type="button" id="network-zoom-out" aria-label="缩小网络">缩小 −</button><button type="button" id="network-reset">完整网络</button><button type="button" id="network-pan-toggle" aria-pressed="false">手指平移：关</button></div><div class="network-controls-right"><span id="network-zoom-label">100%</span><span>总览看架构 · 点领域定位 · 再放大看全名</span></div></div>'+
   '<div id="network-viewport" class="network-viewport" aria-label="可拖动和缩放的化学知识网络">'+diagram+'</div>'+
-  '<div class="network-footnote">图中线条只表示已经记录的知识关系，不人为补画无依据的联系。目前包含 '+graph.componentCount+' 个关系子网，'+graph.unlinkedIds.length+' 个节点尚无直接编码关系；这属于知识覆盖情况，不是显示错误。</div>'+
+  '<div class="network-footnote">局部关系在放大后显示，跨领域连接在总览中保留；所有关系均来自现有证据数据。目前包含 '+graph.componentCount+' 个关系子网，'+graph.unlinkedIds.length+' 个节点尚无直接编码关系；这属于知识覆盖情况，不是显示错误。</div>'+
   '<details class="network-index"><summary><span>按领域查阅所有知识点</span><small>六组辅助索引，不会从网络中移除节点</small></summary><div class="atlas-grid">'+sections+'</div></details>'+
   '<section class="atlas-links"><div class="atlas-links-head"><div><h3>跨领域的真实联系</h3><p>八条已有跨领域关系均可回到网络中的具体节点，并保留前提和适用范围。</p></div><span>'+map.bridges.length+' 条</span></div><div class="atlas-link-grid">'+map.bridges.map(relationText).join('')+'</div></section>';
- if(!networkStarted&&window.matchMedia('(max-width:780px)').matches){
-  networkCamera={x:CFNetworkGraph.centers.matter[0]-250,y:CFNetworkGraph.centers.matter[1]-225,w:500,h:450};
+ if(!networkStarted){
+  networkCamera={x:0,y:0,w:graph.width,h:graph.height};
  }
  networkStarted=true;
  const viewport=host.querySelector('#network-viewport');
