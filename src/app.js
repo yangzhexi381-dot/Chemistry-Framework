@@ -45,7 +45,7 @@ function networkZoom(factor){
  networkCamera={x:cx-w/2,y:cy-h/2,w,h};networkApplyCamera();
 }
 function networkFocusGroup(id){
- const pos=CFNetworkGraph.centers[id];if(!pos)return;
+ const pos=networkData?.centers[id];if(!pos)return;
  networkCamera={x:pos[0]-360,y:pos[1]-270,w:720,h:540};networkApplyCamera();
 }
 function networkFocusNode(id){
