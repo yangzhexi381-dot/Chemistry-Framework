@@ -148,8 +148,9 @@
     if (!section.links?.length) relations.append(element('p', '本节尚未另列跨节连接。'));
     for (const relation of section.links || []) {
       const hash = targetHash(relation.target);
-      if (hash) relations.append(link(relation.label + ' →', hash, 'curriculum-crosslink'));
-      else relations.append(element('p', relation.label + '（目标尚未接入）'));
+      const sectionReady = !hash?.startsWith('#learn/') || records.some(item => item.section.id === relation.target);
+      if (hash && sectionReady) relations.append(link(relation.label + ' →', hash, 'curriculum-crosslink'));
+      else relations.append(element('p', relation.label + '（关联章节待接入）'));
     }
     article.append(relations);
     const source = block('来源与核对', 'curriculum-source');

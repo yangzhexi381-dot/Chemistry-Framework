@@ -2,9 +2,9 @@
 
 ## v0.5.0-dev — kinetics learning (2026-11-18)
 
-- Added original chapter-based learning content for physical chemistry 11/12, with explicit assumptions, equations, reasoning, source pages and self-checks.
+- Integrated physical chemistry Chapter 11 (11.1–11.10): original teaching notes, equations, reasoning, source pages, boundaries and self-checks. Chapter 12 remains unpublished.
 - Added searchable learning UI and stable section/model routes.
-- Added curriculum completeness and search regression checks; retained existing scientific models.
+- Added chapter-11 completeness and search regression checks; future Chapter 12 links display as pending instead of leading to missing content. Retained existing scientific models.
 - Scope, independent scientific review and actual checks recorded in docs/TEXTBOOK_INTEGRATION.md.
 
 
