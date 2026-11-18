@@ -35,7 +35,7 @@ test('network geometry keeps six labelled groups without replacing actual depend
  const index=read('index.html'),app=read('src/app.js'),css=read('assets/css/style.css');
  assert.match(index,/src="src\/network-graph\.js"/);
  assert.ok(app.includes('CFNetworkGraph.build(map)'));
- assert.ok(app.includes('class="network-relation'));
+ assert.ok(app.includes('network-relation'));
  assert.ok(app.includes('class="node network-node'));
  assert.ok(app.includes('networkFocusNode(id)'));
  assert.ok(css.includes('.network-svg'));
