@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.5.0-dev — expose kinetics in Reaction & Mechanism map (2026-11-18)
+
+- Fixed the Reaction & Mechanism graph filter to include the complete published kinetics knowledge domain and existing reaction examples.
+- Added two explicitly conditional bridges (rate-definition link and battery-reaction application example); view now has 13 nodes and 14 complete-premise relations.
+- Added pure graph selection helpers and a readable three-row reaction layout; kept original science models and chapter text unchanged.
+- Added unit and Chromium browser regression tests for filtering, connection integrity and theory deep links.
+
+
 ## v0.5.0-dev — native structure chemistry simulations (2026-11-18)
 
 - Added seven interactive structure chemistry simulations inside the existing scientific workbench without any new top-level tab.
