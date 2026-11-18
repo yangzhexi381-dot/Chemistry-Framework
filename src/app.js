@@ -88,7 +88,7 @@ function renderAtlas(){
     '<circle class="network-hit-target" cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="30" fill="transparent"/>'+
     '<text class="network-label'+(p.featured?' network-primary':' network-secondary')+'" x="'+p.labelX.toFixed(1)+'" y="'+p.labelY.toFixed(1)+'" style="text-anchor:'+p.labelAnchor+'">'+labelLines+'</text></g>';
  }).join('');
- const diagram='<svg id="network-svg" class="network-svg" viewBox="0 0 '+graph.width+' '+graph.height+'" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="64 个化学知识节点与 49 条带条件关系的统一交互网络"><defs><marker id="network-arrow" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L6 3 L0 6" fill="none" stroke="#6f9c81" stroke-width="1.3"/></marker></defs>'+groupSVG+relationSVG+nodeSVG+'</svg>';
+ const diagram='<svg id="network-svg" class="network-svg" viewBox="0 0 '+graph.width+' '+graph.height+'" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="'+graph.count+' 个化学知识节点与 '+graph.relationCount+' 条带条件关系的统一交互网络"><defs><marker id="network-arrow" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L6 3 L0 6" fill="none" stroke="#6f9c81" stroke-width="1.3"/></marker></defs>'+groupSVG+relationSVG+nodeSVG+'</svg>';
  const chip=node=>'<button class="atlas-node'+(selectedNode===node.id?' selected':'')+'" type="button" data-node="'+esc(node.id)+'" title="'+esc(node.title)+'">'+esc(node.graph_label||node.title)+'</button>';
  const sections=map.groups.map(g=>{
   const featured=g.nodes.filter(n=>g.highlights.includes(n.id)),rest=g.nodes.filter(n=>!g.highlights.includes(n.id)),open=atlasExpanded.has(g.id);
@@ -102,12 +102,12 @@ function renderAtlas(){
   const groupNames=relation.groups.map(id=>CFUnifiedMap.groups.find(g=>g.id===id)?.label||id).join(' · ');
   return '<a class="atlas-bridge" data-relation="'+esc(relation.id)+'" href="#concept/'+esc(relation.conclusion)+'"><span class="atlas-bridge-domain">'+esc(groupNames)+'</span><b>'+esc(byId.get(relation.conclusion)?.title||relation.conclusion)+'</b><span class="atlas-bridge-claim">'+esc(relation.claim)+'</span><small>类型：'+esc(relation.type)+' · '+esc((relation.conditions||[]).slice(0,2).join('；')||'详见适用条件')+'</small></a>';
  };
- host.innerHTML='<div class="network-intro"><div><strong>化学知识关系图</strong><p>恢复原版的节点与连线视图。64 个节点共同构成一张可探索的网络；放大后可以逐一阅读知识名称及关系条件。</p></div><span>64 个节点 · 49 条关系</span></div>'+
+ host.innerHTML='<div class="network-intro"><div><strong>化学知识关系图</strong><p>放大后可逐一查看知识节点及关系条件。</p></div><span>'+graph.count+' 个节点 · '+graph.relationCount+' 条关系</span></div>'+
   '<div class="network-controls"><div class="network-controls-left"><button type="button" id="network-zoom-in" aria-label="放大网络">放大 ＋</button><button type="button" id="network-zoom-out" aria-label="缩小网络">缩小 −</button><button type="button" id="network-reset">完整网络</button></div><div class="network-controls-right"><span id="network-zoom-label">100%</span><span>单指平移 · 双指捏合缩放 · 点节点查看详情</span></div></div>'+
   '<div id="network-viewport" class="network-viewport" aria-label="可拖动和缩放的化学知识网络">'+diagram+'</div>'+
   '<div class="network-footnote">连线均来自已有的真实知识关系；双指缩放后可查看完整节点名称，未补画任何无证据的关联。目前包含 '+graph.componentCount+' 个关系子网，'+graph.unlinkedIds.length+' 个节点尚无直接编码关系；这属于知识覆盖情况，不是显示错误。</div>'+
   '<details class="network-index"><summary><span>按领域查阅所有知识点</span><small>六组辅助索引，不会从网络中移除节点</small></summary><div class="atlas-grid">'+sections+'</div></details>'+
-  '<section class="atlas-links"><div class="atlas-links-head"><div><h3>跨领域的真实联系</h3><p>八条已有跨领域关系均可回到网络中的具体节点，并保留前提和适用范围。</p></div><span>'+map.bridges.length+' 条</span></div><div class="atlas-link-grid">'+map.bridges.map(relationText).join('')+'</div></section>';
+  '<section class="atlas-links"><div class="atlas-links-head"><div><h3>跨领域的真实联系</h3><p>点击一条跨领域关系，可查看对应节点及成立条件。</p></div><span>'+map.bridges.length+' 条</span></div><div class="atlas-link-grid">'+map.bridges.map(relationText).join('')+'</div></section>';
  if(!networkStarted){
   networkCamera={x:0,y:0,w:graph.width,h:graph.height};
  }
