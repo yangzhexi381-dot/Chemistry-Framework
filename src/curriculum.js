@@ -48,7 +48,7 @@
     query = ''; $('curriculum-search').value = ''; $('curriculum-clear').hidden = true;
   }
   function chapterName(chapter) {
-    return (chapter.number === 'appendix' ? '附录' : '第 ' + chapter.number + ' 章') + ' · ' + chapter.title;
+    return chapter.title;
   }
   function sourceText(source) {
     function range(values) { return Array.isArray(values) && values.length ? values.join('–') : '未录入'; }
@@ -92,10 +92,10 @@
   function renderErrors() {
     const host = $('curriculum-errors'); host.replaceChildren(); host.hidden = !failures.size;
     if (!failures.size) return;
-    host.append(element('b', catalog ? failures.size + ' 个章节尚未加载，已加载内容仍可使用。' : '教材目录暂时无法加载。'));
+    host.append(element('b', catalog ? failures.size + ' 个章节尚未加载，已加载内容仍可使用。' : '知识索引暂时无法加载。'));
     const list = element('ul');
     for (const [id, reason] of failures) {
-      const title = catalog?.chapters.find(chapter => chapter.id === id)?.title || '教材目录';
+      const title = catalog?.chapters.find(chapter => chapter.id === id)?.title || '知识索引';
       list.append(element('li', title + '：' + reason));
     }
     const retry = button('重试未加载内容', () => load()); retry.disabled = loading;
@@ -103,14 +103,14 @@
   }
   function renderStatus() {
     const total = catalog?.chapters.length || 0;
-    $('curriculum-status').textContent = loading ? '正在加载教材内容：' + chapters.size + ' / ' + total + ' 章。' : catalog ? '已加载 ' + chapters.size + ' / ' + total + ' 章 · ' + records.length + ' 节' + (failures.size ? '；搜索范围暂不含未加载章节。' : ' · 可检索全部章节。') : '教材加载未完成，可重试。';
+    $('curriculum-status').textContent = loading ? '正在加载知识内容：' + chapters.size + ' / ' + total + ' 章。' : catalog ? '已加载 ' + chapters.size + ' / ' + total + ' 章 · ' + records.length + ' 节' + (failures.size ? '；搜索范围暂不含未加载章节。' : ' · 可检索全部章节。') : '知识加载未完成，可重试。';
     $('curriculum-status').setAttribute('aria-busy', String(loading)); renderErrors();
   }
   function renderSearch() {
     const host = $('curriculum-main'), matches = search(records, query); host.replaceChildren();
     const head = element('div', undefined, 'curriculum-results-head');
     head.append(element('h3', '“' + query + '” · ' + matches.length + ' 个小节'), element('p', '范围：全部已加载章节。点击结果阅读完整说明。')); host.append(head);
-    if (!matches.length) host.append(element('p', loading ? '当前已加载内容未匹配；章节加载完成后会更新。' : failures.size ? '当前已加载内容未匹配。部分章节加载失败，可先重试，或更换关键词。' : '没有匹配的小节。可缩短关键词，或使用教材中的概念名称。', 'curriculum-placeholder'));
+    if (!matches.length) host.append(element('p', loading ? '当前已加载内容未匹配；章节加载完成后会更新。' : failures.size ? '当前已加载内容未匹配。部分章节加载失败，可先重试，或更换关键词。' : '没有匹配的小节。可缩短关键词，或使用科学概念名称。', 'curriculum-placeholder'));
     for (const record of matches) {
       const card = element('article', undefined, 'curriculum-search-result');
       card.append(element('small', record.book.title + ' / ' + record.chapter.title));
@@ -155,9 +155,9 @@
     article.append(relations);
     const source = block('来源与核对', 'curriculum-source');
     source.append(element('p', [book.title, Array.isArray(book.authors) ? book.authors.join('、') : book.authors, book.edition].filter(Boolean).join(' · ')));
-    source.append(element('p', sourceText(section.source)), element('p', '本章范围：' + sourceText(chapter.source)), element('p', book.sourceNote || '依据原书目录与正文编写原创教学重述。'));
+    source.append(element('p', sourceText(section.source)), element('p', '参考范围：' + sourceText(chapter.source)), element('p', book.sourceNote || '依据原书目录与正文编写原创教学重述。'));
     if (catalog.review) source.append(element('p', '内容审核状态：' + catalog.review.status + '。' + (catalog.review.note || '')));
-    source.append(element('p', '以上为学习说明与原创自测，不代替原书正文、原题或独立科学核验。')); article.append(source);
+    source.append(element('p', '内容依据列明来源与约束；未独立验证的结论需要进一步核对。')); article.append(source);
     const index = chapter.sections.indexOf(section), nav = element('nav', undefined, 'curriculum-sequence'); nav.setAttribute('aria-label', '相邻小节');
     const previous = chapter.sections[index - 1], next = chapter.sections[index + 1];
     if (previous) nav.append(link('← ' + previous.number + ' ' + previous.title, targetHash(previous.id)));
@@ -168,7 +168,7 @@
     if (query) { renderSearch(); return; }
     const host = $('curriculum-main'); host.replaceChildren();
     if (routeWarning) host.append(element('p', routeWarning, 'curriculum-route-warning'));
-    if (!catalog) { host.append(element('div', loading ? '正在加载教材目录……' : '教材目录暂不可用，请使用上方重试。', 'curriculum-placeholder')); return; }
+    if (!catalog) { host.append(element('div', loading ? '正在加载知识索引……' : '知识索引暂不可用，请使用上方重试。', 'curriculum-placeholder')); return; }
     const entry = catalog.chapters.find(chapter => chapter.id === selectedChapter) || catalog.chapters[0];
     if (!entry) { host.append(element('p', '目录尚未收录章节。')); return; }
     const chapter = chapters.get(entry.id);
@@ -254,6 +254,8 @@
       activatePage('theory'); clearQuery(); routeWarning = ''; selectRouteSection(); render();
       if (!started) load();
       if (hash === 'learn') global.requestAnimationFrame(() => $('learn')?.scrollIntoView({ block: 'start' }));
+    } else if (hash.startsWith('concept/')) {
+      activatePage('explore'); global.CFKnowledge?.focusNode(hash.slice('concept/'.length));
     } else if (hash === 'theory') {
       activatePage('theory');
       if (!started) load();

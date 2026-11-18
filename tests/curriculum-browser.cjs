@@ -34,11 +34,27 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict');
   await page.goBack();await page.waitForFunction(()=>document.querySelector('#curriculum-current h2')?.textContent.includes('11.1'));
   await page.goForward();await page.waitForFunction(()=>document.querySelector('#curriculum-current h2')?.textContent.includes('11.7'));
   await page.goto(base+'#explore');
-  await page.getByRole('button',{name:'化学动力学 · 第11章'}).click();
+  await page.getByRole('button',{name:'反应动力学'}).click();
   await page.locator('.node[data-node="kinetics.ch11.4"]').click();
   await page.locator('#detail a[href="#learn/pc.11.4"]').click();
   await page.waitForFunction(()=>document.querySelector('#curriculum-current h2')?.textContent.includes('11.4'));
   assert.ok(await page.locator('#theory').evaluate(e=>e.classList.contains('active')));
+  for(const moduleId of ['explore','inquire','theory','electrochem','workbench']){
+    await page.goto(base+'#'+moduleId);
+    const host=page.locator('#'+moduleId+' [data-knowledge-module="'+moduleId+'"]');
+    await host.locator('.knowledge-bridge-card').first().waitFor();
+    assert.ok(await host.locator('a.concept-link').count()>0,moduleId);
+    await host.locator('a.concept-link').first().click();
+    await page.waitForFunction(()=>document.querySelector('#explore')?.classList.contains('active')&&document.querySelector('#detail .statement'));
+    assert.ok((await page.locator('#detail h3').innerText()).length>0);
+  }
+  await page.goto(base+'#concept/kinetics.ch11.8');
+  await page.waitForFunction(()=>document.querySelector('#detail h3')?.textContent.includes('活化能'));
+  await page.goto(base+'#inquire');
+  await page.locator('#case-list .case-btn').nth(1).click();
+  await page.locator('#analyze').click();
+  await page.locator('#analysis a.concept-link').first().click();
+  await page.waitForFunction(()=>document.querySelector('#explore')?.classList.contains('active'));
   await page.goto(base+'#model.n2o4');assert.ok(await page.locator('#workbench').evaluate(e=>e.classList.contains('active')));
   await page.goto(base+'#learn/pc.unknown.0');await page.waitForFunction(()=>document.querySelector('.curriculum-route-warning'));
   let fail=true;
@@ -49,6 +65,6 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict');
   fail=false;await page.getByRole('button',{name:'重试未加载内容',exact:true}).click();
   await page.waitForFunction(()=>document.querySelector('#curriculum-current h2')?.textContent.includes('11.1')&&document.querySelector('#curriculum-errors').hidden);
   assert.deepEqual(errors,[]);
-  console.log('PASS: Theory Tools consolidation, graph-to-section navigation, chapter 11 links/search/self-check/history/model route/503 retry/three widths');
+  console.log('PASS: shared paths in five modules, concept routes, inquiry-to-graph, graph-to-theory, search/self-check/history, model, recovery, three widths');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});

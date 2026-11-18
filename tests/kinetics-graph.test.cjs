@@ -29,10 +29,10 @@ test('graph relations have valid endpoints and conditional provenance',()=>{
  assert.ok(edges.some(r=>r.type==='learning_dependency'));
 });
 test('focused graph view and safe textbook link coexist with existing navigation',()=>{
- const code=read('src/app.js');assert.ok(code.includes('化学动力学 · 第11章'));
+ const code=read('src/app.js');assert.ok(code.includes('反应动力学'));
  assert.ok(code.includes("n.id.startsWith('kinetics.ch11.')"));
  assert.match(code,/curriculumLink=.*?pc\\.11/s);
- assert.ok(code.includes('阅读教材'));
+ assert.ok(code.includes('深入推导、适用边界与自测'));
  assert.ok(code.includes('event.key===\'Enter\''));
  const html=read('index.html');assert.ok(html.includes('id="graph"')&&html.includes('src="src/app.js"'));
 });
