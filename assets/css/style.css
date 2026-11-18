@@ -111,3 +111,66 @@ button, a, textarea, input { touch-action: manipulation; } .graph-wrap svg{max-w
 .atlas-cluster{transition:border-color .15s ease,box-shadow .15s ease}
 .atlas-cluster:target{border-color:#8ab49b;box-shadow:0 0 0 3px #dbeade}
 @media(max-width:720px){.atlas-grid{padding-left:9px;border-left:2px solid #e0e9df}.atlas-cluster::after{content:'';position:absolute;left:-15px;top:23px;width:11px;height:11px;border:2px solid #d8e5dc;border-radius:50%;background:#7ca68d}}
+
+
+/* Connected chemical knowledge network (primary view). Existing atlas cards are a secondary index. */
+.graph-wrap.unified-graph.connected-graph{height:auto;overflow:visible;background-image:none;padding:0;min-width:0}
+.connected-graph .network-intro{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 18px 16px;background:linear-gradient(115deg,#edf5e9,#fbfcfa);border-bottom:1px solid #dce8da}
+.connected-graph .network-intro strong{font-size:15px;color:#255340}
+.connected-graph .network-intro p{font-size:11px;line-height:1.75;color:#6b8274;margin:7px 0 0;max-width:550px}
+.connected-graph .network-intro>span{white-space:nowrap;font:10px 'DM Mono',monospace;color:#6b937a}
+.connected-graph .network-controls{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:9px;padding:10px 14px;background:#f9fbf7;border-bottom:1px solid #e3eae1}
+.connected-graph .network-controls-left,.connected-graph .network-controls-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.connected-graph .network-controls button{border:1px solid #cfdfd1;border-radius:8px;background:white;color:#3e7254;padding:8px 11px;min-height:36px;font-size:11px;cursor:pointer}
+.connected-graph .network-controls button:hover,.connected-graph .network-controls button:focus-visible{outline:2px solid #b7d3c0;outline-offset:1px}
+.connected-graph .network-controls-right{color:#829288;font-size:10px}
+.connected-graph #network-zoom-label{font:11px 'DM Mono',monospace;color:#2e7455;background:#e8f2e7;padding:5px 7px;border-radius:7px}
+.connected-graph .network-viewport{position:relative;width:100%;height:570px;min-width:0;overflow:hidden;background:radial-gradient(circle at 50% 45%,#f9fcf9,#f1f6ee);border-bottom:1px solid #e0e9df}
+.connected-graph .network-viewport:focus-within{outline:1px solid #b8d1bc;outline-offset:-1px}
+.connected-graph .network-svg{width:100%!important;height:100%!important;min-width:0!important;max-width:none!important;display:block;touch-action:none;cursor:grab;user-select:none}
+.connected-graph .network-svg:active{cursor:grabbing}
+.connected-graph .network-group rect{fill:#fbfcfa;fill-opacity:.64;stroke:#d5e3d6;stroke-width:2}
+.connected-graph .network-group[data-group="structure"] rect{fill:#f5f8fa;stroke:#d5e0e9}
+.connected-graph .network-group[data-group="thermo"] rect{fill:#f8f6fb;stroke:#e1daea}
+.connected-graph .network-group[data-group="kinetics"] rect{fill:#fbf8f3;stroke:#e8dfd2}
+.connected-graph .network-group[data-group="electrochem"] rect{fill:#f1f8f4;stroke:#d0e3d9}
+.connected-graph .network-group[data-group="analysis"] rect{fill:#f5f8f4;stroke:#d9e5dc}
+.connected-graph .network-group-title{fill:#315f48;font:bold 21px 'Noto Sans SC',sans-serif}
+.connected-graph .network-group-subtitle{fill:#819485;font:13px 'Noto Sans SC',sans-serif}
+.connected-graph .network-group-count{fill:#80a18c;font:13px 'DM Mono',monospace}
+.connected-graph .network-relation{fill:none;stroke:#a9bcb0;stroke-opacity:.36;stroke-width:1.7;cursor:pointer;transition:stroke-opacity .12s}
+.connected-graph .network-relation.is-cross{stroke:#448a6a;stroke-opacity:.72;stroke-width:2.6}
+.connected-graph .network-relation.is-muted{stroke-opacity:.075}
+.connected-graph .network-relation.is-connected,.connected-graph .network-relation:hover,.connected-graph .network-relation:focus-visible{stroke:#328560;stroke-opacity:1;stroke-width:3.4;outline:none}
+.connected-graph .network-junction{fill:#ebf3ed;stroke:#78a48b;stroke-width:1.5;stroke-opacity:.82}
+.connected-graph .network-node{cursor:pointer;outline:none;transition:opacity .12s}
+.connected-graph .network-node circle{stroke:#fff;stroke-width:3;filter:drop-shadow(0 2px 3px #24483423)}
+.connected-graph .network-node.selected circle{stroke:#d49b56;stroke-width:5}
+.connected-graph .network-node.is-related circle{stroke:#4e9070;stroke-width:3}
+.connected-graph .network-node.is-muted{opacity:.28}
+.connected-graph .network-node:hover circle,.connected-graph .network-node:focus-visible circle{stroke:#d49b56;stroke-width:4}
+.connected-graph .network-node text{fill:#3d5c4e;stroke:#f8fbf7;stroke-width:3px;paint-order:stroke;stroke-linejoin:round;font:14px 'Noto Sans SC',sans-serif;text-anchor:middle;pointer-events:none}
+.connected-graph .network-node .network-secondary{display:none}
+.connected-graph .network-node:hover .network-secondary,.connected-graph .network-node:focus-visible .network-secondary,.connected-graph .network-node.selected .network-secondary{display:block}
+.connected-graph .network-footnote{margin:0;padding:11px 18px;color:#778c7d;font-size:10px;line-height:1.8;background:#f9fbf8}
+.connected-graph .network-index{border-top:1px solid #dfe9df;margin:0;background:#fcfdfb}
+.connected-graph .network-index>summary{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:17px 18px;color:#3c7253;cursor:pointer}
+.connected-graph .network-index>summary span{font-size:13px;font-weight:600}
+.connected-graph .network-index>summary small{font-size:10px;color:#8a9c8d}
+.connected-graph .network-index>.atlas-grid{padding:5px 15px 20px}
+.connected-graph .atlas-links{margin:0 15px 18px;background:#f4f8f2}
+.connected-graph .atlas-bridge{display:flex;flex-direction:column;gap:5px;min-width:0;border:1px solid #d9e5d7;background:#fff;border-radius:9px;padding:12px;color:#385747;text-decoration:none}
+.connected-graph .atlas-bridge:hover,.connected-graph .atlas-bridge:focus-visible{outline:2px solid #9bbca5;outline-offset:1px}
+@media(max-width:760px){
+ .connected-graph .network-viewport{height:470px}
+ .connected-graph .network-intro{padding:14px;align-items:flex-start;flex-direction:column;gap:7px}
+ .connected-graph .network-controls{padding:9px}
+ .connected-graph .network-controls-right{width:100%;justify-content:space-between}
+ .connected-graph .network-index>summary{display:block}
+ .connected-graph .network-index>summary small{display:block;margin-top:4px}
+}
+@media(max-width:440px){
+ .connected-graph .network-viewport{height:400px}
+ .connected-graph .network-controls button{padding:7px 9px}
+ .connected-graph .network-footnote{padding:11px 13px}
+}
