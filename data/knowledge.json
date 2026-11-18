@@ -1815,6 +1815,566 @@
         "intuitive_explanation": "忽略电子相关和非最近邻相互作用",
         "math_depth": "optional"
       }
+    },
+    {
+      "id": "element.hydrogen",
+      "graph_label": "H",
+      "title": "氢元素 H",
+      "statement": "氢元素的原子序数为 1，化学式中 H 的下标表示氢原子的计量数。",
+      "description": "氢元素的原子序数为 1，化学式中 H 的下标表示氢原子的计量数。",
+      "domain": [
+        "chemical_composition"
+      ],
+      "claim_status": "exact_formula_or_definition",
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "化学元素组成：由现有模型的化学式及元素原子序数定义整理"
+        }
+      ],
+      "type": "chemical_element",
+      "formula": "H",
+      "atomic_number": 1,
+      "composition": {
+        "H": 1
+      },
+      "equations": [],
+      "scope": "化学元素身份及原子序数，不特指游离原子、单质或氧化态。",
+      "assumptions": [
+        "按元素符号和原子序数定义"
+      ],
+      "limitations": [
+        "元素符号不代表特定电子态、物相或化学反应性"
+      ],
+      "presentation": {
+        "chemical_meaning": "氢元素的原子序数为 1，化学式中 H 的下标表示氢原子的计量数。",
+        "intuitive_explanation": "元素是不同物质组成的共同基础；计量数不等于结构信息。"
+      }
+    },
+    {
+      "id": "element.carbon",
+      "graph_label": "C",
+      "title": "碳元素 C",
+      "statement": "碳元素的原子序数为 6，是共轭有机分子碳骨架的元素组分。",
+      "description": "碳元素的原子序数为 6，是共轭有机分子碳骨架的元素组分。",
+      "domain": [
+        "chemical_composition"
+      ],
+      "claim_status": "exact_formula_or_definition",
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "化学元素组成：由现有模型的化学式及元素原子序数定义整理"
+        }
+      ],
+      "type": "chemical_element",
+      "formula": "C",
+      "atomic_number": 6,
+      "composition": {
+        "C": 1
+      },
+      "equations": [],
+      "scope": "化学元素身份及原子序数，不特指游离原子、单质或氧化态。",
+      "assumptions": [
+        "按元素符号和原子序数定义"
+      ],
+      "limitations": [
+        "元素符号不代表特定电子态、物相或化学反应性"
+      ],
+      "presentation": {
+        "chemical_meaning": "碳元素的原子序数为 6，是共轭有机分子碳骨架的元素组分。",
+        "intuitive_explanation": "元素是不同物质组成的共同基础；计量数不等于结构信息。"
+      }
+    },
+    {
+      "id": "element.nitrogen",
+      "graph_label": "N",
+      "title": "氮元素 N",
+      "statement": "氮元素的原子序数为 7，是 NO₂ 与 N₂O₄ 的元素组分。",
+      "description": "氮元素的原子序数为 7，是 NO₂ 与 N₂O₄ 的元素组分。",
+      "domain": [
+        "chemical_composition"
+      ],
+      "claim_status": "exact_formula_or_definition",
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "化学元素组成：由现有模型的化学式及元素原子序数定义整理"
+        }
+      ],
+      "type": "chemical_element",
+      "formula": "N",
+      "atomic_number": 7,
+      "composition": {
+        "N": 1
+      },
+      "equations": [],
+      "scope": "化学元素身份及原子序数，不特指游离原子、单质或氧化态。",
+      "assumptions": [
+        "按元素符号和原子序数定义"
+      ],
+      "limitations": [
+        "元素符号不代表特定电子态、物相或化学反应性"
+      ],
+      "presentation": {
+        "chemical_meaning": "氮元素的原子序数为 7，是 NO₂ 与 N₂O₄ 的元素组分。",
+        "intuitive_explanation": "元素是不同物质组成的共同基础；计量数不等于结构信息。"
+      }
+    },
+    {
+      "id": "element.oxygen",
+      "graph_label": "O",
+      "title": "氧元素 O",
+      "statement": "氧元素的原子序数为 8，在水、氮氧化物和铅酸电池化合物中均存在。",
+      "description": "氧元素的原子序数为 8，在水、氮氧化物和铅酸电池化合物中均存在。",
+      "domain": [
+        "chemical_composition"
+      ],
+      "claim_status": "exact_formula_or_definition",
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "化学元素组成：由现有模型的化学式及元素原子序数定义整理"
+        }
+      ],
+      "type": "chemical_element",
+      "formula": "O",
+      "atomic_number": 8,
+      "composition": {
+        "O": 1
+      },
+      "equations": [],
+      "scope": "化学元素身份及原子序数，不特指游离原子、单质或氧化态。",
+      "assumptions": [
+        "按元素符号和原子序数定义"
+      ],
+      "limitations": [
+        "元素符号不代表特定电子态、物相或化学反应性"
+      ],
+      "presentation": {
+        "chemical_meaning": "氧元素的原子序数为 8，在水、氮氧化物和铅酸电池化合物中均存在。",
+        "intuitive_explanation": "元素是不同物质组成的共同基础；计量数不等于结构信息。"
+      }
+    },
+    {
+      "id": "element.sulfur",
+      "graph_label": "S",
+      "title": "硫元素 S",
+      "statement": "硫元素的原子序数为 16，是硫酸及硫酸铅化学式中的元素组分。",
+      "description": "硫元素的原子序数为 16，是硫酸及硫酸铅化学式中的元素组分。",
+      "domain": [
+        "chemical_composition"
+      ],
+      "claim_status": "exact_formula_or_definition",
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "化学元素组成：由现有模型的化学式及元素原子序数定义整理"
+        }
+      ],
+      "type": "chemical_element",
+      "formula": "S",
+      "atomic_number": 16,
+      "composition": {
+        "S": 1
+      },
+      "equations": [],
+      "scope": "化学元素身份及原子序数，不特指游离原子、单质或氧化态。",
+      "assumptions": [
+        "按元素符号和原子序数定义"
+      ],
+      "limitations": [
+        "元素符号不代表特定电子态、物相或化学反应性"
+      ],
+      "presentation": {
+        "chemical_meaning": "硫元素的原子序数为 16，是硫酸及硫酸铅化学式中的元素组分。",
+        "intuitive_explanation": "元素是不同物质组成的共同基础；计量数不等于结构信息。"
+      }
+    },
+    {
+      "id": "element.lead",
+      "graph_label": "Pb",
+      "title": "铅元素 Pb",
+      "statement": "铅元素的原子序数为 82；在单质铅、PbO₂ 和 PbSO₄ 中均存在，但价态及结构并不相同。",
+      "description": "铅元素的原子序数为 82；在单质铅、PbO₂ 和 PbSO₄ 中均存在，但价态及结构并不相同。",
+      "domain": [
+        "chemical_composition"
+      ],
+      "claim_status": "exact_formula_or_definition",
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "化学元素组成：由现有模型的化学式及元素原子序数定义整理"
+        }
+      ],
+      "type": "chemical_element",
+      "formula": "Pb",
+      "atomic_number": 82,
+      "composition": {
+        "Pb": 1
+      },
+      "equations": [],
+      "scope": "化学元素身份及原子序数，不特指游离原子、单质或氧化态。",
+      "assumptions": [
+        "按元素符号和原子序数定义"
+      ],
+      "limitations": [
+        "元素符号不代表特定电子态、物相或化学反应性"
+      ],
+      "presentation": {
+        "chemical_meaning": "铅元素的原子序数为 82；在单质铅、PbO₂ 和 PbSO₄ 中均存在，但价态及结构并不相同。",
+        "intuitive_explanation": "元素是不同物质组成的共同基础；计量数不等于结构信息。"
+      }
+    },
+    {
+      "id": "matter.h2plus",
+      "graph_label": "H₂⁺",
+      "title": "氢分子离子 H₂⁺",
+      "statement": "H₂⁺ 由两个质子和一个电子构成；它不是中性氢分子 H₂。",
+      "description": "H₂⁺ 由两个质子和一个电子构成；它不是中性氢分子 H₂。",
+      "domain": [
+        "chemical_composition"
+      ],
+      "claim_status": "exact_formula_or_definition",
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "Chemistry Framework 项目模型与科学边界：docs/models/H2PLUS_LCAO.md"
+        }
+      ],
+      "type": "chemical_entity",
+      "formula": "H₂⁺",
+      "composition": {
+        "H": 2
+      },
+      "charge": 1,
+      "phase": "气相单电子双核模型",
+      "model_route": "#model.h2plus",
+      "scope": "CF H₂⁺ 固定核非相对论 1s LCAO 模型。",
+      "assumptions": [
+        "两个原子核为质子",
+        "单电子总电荷 +1"
+      ],
+      "limitations": [
+        "元素计量式不决定键级或电子态",
+        "模型近似不能替代高精度 H₂⁺ 结构计算"
+      ],
+      "equations": [],
+      "presentation": {
+        "chemical_meaning": "H₂⁺ 由两个质子和一个电子构成；它不是中性氢分子 H₂。",
+        "intuitive_explanation": "从分子式可确定元素计量，不能单独得到几何结构、电子态或动力学。"
+      }
+    },
+    {
+      "id": "matter.water",
+      "graph_label": "H₂O",
+      "title": "水 H₂O",
+      "statement": "一分子水由两个氢原子和一个氧原子组成；平衡结构为弯曲形，可按 C₂ᵥ 对称性研究。",
+      "description": "一分子水由两个氢原子和一个氧原子组成；平衡结构为弯曲形，可按 C₂ᵥ 对称性研究。",
+      "domain": [
+        "chemical_composition"
+      ],
+      "claim_status": "exact_formula_or_definition",
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "Chemistry Framework 项目模型与科学边界：docs/STRUCTURE_CHEMISTRY_INTEGRATION.md"
+        }
+      ],
+      "type": "chemical_entity",
+      "formula": "H₂O",
+      "composition": {
+        "H": 2,
+        "O": 1
+      },
+      "charge": 0,
+      "phase": "分子；可作为酸性电解液溶剂或反应产物",
+      "model_route": "#model.structure.symmetry",
+      "scope": "分子组成与 C₂ᵥ 结构示例；不把溶剂化行为简化成孤立分子模型。",
+      "assumptions": [
+        "以化学式 H₂O 计元素原子数"
+      ],
+      "limitations": [
+        "化学式本身不能确定键角、氢键结构或溶液性质"
+      ],
+      "equations": [],
+      "presentation": {
+        "chemical_meaning": "一分子水由两个氢原子和一个氧原子组成；平衡结构为弯曲形，可按 C₂ᵥ 对称性研究。",
+        "intuitive_explanation": "从分子式可确定元素计量，不能单独得到几何结构、电子态或动力学。"
+      }
+    },
+    {
+      "id": "matter.no2",
+      "graph_label": "NO₂",
+      "title": "二氧化氮 NO₂",
+      "statement": "NO₂ 含一个 N 原子和两个 O 原子，是 N₂O₄ ⇌ 2NO₂ 气相体系的单体组分。",
+      "description": "NO₂ 含一个 N 原子和两个 O 原子，是 N₂O₄ ⇌ 2NO₂ 气相体系的单体组分。",
+      "domain": [
+        "chemical_composition"
+      ],
+      "claim_status": "exact_formula_or_definition",
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "Chemistry Framework 项目模型与科学边界：docs/models/N2O4_IDEAL_GAS.md"
+        }
+      ],
+      "type": "chemical_entity",
+      "formula": "NO₂",
+      "composition": {
+        "N": 1,
+        "O": 2
+      },
+      "charge": 0,
+      "phase": "气体；可与 N₂O₄ 相互转化",
+      "model_route": "#model.n2o4",
+      "scope": "仅指 CF 理想气体双物种示例中的 NO₂(g)。",
+      "assumptions": [
+        "按 NO₂ 的分子化学式计量",
+        "以模型指定的气相条件讨论平衡"
+      ],
+      "limitations": [
+        "NO₂ 的价电子结构和其他反应路径不由化学式独立确定"
+      ],
+      "equations": [],
+      "presentation": {
+        "chemical_meaning": "NO₂ 含一个 N 原子和两个 O 原子，是 N₂O₄ ⇌ 2NO₂ 气相体系的单体组分。",
+        "intuitive_explanation": "从分子式可确定元素计量，不能单独得到几何结构、电子态或动力学。"
+      }
+    },
+    {
+      "id": "matter.n2o4",
+      "graph_label": "N₂O₄",
+      "title": "四氧化二氮 N₂O₄",
+      "statement": "N₂O₄ 含两个 N 原子和四个 O 原子，与 2NO₂ 具有相同的元素总计量。",
+      "description": "N₂O₄ 含两个 N 原子和四个 O 原子，与 2NO₂ 具有相同的元素总计量。",
+      "domain": [
+        "chemical_composition"
+      ],
+      "claim_status": "exact_formula_or_definition",
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "Chemistry Framework 项目模型与科学边界：docs/models/N2O4_IDEAL_GAS.md"
+        }
+      ],
+      "type": "chemical_entity",
+      "formula": "N₂O₄",
+      "composition": {
+        "N": 2,
+        "O": 4
+      },
+      "charge": 0,
+      "phase": "气体；NO₂ 二聚体",
+      "model_route": "#model.n2o4",
+      "scope": "CF 恒温恒容 N₂O₄(g) ⇌ 2NO₂(g) 理想气体体系。",
+      "assumptions": [
+        "密闭、定容、定温教学模型中的双气体物种"
+      ],
+      "limitations": [
+        "模型速率尺度不是实测 N₂O₄ 速率常数",
+        "化学组成不直接决定反应方向或平衡比例"
+      ],
+      "equations": [],
+      "presentation": {
+        "chemical_meaning": "N₂O₄ 含两个 N 原子和四个 O 原子，与 2NO₂ 具有相同的元素总计量。",
+        "intuitive_explanation": "从分子式可确定元素计量，不能单独得到几何结构、电子态或动力学。"
+      }
+    },
+    {
+      "id": "matter.lead_metal",
+      "graph_label": "Pb",
+      "title": "金属铅 Pb",
+      "statement": "Pb(s) 是铅酸蓄电池放电时负极被氧化的活性物质。",
+      "description": "Pb(s) 是铅酸蓄电池放电时负极被氧化的活性物质。",
+      "domain": [
+        "chemical_composition"
+      ],
+      "claim_status": "exact_formula_or_definition",
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "Chemistry Framework 项目模型与科学边界：src/models/lead-acid.js"
+        }
+      ],
+      "type": "chemical_entity",
+      "formula": "Pb",
+      "composition": {
+        "Pb": 1
+      },
+      "charge": 0,
+      "phase": "固体金属电极活性物质",
+      "model_route": "#electrochem",
+      "scope": "铅酸蓄电池放电情境下的金属单质。",
+      "assumptions": [
+        "以单质铅 Pb(s) 表示负极活性物质"
+      ],
+      "limitations": [
+        "铅元素节点与金属铅单质不是同一个物理对象",
+        "电池的实际物相分布仍取决于运行条件"
+      ],
+      "equations": [],
+      "presentation": {
+        "chemical_meaning": "Pb(s) 是铅酸蓄电池放电时负极被氧化的活性物质。",
+        "intuitive_explanation": "从分子式可确定元素计量，不能单独得到几何结构、电子态或动力学。"
+      }
+    },
+    {
+      "id": "matter.lead_dioxide",
+      "graph_label": "PbO₂",
+      "title": "二氧化铅 PbO₂",
+      "statement": "PbO₂ 在铅酸蓄电池放电时于正极被还原，生成 PbSO₄。",
+      "description": "PbO₂ 在铅酸蓄电池放电时于正极被还原，生成 PbSO₄。",
+      "domain": [
+        "chemical_composition"
+      ],
+      "claim_status": "exact_formula_or_definition",
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "Chemistry Framework 项目模型与科学边界：src/models/lead-acid.js"
+        }
+      ],
+      "type": "chemical_entity",
+      "formula": "PbO₂",
+      "composition": {
+        "Pb": 1,
+        "O": 2
+      },
+      "charge": 0,
+      "phase": "固体正极活性物质",
+      "model_route": "#electrochem",
+      "scope": "铅酸蓄电池正极活性物质；化学计量式不指定具体晶型。",
+      "assumptions": [
+        "用 PbO₂ 表示正极主要活性物质"
+      ],
+      "limitations": [
+        "不由组成式单独判定晶型、颗粒形貌和电极电位"
+      ],
+      "equations": [],
+      "presentation": {
+        "chemical_meaning": "PbO₂ 在铅酸蓄电池放电时于正极被还原，生成 PbSO₄。",
+        "intuitive_explanation": "从分子式可确定元素计量，不能单独得到几何结构、电子态或动力学。"
+      }
+    },
+    {
+      "id": "matter.lead_sulfate",
+      "graph_label": "PbSO₄",
+      "title": "硫酸铅 PbSO₄",
+      "statement": "PbSO₄ 是铅酸蓄电池两极主要放电产物，化学式包含 Pb、S 和 O。",
+      "description": "PbSO₄ 是铅酸蓄电池两极主要放电产物，化学式包含 Pb、S 和 O。",
+      "domain": [
+        "chemical_composition"
+      ],
+      "claim_status": "exact_formula_or_definition",
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "Chemistry Framework 项目模型与科学边界：src/models/lead-acid.js"
+        }
+      ],
+      "type": "chemical_entity",
+      "formula": "PbSO₄",
+      "composition": {
+        "Pb": 1,
+        "S": 1,
+        "O": 4
+      },
+      "charge": 0,
+      "phase": "固体放电产物",
+      "model_route": "#electrochem",
+      "scope": "总放电反应中的硫酸铅产物。",
+      "assumptions": [
+        "采用模型中的主要电极反应"
+      ],
+      "limitations": [
+        "实际电池沉积形貌和转化程度不能仅从化学式判断"
+      ],
+      "equations": [],
+      "presentation": {
+        "chemical_meaning": "PbSO₄ 是铅酸蓄电池两极主要放电产物，化学式包含 Pb、S 和 O。",
+        "intuitive_explanation": "从分子式可确定元素计量，不能单独得到几何结构、电子态或动力学。"
+      }
+    },
+    {
+      "id": "matter.sulfuric_acid",
+      "graph_label": "H₂SO₄",
+      "title": "硫酸 H₂SO₄",
+      "statement": "H₂SO₄ 的化学计量为 H₂S O₄；铅酸电池总反应中硫酸作为反应物参与。",
+      "description": "H₂SO₄ 的化学计量为 H₂S O₄；铅酸电池总反应中硫酸作为反应物参与。",
+      "domain": [
+        "chemical_composition"
+      ],
+      "claim_status": "exact_formula_or_definition",
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "Chemistry Framework 项目模型与科学边界：src/models/lead-acid.js"
+        }
+      ],
+      "type": "chemical_entity",
+      "formula": "H₂SO₄",
+      "composition": {
+        "H": 2,
+        "S": 1,
+        "O": 4
+      },
+      "charge": 0,
+      "phase": "铅酸电池电解液组分（通常为水溶液）",
+      "model_route": "#electrochem",
+      "scope": "化学式表示硫酸的元素计量；电解液实际由水和不同离子物种组成。",
+      "assumptions": [
+        "区分纯物质化学式和水溶液中的酸碱物种分布"
+      ],
+      "limitations": [
+        "H₂SO₄ 并不意味着水溶液中的硫酸全部以中性分子存在",
+        "离子活度和电离平衡未由此节点计算"
+      ],
+      "equations": [],
+      "presentation": {
+        "chemical_meaning": "H₂SO₄ 的化学计量为 H₂S O₄；铅酸电池总反应中硫酸作为反应物参与。",
+        "intuitive_explanation": "从分子式可确定元素计量，不能单独得到几何结构、电子态或动力学。"
+      }
+    },
+    {
+      "id": "matter.butadiene",
+      "graph_label": "C₄H₆",
+      "title": "1,3-丁二烯 C₄H₆",
+      "statement": "1,3-丁二烯的分子式为 C₄H₆，其共轭四个碳 p 轨道可用于开链四中心 Hückel 教学模型。",
+      "description": "1,3-丁二烯的分子式为 C₄H₆，其共轭四个碳 p 轨道可用于开链四中心 Hückel 教学模型。",
+      "domain": [
+        "chemical_composition"
+      ],
+      "claim_status": "exact_formula_or_definition",
+      "review_status": "in_review",
+      "sources": [
+        {
+          "title": "Chemistry Framework 项目模型与科学边界：docs/STRUCTURE_CHEMISTRY_INTEGRATION.md"
+        }
+      ],
+      "type": "chemical_entity",
+      "formula": "C₄H₆",
+      "composition": {
+        "C": 4,
+        "H": 6
+      },
+      "charge": 0,
+      "phase": "共轭有机分子（4 个 π 中心）",
+      "model_route": "#model.structure.huckel",
+      "scope": "π 电子子体系采用四中心、最近邻、正交近似。",
+      "assumptions": [
+        "以理想化共轭骨架描述四个 p 轨道",
+        "不把 Hückel 能量当实验光谱"
+      ],
+      "limitations": [
+        "Hückel 模型不等于真实全电子分子计算",
+        "分子式不能唯一确定结构异构体"
+      ],
+      "equations": [],
+      "presentation": {
+        "chemical_meaning": "1,3-丁二烯的分子式为 C₄H₆，其共轭四个碳 p 轨道可用于开链四中心 Hückel 教学模型。",
+        "intuitive_explanation": "从分子式可确定元素计量，不能单独得到几何结构、电子态或动力学。"
+      }
     }
   ],
   "relations": [
@@ -2946,6 +3506,349 @@
       "tests": [
         "reaction_mechanism_view_application"
       ]
+    },
+    {
+      "review_status": "in_review",
+      "error_control": null,
+      "tests": [],
+      "id": "rel.matter.composition.h2plus",
+      "type": "stoichiometric_composition",
+      "premises": [
+        "element.hydrogen"
+      ],
+      "conclusion": "matter.h2plus",
+      "claim": "H₂⁺ 的元素计量：H×2。整体净电荷为 +1；组成计量不意味着这些元素以游离原子存在。",
+      "conditions": [
+        "仅按化学式读取原子数",
+        "不将元素计量解读为合成途径、晶型或电子结构"
+      ],
+      "steps": [
+        "识别元素符号",
+        "读取化学式下标",
+        "核对总电荷与物种说明"
+      ],
+      "scope": "物质组成关系；非化学反应或形成机理",
+      "limitations": [
+        "元素组成不能唯一确定键连、空间结构或物相"
+      ],
+      "sources": [
+        {
+          "title": "CF 现有模型化学式及基本元素计量"
+        }
+      ]
+    },
+    {
+      "review_status": "in_review",
+      "error_control": null,
+      "tests": [],
+      "id": "rel.matter.composition.water",
+      "type": "stoichiometric_composition",
+      "premises": [
+        "element.hydrogen",
+        "element.oxygen"
+      ],
+      "conclusion": "matter.water",
+      "claim": "H₂O 的元素计量：H×2、O×1。整体为电中性化学式；组成计量不意味着这些元素以游离原子存在。",
+      "conditions": [
+        "仅按化学式读取原子数",
+        "不将元素计量解读为合成途径、晶型或电子结构"
+      ],
+      "steps": [
+        "识别元素符号",
+        "读取化学式下标",
+        "核对总电荷与物种说明"
+      ],
+      "scope": "物质组成关系；非化学反应或形成机理",
+      "limitations": [
+        "元素组成不能唯一确定键连、空间结构或物相"
+      ],
+      "sources": [
+        {
+          "title": "CF 现有模型化学式及基本元素计量"
+        }
+      ]
+    },
+    {
+      "review_status": "in_review",
+      "error_control": null,
+      "tests": [],
+      "id": "rel.matter.composition.no2",
+      "type": "stoichiometric_composition",
+      "premises": [
+        "element.nitrogen",
+        "element.oxygen"
+      ],
+      "conclusion": "matter.no2",
+      "claim": "NO₂ 的元素计量：N×1、O×2。整体为电中性化学式；组成计量不意味着这些元素以游离原子存在。",
+      "conditions": [
+        "仅按化学式读取原子数",
+        "不将元素计量解读为合成途径、晶型或电子结构"
+      ],
+      "steps": [
+        "识别元素符号",
+        "读取化学式下标",
+        "核对总电荷与物种说明"
+      ],
+      "scope": "物质组成关系；非化学反应或形成机理",
+      "limitations": [
+        "元素组成不能唯一确定键连、空间结构或物相"
+      ],
+      "sources": [
+        {
+          "title": "CF 现有模型化学式及基本元素计量"
+        }
+      ]
+    },
+    {
+      "review_status": "in_review",
+      "error_control": null,
+      "tests": [],
+      "id": "rel.matter.composition.n2o4",
+      "type": "stoichiometric_composition",
+      "premises": [
+        "element.nitrogen",
+        "element.oxygen"
+      ],
+      "conclusion": "matter.n2o4",
+      "claim": "N₂O₄ 的元素计量：N×2、O×4。整体为电中性化学式；组成计量不意味着这些元素以游离原子存在。",
+      "conditions": [
+        "仅按化学式读取原子数",
+        "不将元素计量解读为合成途径、晶型或电子结构"
+      ],
+      "steps": [
+        "识别元素符号",
+        "读取化学式下标",
+        "核对总电荷与物种说明"
+      ],
+      "scope": "物质组成关系；非化学反应或形成机理",
+      "limitations": [
+        "元素组成不能唯一确定键连、空间结构或物相"
+      ],
+      "sources": [
+        {
+          "title": "CF 现有模型化学式及基本元素计量"
+        }
+      ]
+    },
+    {
+      "review_status": "in_review",
+      "error_control": null,
+      "tests": [],
+      "id": "rel.matter.composition.lead_metal",
+      "type": "stoichiometric_composition",
+      "premises": [
+        "element.lead"
+      ],
+      "conclusion": "matter.lead_metal",
+      "claim": "Pb 的元素计量：Pb×1。整体为电中性化学式；组成计量不意味着这些元素以游离原子存在。",
+      "conditions": [
+        "仅按化学式读取原子数",
+        "不将元素计量解读为合成途径、晶型或电子结构"
+      ],
+      "steps": [
+        "识别元素符号",
+        "读取化学式下标",
+        "核对总电荷与物种说明"
+      ],
+      "scope": "物质组成关系；非化学反应或形成机理",
+      "limitations": [
+        "元素组成不能唯一确定键连、空间结构或物相"
+      ],
+      "sources": [
+        {
+          "title": "CF 现有模型化学式及基本元素计量"
+        }
+      ]
+    },
+    {
+      "review_status": "in_review",
+      "error_control": null,
+      "tests": [],
+      "id": "rel.matter.composition.lead_dioxide",
+      "type": "stoichiometric_composition",
+      "premises": [
+        "element.lead",
+        "element.oxygen"
+      ],
+      "conclusion": "matter.lead_dioxide",
+      "claim": "PbO₂ 的元素计量：Pb×1、O×2。整体为电中性化学式；组成计量不意味着这些元素以游离原子存在。",
+      "conditions": [
+        "仅按化学式读取原子数",
+        "不将元素计量解读为合成途径、晶型或电子结构"
+      ],
+      "steps": [
+        "识别元素符号",
+        "读取化学式下标",
+        "核对总电荷与物种说明"
+      ],
+      "scope": "物质组成关系；非化学反应或形成机理",
+      "limitations": [
+        "元素组成不能唯一确定键连、空间结构或物相"
+      ],
+      "sources": [
+        {
+          "title": "CF 现有模型化学式及基本元素计量"
+        }
+      ]
+    },
+    {
+      "review_status": "in_review",
+      "error_control": null,
+      "tests": [],
+      "id": "rel.matter.composition.lead_sulfate",
+      "type": "stoichiometric_composition",
+      "premises": [
+        "element.lead",
+        "element.sulfur",
+        "element.oxygen"
+      ],
+      "conclusion": "matter.lead_sulfate",
+      "claim": "PbSO₄ 的元素计量：Pb×1、S×1、O×4。整体为电中性化学式；组成计量不意味着这些元素以游离原子存在。",
+      "conditions": [
+        "仅按化学式读取原子数",
+        "不将元素计量解读为合成途径、晶型或电子结构"
+      ],
+      "steps": [
+        "识别元素符号",
+        "读取化学式下标",
+        "核对总电荷与物种说明"
+      ],
+      "scope": "物质组成关系；非化学反应或形成机理",
+      "limitations": [
+        "元素组成不能唯一确定键连、空间结构或物相"
+      ],
+      "sources": [
+        {
+          "title": "CF 现有模型化学式及基本元素计量"
+        }
+      ]
+    },
+    {
+      "review_status": "in_review",
+      "error_control": null,
+      "tests": [],
+      "id": "rel.matter.composition.sulfuric_acid",
+      "type": "stoichiometric_composition",
+      "premises": [
+        "element.hydrogen",
+        "element.sulfur",
+        "element.oxygen"
+      ],
+      "conclusion": "matter.sulfuric_acid",
+      "claim": "H₂SO₄ 的元素计量：H×2、S×1、O×4。整体为电中性化学式；组成计量不意味着这些元素以游离原子存在。",
+      "conditions": [
+        "仅按化学式读取原子数",
+        "不将元素计量解读为合成途径、晶型或电子结构"
+      ],
+      "steps": [
+        "识别元素符号",
+        "读取化学式下标",
+        "核对总电荷与物种说明"
+      ],
+      "scope": "物质组成关系；非化学反应或形成机理",
+      "limitations": [
+        "元素组成不能唯一确定键连、空间结构或物相"
+      ],
+      "sources": [
+        {
+          "title": "CF 现有模型化学式及基本元素计量"
+        }
+      ]
+    },
+    {
+      "review_status": "in_review",
+      "error_control": null,
+      "tests": [],
+      "id": "rel.matter.composition.butadiene",
+      "type": "stoichiometric_composition",
+      "premises": [
+        "element.carbon",
+        "element.hydrogen"
+      ],
+      "conclusion": "matter.butadiene",
+      "claim": "C₄H₆ 的元素计量：C×4、H×6。整体为电中性化学式；组成计量不意味着这些元素以游离原子存在。",
+      "conditions": [
+        "仅按化学式读取原子数",
+        "不将元素计量解读为合成途径、晶型或电子结构"
+      ],
+      "steps": [
+        "识别元素符号",
+        "读取化学式下标",
+        "核对总电荷与物种说明"
+      ],
+      "scope": "物质组成关系；非化学反应或形成机理",
+      "limitations": [
+        "元素组成不能唯一确定键连、空间结构或物相"
+      ],
+      "sources": [
+        {
+          "title": "CF 现有模型化学式及基本元素计量"
+        }
+      ]
+    },
+    {
+      "review_status": "in_review",
+      "error_control": null,
+      "tests": [],
+      "id": "rel.matter.nox_dimer",
+      "type": "reversible_stoichiometric_reaction",
+      "premises": [
+        "matter.no2"
+      ],
+      "conclusion": "matter.n2o4",
+      "claim": "2 NO₂(g) ⇌ N₂O₄(g)，反应前后 N 和 O 的总原子数守恒；平衡组成需额外给出温度、压力和 K°。",
+      "conditions": [
+        "只讨论 CF 的两个气相物种",
+        "采用 2:1 的反应计量"
+      ],
+      "steps": [
+        "取 2×NO₂ 的元素计量",
+        "与 N₂O₄ 比较守恒",
+        "再通过热力学与速率模型研究体系状态"
+      ],
+      "scope": "N₂O₄/NO₂ 理想气体模型中的气相二聚平衡",
+      "limitations": [
+        "化学计量式不能预测平衡常数或实际速率",
+        "不代表其他氮氧化物反应网络"
+      ],
+      "sources": [
+        {
+          "title": "docs/models/N2O4_IDEAL_GAS.md"
+        }
+      ]
+    },
+    {
+      "review_status": "in_review",
+      "error_control": null,
+      "tests": [],
+      "id": "rel.matter.lead_acid_discharge",
+      "type": "balanced_overall_reaction",
+      "premises": [
+        "matter.lead_metal",
+        "matter.lead_dioxide",
+        "matter.sulfuric_acid"
+      ],
+      "conclusion": "matter.lead_sulfate",
+      "claim": "铅酸电池总放电反应为 Pb + PbO₂ + 2H₂SO₄ → 2PbSO₄ + 2H₂O；PbSO₄ 和 H₂O 均为生成物，元素和电荷守恒。",
+      "conditions": [
+        "采用充放电教学模型的主反应",
+        "Pb(s)、PbO₂(s)、硫酸水溶液与产物相态按模型约定"
+      ],
+      "steps": [
+        "写出负极及正极半反应",
+        "相加消去电子",
+        "校验 Pb、S、H、O 原子数"
+      ],
+      "scope": "铅酸蓄电池放电的化学计量示例",
+      "limitations": [
+        "总反应式不决定实际电流、速率、容量或副反应",
+        "电解液中的离子种类由酸碱平衡决定"
+      ],
+      "sources": [
+        {
+          "title": "src/models/lead-acid.js"
+        }
+      ]
     }
   ],
   "inquiries": [],
@@ -3067,6 +3970,34 @@
             "kinetics.ch11.10"
           ],
           "relation_id": "rel.kinetics11.mechanism_evidence"
+        },
+        {
+          "title": "从元素到分子式",
+          "node_ids": [
+            "element.hydrogen",
+            "element.oxygen",
+            "matter.water"
+          ],
+          "relation_id": "rel.matter.composition.water"
+        },
+        {
+          "title": "氮氧化物的组成与转化",
+          "node_ids": [
+            "element.nitrogen",
+            "matter.no2",
+            "matter.n2o4"
+          ],
+          "relation_id": "rel.matter.nox_dimer"
+        },
+        {
+          "title": "电池物质的元素守恒",
+          "node_ids": [
+            "matter.lead_metal",
+            "matter.lead_dioxide",
+            "matter.sulfuric_acid",
+            "matter.lead_sulfate"
+          ],
+          "relation_id": "rel.matter.lead_acid_discharge"
         }
       ]
     },

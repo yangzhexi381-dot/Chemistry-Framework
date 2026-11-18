@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.5.0-dev — restore Materials & Composition graph (2026-11-18)
+
+- Repaired a permanently empty graph view caused by filtering for node types absent from the original knowledge data.
+- Added six chemical-element nodes, nine composition-grounded species and eleven conditional relations; preserved all previous graph/model science data.
+- Linked H₂⁺, H₂O symmetry, NO₂/N₂O₄, lead-acid electrode components and butadiene/Hückel to existing simulations.
+- Added stoichiometry and conservation regression tests, mobile graph scrolling and hosted Chromium UI acceptance.
+
+
 ## v0.5.0-dev — expose kinetics in Reaction & Mechanism map (2026-11-18)
 
 - Fixed the Reaction & Mechanism graph filter to include the complete published kinetics knowledge domain and existing reaction examples.
