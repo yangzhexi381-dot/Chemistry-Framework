@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.5.0-dev — combine thermodynamics and kinetics view (2026-11-18)
+
+- Unified thermodynamics and kinetics under the single map filter '热力学与动力学'.
+- Removed 11.x prefixes from ten visible kinetic concept titles, graph labels and theory-unit headings; preserved the stable node IDs and source citations.
+- Added regression checks for merged filter, numbering-free labels, legacy deep links and responsive browser navigation.
+
+
 ## v0.5.0-dev — shared knowledge across modules (2026-11-18)
 
 - Linked all five main modules through shared concept and conditional-relation IDs.

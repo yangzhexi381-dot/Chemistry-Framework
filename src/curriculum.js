@@ -84,7 +84,7 @@
     chapterSelect.disabled = false; chapterSelect.value = entry.id;
     const nav = $('curriculum-sections'); nav.replaceChildren();
     for (const section of chapters.get(entry.id)?.sections || []) {
-      const node = link(section.number + '　' + section.title, targetHash(section.id));
+      const node = link(section.title, targetHash(section.id));
       if (section.id === selectedSection) { node.className = 'active'; node.setAttribute('aria-current', 'location'); }
       nav.append(node);
     }
@@ -114,7 +114,7 @@
     for (const record of matches) {
       const card = element('article', undefined, 'curriculum-search-result');
       card.append(element('small', record.book.title + ' / ' + record.chapter.title));
-      const heading = element('h4'); heading.append(link(record.section.number + '　' + record.section.title, targetHash(record.section.id))); card.append(heading);
+      const heading = element('h4'); heading.append(link(record.section.title, targetHash(record.section.id))); card.append(heading);
       const firstTerm = query.toLocaleLowerCase().split(/\s+/)[0], index = record.content.toLocaleLowerCase().indexOf(firstTerm), start = Math.max(0, index - 45);
       card.append(element('p', (start ? '…' : '') + record.content.slice(start, start + 180) + (record.content.length > start + 180 ? '…' : '')), element('small', sourceText(record.section.source))); host.append(card);
     }
@@ -123,7 +123,7 @@
     const article = element('article', undefined, 'curriculum-article'); article.id = 'curriculum-current';
     const heading = element('header', undefined, 'curriculum-article-head');
     heading.append(element('div', book.title + ' / ' + chapterName(chapter), 'curriculum-breadcrumb'), element('span', levels[section.level] || section.level, 'curriculum-level'));
-    const title = element('h2', section.number + '　' + section.title); title.tabIndex = -1;
+    const title = element('h2', section.title); title.tabIndex = -1;
     heading.append(title, element('p', section.overview, 'curriculum-overview'), link('本节固定链接 ↗', targetHash(section.id), 'curriculum-permalink')); article.append(heading);
     const topics = block('知识点与解释');
     for (const topic of section.subtopics || []) {
@@ -160,8 +160,8 @@
     source.append(element('p', '内容依据列明来源与约束；未独立验证的结论需要进一步核对。')); article.append(source);
     const index = chapter.sections.indexOf(section), nav = element('nav', undefined, 'curriculum-sequence'); nav.setAttribute('aria-label', '相邻小节');
     const previous = chapter.sections[index - 1], next = chapter.sections[index + 1];
-    if (previous) nav.append(link('← ' + previous.number + ' ' + previous.title, targetHash(previous.id)));
-    if (next) nav.append(link(next.number + ' ' + next.title + ' →', targetHash(next.id)));
+    if (previous) nav.append(link('← ' + previous.title, targetHash(previous.id)));
+    if (next) nav.append(link(next.title + ' →', targetHash(next.id)));
     article.append(nav); return article;
   }
   function renderMain() {
