@@ -311,3 +311,11 @@ button, a, textarea, input { touch-action: manipulation; } .graph-wrap svg{max-w
  .connected-graph.radial-graph .network-intro{padding:12px 15px}
  .connected-graph.radial-graph .network-controls-right{font-size:11px}
 }
+
+/* Keep every label visible in the original full-node view.
+   The deterministic label placement engine already avoids text-box overlaps. */
+.connected-graph.radial-graph .network-viewport.is-overview .network-node .network-secondary,
+.connected-graph.radial-graph .network-viewport.is-domain-zoom .network-node .network-secondary,
+.connected-graph.radial-graph .network-viewport.is-detail-zoom .network-node .network-secondary{
+ display:block!important;
+}
