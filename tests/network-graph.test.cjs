@@ -1,88 +1,62 @@
 const {test}=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const read=p=>fs.readFileSync(path.resolve(__dirname,'..',p),'utf8');
-const d=JSON.parse(read('data/knowledge.json'));
-const atlas=require('../src/unified-map.js').build(d.nodes,d.relations);
-const geometry=require('../src/network-graph.js');
-const net=geometry.build(atlas);
-test('one visible scientific network has all nodes and all relation objects',()=>{
- assert.equal(net.count,d.nodes.length);
- assert.equal(net.relationCount,d.relations.length);
- assert.equal(net.count,64);assert.equal(net.relationCount,49);
- assert.equal(new Set(net.points.map(p=>p.id)).size,64);
- assert.equal(new Set(net.edges.map(e=>e.id)).size,49);
- assert.equal(net.edges.filter(e=>e.cross).length,8);
- for(const point of net.points){
-  assert.ok(Number.isFinite(point.x)&&Number.isFinite(point.y));
-  assert.ok(point.x>=0&&point.y>=0&&point.x<=net.width&&point.y<=net.height,point.id);
-  assert.ok(geometry.centers[point.group]);
- }
- for(const edge of net.edges){
+const db=JSON.parse(read('data/knowledge.json'));
+const atlas=require('../src/unified-map.js').build(db.nodes,db.relations);
+const geometry=require('../src/network-graph.js'),map=geometry.build(atlas);
+test('a single spiral map retains all 64 concepts and 49 true relations',()=>{
+ assert.equal(map.count,64);assert.equal(map.relationCount,49);
+ assert.equal(new Set(map.points.map(p=>p.id)).size,db.nodes.length);
+ assert.deepEqual(new Set(map.edges.map(e=>e.id)),new Set(db.relations.map(r=>r.id)));
+ assert.equal(map.edges.filter(e=>e.cross).length,8);
+ for(const edge of map.edges){
   assert.equal(edge.from.length,edge.relation.premises.length);
   assert.equal(edge.end.id,edge.relation.conclusion);
-  assert.ok(edge.from.every(p=>p.id!==''&&net.points.includes(p)));
-  if(edge.relation.premises.length>1)assert.ok(edge.joint,'multi-premise join missing '+edge.id);
-  else assert.equal(edge.joint,null);
+  if(edge.from.length>1)assert.ok(edge.joint,edge.id);
+  else assert.equal(edge.joint,null,edge.id);
  }
+ assert.equal(map.componentCount,10);
+ assert.equal(map.unlinkedIds.length,6);
 });
-test('network geometry keeps six labelled groups without replacing actual dependencies',()=>{
- assert.equal(Object.keys(geometry.centers).length,6);
- for(const g of atlas.groups){
-  const points=net.points.filter(p=>p.group===g.id);
-  assert.equal(points.length,g.nodes.length,g.id);
-  assert.equal(points.filter(p=>p.featured).length,g.highlights.length,g.id);
- }
- assert.deepEqual(new Set(net.edges.map(e=>e.relation.id)),new Set(d.relations.map(e=>e.id)));
- const index=read('index.html'),app=read('src/app.js'),css=read('assets/css/style.css');
- assert.match(index,/src="src\/network-graph\.js\?v=20261118-19"/);
- assert.ok(app.includes('CFNetworkGraph.build(map)'));
- assert.ok(app.includes('network-relation'));
- assert.ok(app.includes("const cls='node network-node"));
- assert.ok(app.includes('networkFocusNode(id)'));
- assert.ok(css.includes('.network-svg'));
-});
-
-test('graph labels and nodes no longer collide in rigid rings',()=>{
+test('original free spiral has spacious, valid nodes without six rigid panels',()=>{
+ assert.equal(geometry.width,1840);assert.equal(geometry.height,1380);
+ assert.equal(Object.keys(map.centers).length,6);
  for(const group of atlas.groups){
-  const points=net.points.filter(p=>p.group===group.id);
-  for(let i=0;i<points.length;i++)for(let j=i+1;j<points.length;j++){
-   const d=Math.hypot(points[i].x-points[j].x,points[i].y-points[j].y);
-   assert.ok(d>=40,'crowded nodes: '+points[i].id+' / '+points[j].id+' at '+d);
-  }
-  const featured=points.filter(p=>p.featured);
-  assert.ok(featured.every(p=>p.y<=geometry.centers[group.id][1]),group.id+' main nodes must form top-level reading tier');
+  assert.equal(map.points.filter(p=>p.group===group.id).length,group.nodes.length);
+  assert.equal(map.points.filter(p=>p.featured&&p.group===group.id).length,group.highlights.length);
  }
- const analysis=net.points.filter(p=>p.group==='analysis');
- assert.ok(analysis.length===2);
- const center=geometry.centers.analysis[0];
- assert.equal(analysis[0].x+analysis[1].x,2*center,'two-node field must be centered');
-});
-test('connectivity gaps are reported honestly, never covered by fabricated graph edges',()=>{
- assert.equal(net.componentCount,10);
- assert.equal(net.unlinkedIds.length,6);
- assert.ok(net.unlinkedIds.every(id=>id.startsWith('battery.')));
- const original=new Set(d.relations.map(r=>r.id));
- assert.deepEqual(new Set(net.edges.map(e=>e.id)),original);
- const app=read('src/app.js');
- assert.ok(app.includes("networkDragMode=false"));
- assert.ok(app.includes('network-viewport'));
- assert.ok(app.includes('手指平移：'));
- assert.ok(app.includes('graph.componentCount'));
-});
-
-test('labels are complete and rectangular footprints are separated in each subject region',()=>{
- assert.equal(geometry.width,2440);assert.equal(geometry.height,1760);
- for(const group of atlas.groups){
-  const points=net.points.filter(p=>p.group===group.id);
-  for(const p of points){
-   assert.equal(p.lines.join(''),p.label,p.id+' label may not be truncated');
-   assert.ok(p.lines.every(s=>Array.from(s).reduce((x,ch)=>x+geometry.approximateWidth(ch),0)<=7.55),p.id);
-  }
-  for(let i=0;i<points.length;i++)for(let j=i+1;j<points.length;j++){
-   const a=points[i],b=points[j];
-   const width=p=>Math.max(...p.lines.map(s=>Array.from(s).reduce((x,ch)=>x+geometry.approximateWidth(ch),0)))*23;
-   const xOverlap=Math.min(a.x+width(a)/2,b.x+width(b)/2)-Math.max(a.x-width(a)/2,b.x-width(b)/2);
-   const yOverlap=Math.min(a.y+26+a.lines.length*27,b.y+26+b.lines.length*27)-Math.max(a.y+26,b.y+26);
-   assert.ok(xOverlap<=0||yOverlap<=0,a.id+' and '+b.id+' labels overlap');
+ for(let i=0;i<map.points.length;i++){
+  const p=map.points[i];
+  assert.ok(p.x>0&&p.x<map.width&&p.y>0&&p.y<map.height,p.id);
+  for(let j=i+1;j<map.points.length;j++){
+   const q=map.points[j],dist=Math.hypot(p.x-q.x,p.y-q.y);
+   assert.ok(dist>85,'dots too close: '+p.id+' / '+q.id);
   }
  }
+});
+test('labels keep complete text, and calculated rectangles never collide when zoomed',()=>{
+ for(const p of map.points){
+  assert.equal(p.lines.join(''),p.label,p.id);
+  assert.ok(['start','middle','end'].includes(p.labelAnchor),p.id);
+  assert.ok(Number.isFinite(p.labelX)&&Number.isFinite(p.labelY));
+  const a=p.labelBox;
+  assert.ok(a.x>=0&&a.y>=0&&a.x+a.w<=map.width&&a.y+a.h<=map.height,p.id);
+  assert.ok(p.lines.every(line=>Array.from(line).reduce((n,c)=>n+geometry.approximateWidth(c),0)<=7.55));
+ }
+ for(let i=0;i<map.points.length;i++)for(let j=i+1;j<map.points.length;j++){
+  assert.equal(geometry.rectOverlap(map.points[i].labelBox,map.points[j].labelBox),0,'labels collide: '+map.points[i].id+' / '+map.points[j].id);
+ }
+});
+test('screenshot style and direct touch gestures are present, without a pan-mode toggle',()=>{
+ const app=read('src/app.js'),html=read('index.html'),css=read('assets/css/style.css');
+ assert.match(html,/src="src\/network-graph\.js\?v=20261118-20"/);
+ assert.match(html,/src="src\/app\.js\?v=20261118-20"/);
+ assert.ok(app.includes("host.classList.add('unified-graph','connected-graph','radial-graph')"));
+ assert.ok(app.includes("const groupSVG=''"));
+ assert.ok(!app.includes('network-pan-toggle'));
+ assert.ok(app.includes("kind:'pinch'"));
+ assert.ok(app.includes("kind:'pan'"));
+ assert.ok(app.includes("svg.addEventListener('pointerdown'"));
+ assert.ok(app.includes("svg.addEventListener('pointermove'"));
+ assert.ok(css.includes('.radial-graph .network-svg{touch-action:none'));
+ assert.ok(css.includes('radial-gradient(circle,#e3e9e1'));
 });

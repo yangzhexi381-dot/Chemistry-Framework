@@ -4,7 +4,7 @@ const views=[['全部视角','全部']];
 const atlasExpanded=new Set();
 let networkData=null;
 let networkCamera={x:0,y:0,w:CFNetworkGraph.width,h:CFNetworkGraph.height};
-let networkStarted=false,networkDragMode=false;
+let networkStarted=false;
 let cases=[];
 function domainOf(n){const d=n.domain||[];if(d.some(x=>x.includes('electro')))return '电化学与界面';if(d.some(x=>x.includes('analytical')))return '分析与表征';if(n.id.startsWith('chem.'))return '反应与机理';return '理论工具'}
 function visibleNodes(){let ns=db.nodes;if(selectedDomain==='全部视角')return ns;if(selectedDomain==='物质与组成')return ns.filter(CFGraphViews.matterCompositionNode);if(selectedDomain==='结构与成键')return ns.filter(n=>n.id.startsWith('qm.')||n.domain.includes('structure_bonding')||/结构|成键|轨道|电子/.test(n.title));if(selectedDomain==='反应与机理')return ns.filter(CFGraphViews.reactionMechanismNode);if(selectedDomain==='热力学与动力学')return ns.filter(n=>n.domain.includes('quantum_statistical_mechanics')||n.domain.includes('chemical_kinetics')||n.domain.includes('thermodynamics')||/动力学|平衡|自由能/.test(n.title));if(selectedDomain==='电化学与界面')return ns.filter(n=>n.domain.includes('electrochemistry'));return ns.filter(n=>n.domain.includes('analytical_chemistry'))}
@@ -45,12 +45,12 @@ function networkZoom(factor){
  networkCamera={x:cx-w/2,y:cy-h/2,w,h};networkApplyCamera();
 }
 function networkFocusGroup(id){
- const pos=CFNetworkGraph.centers[id];if(!pos)return;
- networkCamera={x:pos[0]-360,y:pos[1]-385,w:720,h:770};networkApplyCamera();
+ const pos=networkData?.centers[id];if(!pos)return;
+ networkCamera={x:pos[0]-360,y:pos[1]-270,w:720,h:540};networkApplyCamera();
 }
 function networkFocusNode(id){
  const n=networkData?.points.find(p=>p.id===id);if(!n)return;
- networkCamera={x:n.x-240,y:n.y-220,w:480,h:440};networkApplyCamera();
+ networkCamera={x:n.x-235,y:n.y-176,w:470,h:352};networkApplyCamera();
 }
 function renderAtlas(){
  const map=CFUnifiedMap.build(db.nodes,db.relations);
@@ -58,9 +58,9 @@ function renderAtlas(){
  const graph=CFNetworkGraph.build(map);
  if(graph.count!==map.nodeCount||graph.relationCount!==map.relationCount)throw new Error('知识图谱几何与原始关系数据不一致');
  networkData=graph;
- const host=$('#graph');host.classList.remove('materials-graph');host.classList.add('unified-graph','connected-graph');
+ const host=$('#graph');host.classList.remove('materials-graph');host.classList.add('unified-graph','connected-graph','radial-graph');
  const byId=new Map(db.nodes.map(n=>[n.id,n]));
- const colors={matter:'#5b9d7d',structure:'#829cb5',thermo:'#9a83b5',kinetics:'#b79265',electrochem:'#479786',analysis:'#899b90'};
+ const colors={matter:'#5c9878',structure:'#a395c0',thermo:'#a395c0',kinetics:'#5c9878',electrochem:'#5c9878',analysis:'#a395c0'};
  const relationSelected=r=>selectedNode&&(r.conclusion===selectedNode||r.premises.includes(selectedNode));
  const curved=(a,b,cross)=>{
   const mx=(a.x+b.x)/2,my=(a.y+b.y)/2;
@@ -77,26 +77,17 @@ function renderAtlas(){
    const title=r.claim+'；关系类型：'+r.type+'；条件：'+(r.conditions||[]).join('；');
    return '<g class="'+cls+'" data-relation="'+esc(r.id)+'" role="button" tabindex="0" aria-label="'+esc(title)+'"><title>'+esc(title)+'</title>'+limbs+end+joint+'</g>';
  }).join('');
- const groupSVG=map.groups.map(g=>{
-  const c=CFNetworkGraph.centers[g.id];
-  return '<g class="network-group" data-group="'+esc(g.id)+'"><rect x="'+(c[0]-352)+'" y="'+(c[1]-375)+'" width="704" height="750" rx="32"/>'+
-    '<text class="network-group-title" x="'+(c[0]-306)+'" y="'+(c[1]-321)+'">'+esc(g.number+'  '+g.title)+'</text>'+
-    '<text class="network-group-subtitle" x="'+(c[0]-305)+'" y="'+(c[1]-290)+'">'+esc(g.subtitle)+'</text>'+
-    '<text class="network-group-count" x="'+(c[0]+302)+'" y="'+(c[1]-321)+'" text-anchor="end">'+g.nodes.length+' 节点</text>'+
-    '<line class="network-tier-line" x1="'+(c[0]-302)+'" y1="'+(c[1]-42)+'" x2="'+(c[0]+302)+'" y2="'+(c[1]-42)+'"/>'+
-    '<text class="network-tier-label" x="'+(c[0]-305)+'" y="'+(c[1]-65)+'">核心概念</text>'+
-    '<text class="network-tier-label" x="'+(c[0]-305)+'" y="'+(c[1]-17)+'">关联拓展</text></g>';
- }).join('');
+ const groupSVG=''; // Restore the original open node-cloud canvas: no boxed subject panels.
  const activeIds=new Set();if(selectedNode)for(const e of graph.edges)if(relationSelected(e.relation))for(const id of [...e.relation.premises,e.relation.conclusion])activeIds.add(id);
  const nodeSVG=graph.points.map(p=>{
   const n=byId.get(p.id),chosen=selectedNode===p.id,related=activeIds.has(p.id);
   const isDim=selectedNode&&!chosen&&!related;
   const cls='node network-node'+(chosen?' selected':'')+(related?' is-related':'')+(isDim?' is-muted':'');
-  const labelLines=p.lines.map((line,i)=>'<tspan x="'+p.x.toFixed(1)+'" dy="'+(i===0?0:27)+'">'+esc(line)+'</tspan>').join('');
+  const labelLines=p.lines.map((line,i)=>'<tspan x="'+p.labelX.toFixed(1)+'" dy="'+(i===0?0:24)+'">'+esc(line)+'</tspan>').join('');
   return '<g class="'+cls+'" data-node="'+esc(p.id)+'" data-group="'+esc(p.group)+'" role="button" tabindex="0" aria-label="'+esc(n.title)+'"><title>'+esc(n.title)+'</title>'+
     '<circle cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="'+(chosen?17:p.featured?15:12)+'" fill="'+colors[p.group]+'"/>'+
     '<circle class="network-hit-target" cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="30" fill="transparent"/>'+
-    '<text class="network-label'+(p.featured?' network-primary':' network-secondary')+'" x="'+p.x.toFixed(1)+'" y="'+(p.y+34).toFixed(1)+'">'+labelLines+'</text></g>';
+    '<text class="network-label'+(p.featured?' network-primary':' network-secondary')+'" x="'+p.labelX.toFixed(1)+'" y="'+p.labelY.toFixed(1)+'" style="text-anchor:'+p.labelAnchor+'">'+labelLines+'</text></g>';
  }).join('');
  const diagram='<svg id="network-svg" class="network-svg" viewBox="0 0 '+graph.width+' '+graph.height+'" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="64 个化学知识节点与 49 条带条件关系的统一交互网络"><defs><marker id="network-arrow" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L6 3 L0 6" fill="none" stroke="#6f9c81" stroke-width="1.3"/></marker></defs>'+groupSVG+relationSVG+nodeSVG+'</svg>';
  const chip=node=>'<button class="atlas-node'+(selectedNode===node.id?' selected':'')+'" type="button" data-node="'+esc(node.id)+'" title="'+esc(node.title)+'">'+esc(node.graph_label||node.title)+'</button>';
@@ -112,10 +103,10 @@ function renderAtlas(){
   const groupNames=relation.groups.map(id=>CFUnifiedMap.groups.find(g=>g.id===id)?.label||id).join(' · ');
   return '<a class="atlas-bridge" data-relation="'+esc(relation.id)+'" href="#concept/'+esc(relation.conclusion)+'"><span class="atlas-bridge-domain">'+esc(groupNames)+'</span><b>'+esc(byId.get(relation.conclusion)?.title||relation.conclusion)+'</b><span class="atlas-bridge-claim">'+esc(relation.claim)+'</span><small>类型：'+esc(relation.type)+' · '+esc((relation.conditions||[]).slice(0,2).join('；')||'详见适用条件')+'</small></a>';
  };
- host.innerHTML='<div class="network-intro"><div><strong>一张知识架构，从全局逐层放大</strong><p>64 个节点始终保留。全局先看六个领域与跨域关系；进入一个领域后显示核心概念，再放大可看完整名称、内部连线和多前提汇合点。</p></div><span>6 个领域 · 8 条跨领域关系</span></div>'+
-  '<div class="network-controls"><div class="network-controls-left"><button type="button" id="network-zoom-in" aria-label="放大网络">放大 ＋</button><button type="button" id="network-zoom-out" aria-label="缩小网络">缩小 −</button><button type="button" id="network-reset">完整网络</button><button type="button" id="network-pan-toggle" aria-pressed="false">手指平移：关</button></div><div class="network-controls-right"><span id="network-zoom-label">100%</span><span>总览看架构 · 点领域定位 · 再放大看全名</span></div></div>'+
+ host.innerHTML='<div class="network-intro"><div><strong>化学知识关系图</strong><p>恢复原版的节点与连线视图。64 个节点共同构成一张可探索的网络；放大后可以逐一阅读知识名称及关系条件。</p></div><span>64 个节点 · 49 条关系</span></div>'+
+  '<div class="network-controls"><div class="network-controls-left"><button type="button" id="network-zoom-in" aria-label="放大网络">放大 ＋</button><button type="button" id="network-zoom-out" aria-label="缩小网络">缩小 −</button><button type="button" id="network-reset">完整网络</button></div><div class="network-controls-right"><span id="network-zoom-label">100%</span><span>单指平移 · 双指捏合缩放 · 点节点查看详情</span></div></div>'+
   '<div id="network-viewport" class="network-viewport" aria-label="可拖动和缩放的化学知识网络">'+diagram+'</div>'+
-  '<div class="network-footnote">局部关系在放大后显示，跨领域连接在总览中保留；所有关系均来自现有证据数据。目前包含 '+graph.componentCount+' 个关系子网，'+graph.unlinkedIds.length+' 个节点尚无直接编码关系；这属于知识覆盖情况，不是显示错误。</div>'+
+  '<div class="network-footnote">连线均来自已有的真实知识关系；双指缩放后可查看完整节点名称，未补画任何无证据的关联。目前包含 '+graph.componentCount+' 个关系子网，'+graph.unlinkedIds.length+' 个节点尚无直接编码关系；这属于知识覆盖情况，不是显示错误。</div>'+
   '<details class="network-index"><summary><span>按领域查阅所有知识点</span><small>六组辅助索引，不会从网络中移除节点</small></summary><div class="atlas-grid">'+sections+'</div></details>'+
   '<section class="atlas-links"><div class="atlas-links-head"><div><h3>跨领域的真实联系</h3><p>八条已有跨领域关系均可回到网络中的具体节点，并保留前提和适用范围。</p></div><span>'+map.bridges.length+' 条</span></div><div class="atlas-link-grid">'+map.bridges.map(relationText).join('')+'</div></section>';
  if(!networkStarted){
@@ -123,16 +114,6 @@ function renderAtlas(){
  }
  networkStarted=true;
  const viewport=host.querySelector('#network-viewport');
- const panButton=host.querySelector('#network-pan-toggle');
- viewport.classList.toggle('is-pan-mode',networkDragMode);
- panButton.setAttribute('aria-pressed',String(networkDragMode));
- panButton.textContent='手指平移：'+(networkDragMode?'开':'关');
- panButton.onclick=()=>{
-  networkDragMode=!networkDragMode;
-  viewport.classList.toggle('is-pan-mode',networkDragMode);
-  panButton.setAttribute('aria-pressed',String(networkDragMode));
-  panButton.textContent='手指平移：'+(networkDragMode?'开':'关');
- };
  networkApplyCamera();
  host.querySelector('#network-zoom-in').onclick=()=>networkZoom(1.32);
  host.querySelector('#network-zoom-out').onclick=()=>networkZoom(1/1.32);
@@ -150,22 +131,72 @@ function renderAtlas(){
   const click=()=>{const relation=db.relations.find(r=>r.id===el.dataset.relation);if(relation)handleNode(relation.conclusion)};
   el.onclick=click;el.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();click()}};
  });
- const svg=host.querySelector('#network-svg');let drag=null;
+ const svg=host.querySelector('#network-svg');
+ const pointers=new Map();let gesture=null,lastGestureAt=-10000;
+ const capture=id=>{try{svg.setPointerCapture(id)}catch(_){}};
+ const visibleSize=()=>{
+  const rect=svg.getBoundingClientRect(),worldAspect=networkCamera.w/networkCamera.h;
+  const renderedW=Math.min(rect.width,rect.height*worldAspect);
+  const renderedH=Math.min(rect.height,rect.width/worldAspect);
+  return {rect,w:Math.max(1,renderedW),h:Math.max(1,renderedH)};
+ };
+ const normal=(x,y)=>{
+  const s=visibleSize();
+  return {x:(x-s.rect.left-(s.rect.width-s.w)/2)/s.w,
+   y:(y-s.rect.top-(s.rect.height-s.h)/2)/s.h};
+ };
+ const restartGesture=()=>{
+  const arr=[...pointers.values()];
+  if(arr.length===0){gesture=null;return;}
+  const cam={...networkCamera};
+  if(arr.length===1){
+   gesture={kind:'pan',x:arr[0].x,y:arr[0].y,cam,moved:false};
+  }else{
+   const x=(arr[0].x+arr[1].x)/2,y=(arr[0].y+arr[1].y)/2;
+   const n=normal(x,y);
+   gesture={kind:'pinch',cam,dist:Math.max(1,Math.hypot(arr[0].x-arr[1].x,arr[0].y-arr[1].y)),
+    worldX:cam.x+n.x*cam.w,worldY:cam.y+n.y*cam.h,moved:true};
+  }
+ };
  svg.addEventListener('pointerdown',event=>{
-  if(event.target.closest('.network-node,.network-relation'))return;
-  if(event.button!==0||(event.pointerType!=='mouse'&&!networkDragMode))return;
-  drag={id:event.pointerId,x:event.clientX,y:event.clientY,camX:networkCamera.x,camY:networkCamera.y};
-  svg.setPointerCapture(event.pointerId);
+  if(event.pointerType==='mouse'&&event.button!==0)return;
+  pointers.set(event.pointerId,{x:event.clientX,y:event.clientY});
+  restartGesture();
+  if(pointers.size>1)for(const id of pointers.keys())capture(id);
  });
  svg.addEventListener('pointermove',event=>{
-  if(!drag||drag.id!==event.pointerId)return;
-  const rect=svg.getBoundingClientRect();
-  networkCamera.x=drag.camX-(event.clientX-drag.x)*networkCamera.w/rect.width;
-  networkCamera.y=drag.camY-(event.clientY-drag.y)*networkCamera.h/rect.height;
-  networkApplyCamera();
- });
- const stopDrag=()=>{drag=null};
- svg.addEventListener('pointerup',stopDrag);svg.addEventListener('pointercancel',stopDrag);svg.addEventListener('lostpointercapture',stopDrag);
+  if(!pointers.has(event.pointerId)||!gesture)return;
+  pointers.set(event.pointerId,{x:event.clientX,y:event.clientY});
+  if(pointers.size===1&&gesture.kind==='pan'){
+   const dx=event.clientX-gesture.x,dy=event.clientY-gesture.y;
+   if(!gesture.moved&&Math.hypot(dx,dy)<5)return;
+   if(!gesture.moved){gesture.moved=true;capture(event.pointerId);}
+   const size=visibleSize();
+   networkCamera.x=gesture.cam.x-dx*gesture.cam.w/size.w;
+   networkCamera.y=gesture.cam.y-dy*gesture.cam.h/size.h;
+   networkApplyCamera();
+   event.preventDefault();
+  }else if(pointers.size>=2&&gesture.kind==='pinch'){
+   const pts=[...pointers.values()].slice(0,2);
+   const x=(pts[0].x+pts[1].x)/2,y=(pts[0].y+pts[1].y)/2;
+   const dist=Math.max(1,Math.hypot(pts[0].x-pts[1].x,pts[0].y-pts[1].y));
+   const zoom=dist/gesture.dist;
+   const n=normal(x,y);
+   const w=gesture.cam.w/zoom,h=gesture.cam.h/zoom;
+   networkCamera={x:gesture.worldX-n.x*w,y:gesture.worldY-n.y*h,w,h};
+   networkApplyCamera();event.preventDefault();
+  }
+ },{passive:false});
+ const endPointer=event=>{
+  if(!pointers.has(event.pointerId))return;
+  if(gesture?.moved||gesture?.kind==='pinch')lastGestureAt=performance.now();
+  pointers.delete(event.pointerId);restartGesture();
+ };
+ for(const name of ['pointerup','pointercancel','lostpointercapture'])
+  svg.addEventListener(name,endPointer);
+ svg.addEventListener('click',event=>{
+  if(performance.now()-lastGestureAt<350){event.stopPropagation();event.preventDefault();}
+ },true);
  svg.addEventListener('wheel',event=>{
   if(!event.ctrlKey)return;
   event.preventDefault();networkZoom(event.deltaY<0?1.2:1/1.2);

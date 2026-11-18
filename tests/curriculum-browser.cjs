@@ -67,7 +67,7 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict');
   assert.equal(overlaps,0,'zoomed labels must not overlap');
   await page.locator('#network-reset').click();
   assert.equal(await page.locator('#network-viewport.is-overview').count(),1);
-  assert.equal(initialView,'0 0 2440 1760');
+  assert.equal(initialView,'0 0 1840 1380');
   assert.match(await page.locator('#graph .network-footnote').innerText(),/10 个关系子网，6 个节点/);
   await page.locator('#network-zoom-in').click();
   assert.notEqual(await page.locator('#network-svg').getAttribute('viewBox'),initialView);
@@ -93,11 +93,13 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict');
   await page.locator('.network-index>summary').click();
   assert.equal(await page.locator('#graph .atlas-cluster').count(),6,'secondary index has all six regions');
   await page.locator('#atlas-matter details.atlas-more summary').click();
+  await page.locator('#network-reset').click();
   await page.locator('#graph .node[data-node="matter.h2plus"]').click();
   assert.match(await page.locator('#detail').innerText(),/化学式|元素计量/);
   await page.locator('#detail a[href="#model.h2plus"]').click();
   await page.waitForFunction(()=>document.querySelector('#workbench')?.classList.contains('active'));
   await page.goto(base+'#explore');
+  await page.locator('#network-reset').click();
   await page.locator('#graph .node[data-node="matter.n2o4"]').click();
   assert.match(await page.locator('#detail').innerText(),/N₂O₄/);
   await page.locator('#detail a[href="#model.n2o4"]').click();
@@ -107,6 +109,7 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict');
   assert.equal(await page.locator('#graph .node[data-node^="kinetics.ch11."]').count(),10);
   const numberedConcepts=await page.locator('#graph .node[data-node^="kinetics.ch11."]').evaluateAll(nodes=>nodes.some(n=>/^11\.\d+/.test(n.textContent)));
   assert.equal(numberedConcepts,false);
+  await page.locator('#network-reset').click();
   await page.locator('#graph .node[data-node="kinetics.ch11.3"]').click();
   assert.match(await page.locator('#detail h3').innerText(),/速率方程/);
   await page.locator('#detail a[href="#learn/pc.11.3"]').click();
@@ -118,6 +121,7 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict');
   assert.notEqual(await page.locator('#network-svg').getAttribute('viewBox'),initialView,'deep link focuses the actual network node');
   await page.goto(base+'#explore');
   await page.locator('#domains .atlas-jump[data-group="kinetics"]').click();
+  await page.locator('#network-reset').click();
   await page.locator('#graph .node[data-node="kinetics.ch11.4"]').click();
   await page.locator('#detail a[href="#learn/pc.11.4"]').click();
   await page.waitForFunction(()=>document.querySelector('#curriculum-current h2')?.textContent.includes('具有简单级数的反应'));
@@ -135,21 +139,44 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict');
    await mobilePage.goto(base+'#explore');
    await mobilePage.waitForFunction(()=>document.querySelectorAll('#network-svg .network-node').length===64);
    assert.equal(await mobilePage.locator('#network-viewport.is-overview').count(),1);
-   assert.equal(await mobilePage.locator('#network-svg').getAttribute('viewBox'),'0 0 2440 1760');
+   assert.equal(await mobilePage.locator('#network-svg').getAttribute('viewBox'),'0 0 1840 1380');
    assert.equal(await mobilePage.locator('#network-svg .network-node').count(),64);
-   assert.equal(await mobilePage.locator('#network-svg .network-node .network-label').evaluateAll(labels=>labels.filter(el=>getComputedStyle(el).display!=='none').length),0);
+   assert.ok(await mobilePage.locator('#network-svg .network-node .network-label').evaluateAll(labels=>labels.filter(el=>getComputedStyle(el).display!=='none').length)>=20);
    await mobilePage.locator('#domains .atlas-jump[data-group="matter"]').click();
    assert.equal(await mobilePage.locator('#network-viewport.is-domain-zoom').count(),1);
    await mobilePage.locator('#network-zoom-in').click();
    assert.equal(await mobilePage.locator('#network-viewport.is-detail-zoom').count(),1);
    assert.ok(await mobilePage.locator('#network-svg .network-node[data-group="matter"] .network-label').evaluateAll(labels=>labels.every(el=>getComputedStyle(el).display!=='none')));
-   assert.equal(await mobilePage.locator('#network-pan-toggle').getAttribute('aria-pressed'),'false');
+   assert.equal(await mobilePage.locator('#network-pan-toggle').count(),0,'touch panning requires no toggle');
    assert.equal(await mobilePage.locator('#graph .network-node .network-hit-target').count(),64);
    assert.ok(await mobilePage.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth),'mobile network layout overflow');
-   await mobilePage.locator('#network-pan-toggle').click();
-   assert.equal(await mobilePage.locator('#network-pan-toggle').getAttribute('aria-pressed'),'true');
+   const beforePan=await mobilePage.locator('#network-svg').getAttribute('viewBox');
+   await mobilePage.evaluate(()=>{
+    const svg=document.getElementById('network-svg'),rect=svg.getBoundingClientRect();
+    const x=rect.left+rect.width/2,y=rect.top+rect.height/2;
+    const emit=(type,id,dx,dy)=>svg.dispatchEvent(new PointerEvent(type,{
+      bubbles:true,cancelable:true,pointerId:id,pointerType:'touch',button:0,
+      clientX:x+dx,clientY:y+dy,isPrimary:id===111
+    }));
+    emit('pointerdown',111,0,0);emit('pointermove',111,65,30);emit('pointerup',111,65,30);
+   });
+   assert.notEqual(await mobilePage.locator('#network-svg').getAttribute('viewBox'),beforePan,'one-finger pan must change the camera');
+   const beforePinch=(await mobilePage.locator('#network-svg').getAttribute('viewBox')).split(' ').map(Number)[2];
+   await mobilePage.evaluate(()=>{
+    const svg=document.getElementById('network-svg'),rect=svg.getBoundingClientRect();
+    const x=rect.left+rect.width/2,y=rect.top+rect.height/2;
+    const emit=(type,id,dx)=>svg.dispatchEvent(new PointerEvent(type,{
+      bubbles:true,cancelable:true,pointerId:id,pointerType:'touch',button:0,
+      clientX:x+dx,clientY:y,isPrimary:id===201
+    }));
+    emit('pointerdown',201,-35);emit('pointerdown',202,35);
+    emit('pointermove',201,-70);emit('pointermove',202,70);
+    emit('pointerup',201,-70);emit('pointerup',202,70);
+   });
+   const afterPinch=(await mobilePage.locator('#network-svg').getAttribute('viewBox')).split(' ').map(Number)[2];
+   assert.ok(afterPinch<beforePinch,'pinch-out must zoom in');
    await mobilePage.locator('#network-reset').click();
-   assert.equal(await mobilePage.locator('#network-svg').getAttribute('viewBox'),'0 0 2440 1760');
+   assert.equal(await mobilePage.locator('#network-svg').getAttribute('viewBox'),'0 0 1840 1380');
    await mobilePage.locator('#domains .atlas-jump[data-group="kinetics"]').click();
    assert.equal(await mobilePage.locator('#network-svg .network-node').count(),64);
   } finally {await mobilePage.close();}
@@ -248,6 +275,6 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict');
   fail=false;await page.getByRole('button',{name:'重试未加载内容',exact:true}).click();
   await page.waitForFunction(()=>document.querySelector('#curriculum-current h2')?.textContent.includes('化学动力学的任务和目的')&&document.querySelector('#curriculum-errors').hidden);
   assert.deepEqual(errors,[]);
-  console.log('PASS: 64-node graph, six large subject tiers, untruncated labels at semantic zoom, no label overlap, 49 relations, mobile navigation');
+  console.log('PASS: screenshot-style spiral graph, 64 nodes and 49 relations, no label overlap, mobile finger pan and pinch, navigation');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});
