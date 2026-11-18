@@ -23,8 +23,8 @@ test('UI is a scoped native integration, not a nested original app',()=>{
  assert.ok(html.includes('id="structure-studio"'));
  assert.ok(html.includes('id="sc-theory-grid"'));
  assert.equal((html.match(/class="tab(?: active)?" data-page=/g)||[]).length,4);
- assert.ok(html.includes('src="src/models/structure-chemistry.js"'));
- assert.ok(html.includes('src="src/structure-studio.js"'));
+ assert.match(html,/src="src\/models\/structure-chemistry\.js(?:\?[^" ]+)?"/);
+ assert.match(html,/src="src\/structure-studio\.js(?:\?[^" ]+)?"/);
  assert.ok(html.includes('assets/css/structure-studio.css'));
  assert.ok(!html.includes('STRUCTURE LAB'));
  assert.ok(js.includes('root.querySelector(s)'));

@@ -23,11 +23,35 @@ test('two-state eigenvalues and normalized eigenvectors',()=>{
  near(M.twoState(3,4).gap,Math.sqrt(9+64));
  assert.throws(()=>M.twoState(NaN,1));
 });
+test('two-state eigenvector satisfies the scaled residual through small nonzero coupling',()=>{
+ for(const [d,v] of [[0,1e-9],[0,-1e-9],[3,1e-9],[-3,1e-9],[-3,-4],[3,0],[-3,0],[1e-200,1e-200],[0,0]]){
+  const {low,a,b}=M.twoState(d,v);
+  const scale=Math.max(Math.abs(d),Math.abs(v))||1;
+  const diagonal=(d/scale)/2,coupling=v/scale,e=low/scale;
+  near(a*a+b*b,1,1e-14);
+  near(diagonal*a+coupling*b-e*a,0,1e-14);
+  near(coupling*a-diagonal*b-e*b,0,1e-14);
+ }
+});
 test('harmonic/Morse potentials and energies preserve normalized source formulas',()=>{
  near(M.vibrationEnergy(0),0.5);near(M.vibrationEnergy(1)-M.vibrationEnergy(0),1);
  near(M.vibrationPotential(0,'morse',7),0);
  assert.ok(M.vibrationEnergy(1,'morse',7)-M.vibrationEnergy(0,'morse',7)<1);
  assert.throws(()=>M.vibrationPotential(0,'morse',0));
+});
+test('Morse levels stop at dissociation and turning points solve V(q) = E',()=>{
+ assert.equal(M.vibrationLevelExists(5,'morse',3),true);
+ near(M.vibrationEnergy(5,'morse',3),143/48);
+ assert.equal(M.vibrationLevelExists(6,'morse',3),false);
+ assert.throws(()=>M.vibrationEnergy(6,'morse',3),RangeError);
+ assert.throws(()=>M.vibrationEnergy(5,'morse',2.75),RangeError);
+ assert.throws(()=>M.vibrationEnergy(1.5),RangeError);
+ for(const [v,mode,depth] of [[5,'morse',3],[5,'morse',2.75000001],[5,'harmonic',3]]){
+  const [left,right]=M.vibrationTurningPoints(v,mode,depth);
+  assert.ok(left<0&&right>0&&Number.isFinite(right));
+  const energy=M.vibrationEnergy(v,mode,depth);
+  for(const q of [left,right])near(M.vibrationPotential(q,mode,depth),energy,1e-12);
+ }
 });
 test('LS term coupling and exchange screening and C2v selection rule',()=>{
  assert.equal(M.allowedTerms('pd').length,6);

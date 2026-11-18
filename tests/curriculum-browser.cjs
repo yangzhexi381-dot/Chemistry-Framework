@@ -209,6 +209,25 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict');
   await page.goto(base+'#model.structure.spectra');
   await page.locator('#vibModel button[data-val="morse"]').click();
   assert.ok(await page.locator('#vibModel button[data-val="morse"]').evaluate(el=>el.classList.contains('on')));
+  const morseLabels=await page.locator('#dissoc').evaluate(slider=>{
+    const context=document.querySelector('#vibCanvas').getContext('2d');
+    const fillText=context.fillText;
+    let labels=[];
+    context.fillText=function(text,...args){labels.push(text);return fillText.call(this,text,...args)};
+    try {
+      return ['3','7'].map(value=>{
+        labels=[];
+        slider.value=value;
+        slider.dispatchEvent(new Event('input',{bubbles:true}));
+        return labels;
+      });
+    } finally {
+      context.fillText=fillText;
+    }
+  });
+  assert.ok(morseLabels[0].includes('v=5'));
+  assert.ok(!morseLabels[0].includes('v=6'));
+  assert.ok(morseLabels[1].includes('v=6'));
   await page.goto(base+'#model.structure.symmetry');
   await page.locator('#irrepF').selectOption('B1');
   assert.match(await page.locator('#selResult').innerText(),/A₁|允许|禁戒/);

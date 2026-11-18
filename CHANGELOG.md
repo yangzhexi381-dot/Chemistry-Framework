@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.5.0-dev — structural model boundary fixes (2026-11-18)
+
+- Plot only bound Morse levels and calculate both classical turning points in the scientific model.
+- Preserve a normalized low-energy eigenvector at weak nonzero coupling in the orthogonal two-state model.
+- Add numerical and browser regression coverage for the two model boundaries.
+
 ## v0.5.0-dev — readable node hierarchy and semantic zoom (2026-11-18)
 
 - Expanded six scientific domain regions to a three-column, five-tier hierarchy and retained all 64 nodes with 49 existing evidence relations.

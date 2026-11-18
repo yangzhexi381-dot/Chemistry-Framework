@@ -84,18 +84,41 @@
   };
   const twoState=(d,v)=>{
     if(!Number.isFinite(d)||!Number.isFinite(v))throw new RangeError('Finite energies required');
-    const r=Math.hypot(d/2,v), e=-r;
-    let vec=Math.abs(v)>1e-8?[v,e-d/2]:d>0?[0,1]:[1,0];
-    const z=Math.hypot(...vec);
-    return {low:-r,high:r,a:vec[0]/z,b:vec[1]/z,gap:2*r};
+    const scale=Math.max(Math.abs(d),Math.abs(v));
+    if(scale===0)return {low:0,high:0,a:1,b:0,gap:0};
+    const diagonal=(d/scale)/2, coupling=v/scale;
+    const radius=Math.hypot(diagonal,coupling);
+    const energy=scale*radius;
+    // Use the component without subtracting nearly equal numbers.
+    const [a,b]=d>=0
+      ?[coupling,-(radius+diagonal)]
+      :[radius-diagonal,-coupling];
+    const norm=Math.hypot(a,b);
+    return {low:-energy,high:energy,a:a/norm,b:b/norm,gap:2*energy};
   };
+  const vibrationLevelExists=(v,mode='harmonic',depth=7)=>
+    Number.isInteger(v)&&v>=0&&Number.isFinite(depth)&&depth>0&&
+    (mode==='harmonic'||(mode==='morse'&&(v+.5)/depth<2));
   const vibrationEnergy=(v,mode='harmonic',depth=7)=>{
-    if(!(v>=0)||!(depth>0)||!['harmonic','morse'].includes(mode))throw new RangeError('Invalid vibration');
-    const x=v+.5;return mode==='harmonic'?x:x-x*x/(4*depth);
+    if(!vibrationLevelExists(v,mode,depth))throw new RangeError('Invalid or unbound vibration level');
+    const x=v+.5;
+    return mode==='harmonic'?x:x*(1-(x/depth)/4);
   };
   const vibrationPotential=(x,mode='harmonic',depth=7)=>{
     if(!(depth>0)||!['harmonic','morse'].includes(mode))throw new RangeError('Invalid potential');
     return mode==='harmonic'?x*x/2:depth*Math.pow(1-Math.exp(-x/Math.sqrt(2*depth)),2);
+  };
+  const vibrationTurningPoints=(v,mode='harmonic',depth=7)=>{
+    const energy=vibrationEnergy(v,mode,depth);
+    if(mode==='harmonic'){
+      const extent=Math.sqrt(2*energy);
+      return [-extent,extent];
+    }
+    const fraction=((v+.5)/depth)/2;
+    const q=Math.sqrt(energy/depth);
+    const length=Math.SQRT2*Math.sqrt(depth);
+    // 1 - q = (1 - fraction)^2 / (1 + q), even near dissociation.
+    return [-length*Math.log1p(q),length*(Math.log1p(q)-2*Math.log1p(-fraction))];
   };
   const allowedTerms=(configuration)=>{
     if(configuration==='pd')return [1,2,3].flatMap(L=>[0,1].map(S=>({L,S})));
@@ -115,7 +138,7 @@
     if(!Number.isInteger(N)||N<2||!Number.isInteger(j)||j<1||j>N||!Number.isInteger(k)||k<1||k>N)throw new RangeError('Invalid orbital index');
     return Math.sqrt(2/(N+1))*Math.sin(j*k*Math.PI/(N+1));
   };
-  const api=Object.freeze({catalog,radial,angular,wellEnergy,wellWave,twoState,vibrationEnergy,vibrationPotential,allowedTerms,transitionAllowed,huckelEnergy,huckelCoefficient});
+  const api=Object.freeze({catalog,radial,angular,wellEnergy,wellWave,twoState,vibrationLevelExists,vibrationEnergy,vibrationPotential,vibrationTurningPoints,allowedTerms,transitionAllowed,huckelEnergy,huckelCoefficient});
   global.CFStructureModels=api;
   if(typeof module!=='undefined'&&module.exports)module.exports=api;
 })(typeof window!=='undefined'?window:globalThis);
