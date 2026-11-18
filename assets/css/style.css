@@ -27,3 +27,15 @@ button, a, textarea, input { touch-action: manipulation; } .graph-wrap svg{max-w
 .model-knowledge-link,.model-cross-entry a{display:inline-block;color:#23634d;font-size:11px;margin:0 0 10px;text-decoration:underline;text-underline-offset:3px}
 .model-cross-entry{margin:4px 0 12px}.theory-card a{display:inline-block;margin-top:5px}
 @media(max-width:700px){.knowledge-bridge{margin:17px 0;padding:13px}.knowledge-bridge-grid{grid-template-columns:1fr}}
+
+/* Unified module layout: one system/model page and one theory board. */
+.module-jump-links{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0 22px}
+.module-jump-links a{display:inline-flex;align-items:center;min-height:42px;padding:10px 15px;border-radius:999px;border:1px solid #ccded0;background:#edf5ec;color:var(--green);font-size:12px;text-decoration:none}
+.module-jump-links a:hover,.module-jump-links a:focus-visible{background:#dcebdd;text-decoration:underline}
+.combined-subsection{margin-top:42px;padding-top:30px;border-top:1px solid var(--line);scroll-margin-top:22px}
+.unified-theory-board{border:1px solid #d6e3d6;background:#f0f5ee;border-radius:16px;padding:20px;margin-top:20px;min-width:0}
+.unified-theory-board .theory-grid{margin-bottom:25px;padding-bottom:25px;border-bottom:1px solid #d6e3d6}
+.unified-theory-board .theory-electrochem{margin-top:8px;min-width:0}
+.unified-theory-board .textbook-head{margin-top:0}
+.unified-theory-board .theory-curriculum{margin-top:28px;padding-top:28px;border-top:1px solid #d6e3d6}
+@media(max-width:700px){.unified-theory-board{padding:12px;border-radius:12px}.combined-subsection{margin-top:28px;padding-top:22px}.unified-theory-board .theory-grid{margin-bottom:20px;padding-bottom:20px}.module-jump-links a{flex:1;justify-content:center;text-align:center}}
