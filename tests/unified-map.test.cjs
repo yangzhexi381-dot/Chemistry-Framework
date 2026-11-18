@@ -31,7 +31,7 @@ test('all 49 stored relations remain accessible and eight true cross-field edges
 test('UI exposes the whole atlas without separate material or kinetics filter pages',()=>{
  const app=read('src/app.js'),html=read('index.html');
  assert.ok(app.includes('renderAtlas()'));
- assert.ok(app.includes('const views=[[\\'全部视角\\',\\'全部\\']]')||app.includes("const views=[['全部视角','全部']]"));
+ assert.ok(app.includes("const views=[['全部视角','全部']]"));
  assert.ok(!app.includes("['物质与组成','entities']"));
  assert.ok(!app.includes("['反应与机理','reaction']"));
  assert.ok(app.includes('CFUnifiedMap.build(db.nodes,db.relations)'));
