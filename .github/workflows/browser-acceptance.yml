@@ -1,6 +1,8 @@
 name: Browser acceptance
 on:
   pull_request:
+  push:
+    branches: [main]
   workflow_run:
     workflows: ["pages build and deployment"]
     types: [completed]
@@ -11,7 +13,7 @@ permissions:
 
 jobs:
   curriculum-browser:
-    if: github.event_name == 'pull_request' || github.event.workflow_run.conclusion == 'success'
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout exact revision
@@ -28,7 +30,7 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Acceptance — local PR or deployed site
         env:
-          CF_TEST_URL: ${{ github.event_name == 'workflow_run' && 'https://yangzhexi381-dot.github.io/Chemistry-Framework/' || 'http://127.0.0.1:8765/' }}
+          CF_TEST_URL: ${{ github.event_name != 'pull_request' && 'https://yangzhexi381-dot.github.io/Chemistry-Framework/' || 'http://127.0.0.1:8765/' }}
         run: |
           if [ "$CF_TEST_URL" = 'http://127.0.0.1:8765/' ]; then
             python3 -m http.server 8765 --bind 127.0.0.1 > /tmp/cf-http.log 2>&1 &
