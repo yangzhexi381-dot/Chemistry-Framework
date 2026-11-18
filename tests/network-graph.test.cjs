@@ -40,3 +40,31 @@ test('network geometry keeps six labelled groups without replacing actual depend
  assert.ok(app.includes('networkFocusNode(id)'));
  assert.ok(css.includes('.network-svg'));
 });
+
+test('graph labels and nodes no longer collide in rigid rings',()=>{
+ for(const group of atlas.groups){
+  const points=net.points.filter(p=>p.group===group.id);
+  for(let i=0;i<points.length;i++)for(let j=i+1;j<points.length;j++){
+   const d=Math.hypot(points[i].x-points[j].x,points[i].y-points[j].y);
+   assert.ok(d>=40,'crowded nodes: '+points[i].id+' / '+points[j].id+' at '+d);
+  }
+  const featured=points.filter(p=>p.featured);
+  assert.ok(featured.every(p=>p.y<=geometry.centers[group.id][1]),group.id+' main nodes must form top-level reading tier');
+ }
+ const analysis=net.points.filter(p=>p.group==='analysis');
+ assert.ok(analysis.length===2);
+ const center=geometry.centers.analysis[0];
+ assert.equal(analysis[0].x+analysis[1].x,2*center,'two-node field must be centered');
+});
+test('connectivity gaps are reported honestly, never covered by fabricated graph edges',()=>{
+ assert.equal(net.componentCount,10);
+ assert.equal(net.unlinkedIds.length,6);
+ assert.ok(net.unlinkedIds.every(id=>id.startsWith('battery.')));
+ const original=new Set(d.relations.map(r=>r.id));
+ assert.deepEqual(new Set(net.edges.map(e=>e.id)),original);
+ const app=read('src/app.js');
+ assert.ok(app.includes("networkDragMode=false"));
+ assert.ok(app.includes('network-viewport'));
+ assert.ok(app.includes('手指平移：'));
+ assert.ok(app.includes('graph.componentCount'));
+});

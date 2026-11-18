@@ -47,6 +47,8 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict');
   assert.equal(await page.locator('#graph .network-relation.is-cross').count(),8);
   assert.equal(await page.locator('#graph .network-junction').count()>0,true);
   const initialView=await page.locator('#network-svg').getAttribute('viewBox');
+  assert.equal(initialView,'0 0 1460 1110');
+  assert.match(await page.locator('#graph .network-footnote').innerText(),/10 个关系子网，6 个节点/);
   await page.locator('#network-zoom-in').click();
   assert.notEqual(await page.locator('#network-svg').getAttribute('viewBox'),initialView);
   await page.locator('#network-zoom-out').click();
@@ -107,6 +109,23 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict');
    assert.equal(await page.locator('#graph .network-node').count(),64);
    assert.equal(await page.locator('#graph .network-relation').count(),49);
   }
+  // A real mobile-sized browser starts with a legible topic, not tiny 64-node labels.
+  const mobilePage=await browser.newPage({viewport:{width:390,height:840},isMobile:true,hasTouch:true});
+  try{
+   await mobilePage.goto(base+'#explore');
+   await mobilePage.waitForFunction(()=>document.querySelectorAll('#network-svg .network-node').length===64);
+   assert.equal(await mobilePage.locator('#network-viewport.is-detail-zoom').count(),1);
+   assert.equal(await mobilePage.locator('#network-svg').getAttribute('viewBox'),'0 55 500 450');
+   assert.equal(await mobilePage.locator('#network-pan-toggle').getAttribute('aria-pressed'),'false');
+   assert.equal(await mobilePage.locator('#graph .network-node .network-hit-target').count(),64);
+   assert.ok(await mobilePage.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth),'mobile network layout overflow');
+   await mobilePage.locator('#network-pan-toggle').click();
+   assert.equal(await mobilePage.locator('#network-pan-toggle').getAttribute('aria-pressed'),'true');
+   await mobilePage.locator('#network-reset').click();
+   assert.equal(await mobilePage.locator('#network-svg').getAttribute('viewBox'),'0 0 1460 1110');
+   await mobilePage.locator('#domains .atlas-jump[data-group="kinetics"]').click();
+   assert.equal(await mobilePage.locator('#network-svg .network-node').count(),64);
+  } finally {await mobilePage.close();}
   for(const moduleId of ['explore','inquire','theory','electrochem','workbench']){
     await page.goto(base+'#'+moduleId);
     const host=page.locator('#'+moduleId+' [data-knowledge-module="'+moduleId+'"]');
@@ -183,6 +202,6 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict');
   fail=false;await page.getByRole('button',{name:'重试未加载内容',exact:true}).click();
   await page.waitForFunction(()=>document.querySelector('#curriculum-current h2')?.textContent.includes('化学动力学的任务和目的')&&document.querySelector('#curriculum-errors').hidden);
   assert.deepEqual(errors,[]);
-  console.log('PASS: connected 64-node/49-relation SVG network, six editable viewpoints, pan/zoom, 8 true cross-domain edges, hyperedges, scientific routes and responsive viewports');
+  console.log('PASS: readable hierarchical 64-node SVG network, 49 original relations, no overlap, mobile zoom/pan, honest graph connectivity and science routes');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});
