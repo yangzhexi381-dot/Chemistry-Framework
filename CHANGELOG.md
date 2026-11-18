@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.5.0-dev — native structure chemistry simulations (2026-11-18)
+
+- Added seven interactive structure chemistry simulations inside the existing scientific workbench without any new top-level tab.
+- Extracted independent quantitative kernels and scoped rendering/styles; linked native theory cards to models and knowledge graph nodes.
+- Added seven structure knowledge nodes, eight conditional connections and scientifically bounded cross-model explanations.
+- Added precision and browser acceptance checks; original H₂⁺, electrochemical and kinetics calculations unchanged.
+
+
 ## v0.5.0-dev — unified module and theory layout (2026-11-18)
 
 - Merged the electrochemistry and physical-model top-level navigation into one System & Models page without changing calculations or content.

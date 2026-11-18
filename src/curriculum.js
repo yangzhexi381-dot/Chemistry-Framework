@@ -2,7 +2,7 @@
 (function (global) {
   'use strict';
   const levels = { theory: '理论', approximation: '近似模型', empirical: '经验规律', concept: '概念' };
-  const modelRoutes = { 'model.h2plus': ['workbench', 'h2plus-calculation'], 'model.n2o4': ['workbench', 'n2o4-physical-model'], electrochem: ['workbench', 'electrochem'] };
+  const modelRoutes = { 'model.h2plus': ['workbench', 'h2plus-calculation'], 'model.n2o4': ['workbench', 'n2o4-physical-model'], electrochem: ['workbench', 'electrochem'], 'model.structure.well': ['workbench', 'structure-studio'], 'model.structure.orbitals': ['workbench', 'structure-studio'], 'model.structure.terms': ['workbench', 'structure-studio'], 'model.structure.coupling': ['workbench', 'structure-studio'], 'model.structure.spectra': ['workbench', 'structure-studio'], 'model.structure.symmetry': ['workbench', 'structure-studio'], 'model.structure.huckel': ['workbench', 'structure-studio'] };
   function strings(value) {
     if (typeof value === 'string' || typeof value === 'number') return [String(value)];
     if (Array.isArray(value)) return value.flatMap(strings);
