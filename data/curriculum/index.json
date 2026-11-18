@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "version": "0.5.0-dev",
+  "books": [
+    {
+      "id": "physical",
+      "title": "物理化学（第六版）下册：化学动力学",
+      "authors": [
+        "傅献彩",
+        "侯文华等"
+      ],
+      "edition": "第6版",
+      "sourceNote": "依据资料库《物理化学》（第六版）下册第十一章（印刷167–243页，PDF178–254页）整理的原创教学解释与自测；不包含扫描件。"
+    }
+  ],
+  "chapters": [
+    {
+      "id": "pc-11",
+      "bookId": "physical",
+      "number": 11,
+      "title": "化学动力学基础（一）",
+      "path": "data/curriculum/pc-11.json",
+      "sectionCount": 10
+    }
+  ],
+  "review": {
+    "status": "in_review",
+    "note": "第十一章已有独立科学审核记录；本轮核对了原书关键章节与数据结构。未逐页重新全面复核；第十二章尚未发布。"
+  }
+}
