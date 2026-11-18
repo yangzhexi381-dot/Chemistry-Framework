@@ -43,6 +43,7 @@ test('models and clickable matter graph are connected without breaking other vie
  assert.ok(app.includes("CFGraphViews.matterCompositionNode"));
  assert.ok(app.includes("focusedMatter=selectedDomain==='物质与组成'"));
  assert.ok(app.includes('materialModelLink'));
- assert.ok(read('tests/curriculum-browser.cjs').includes("'15 个节点 · 11 条关系'"));
+ assert.ok(read('tests/curriculum-browser.cjs').includes("expectedGroups={matter:15,structure:13,thermo:15,kinetics:12,electrochem:7,analysis:2}"));
+ assert.equal(require('../src/unified-map.js').build(db.nodes,db.relations).groups.find(g=>g.id==='matter').nodes.length,15);
  for(const n of nodes.filter(n=>n.model_route))assert.ok(/^#(?:model\.|electrochem)/.test(n.model_route));
 });
