@@ -1,3 +1,9 @@
+# 统一知识网络跨模块整合（2026-11-18）
+
+以 `5c524e5a4dda119afb57d2468acab5982c64b5ba` 为基线，`data/knowledge.json` 新增 `module_paths` 作为五个模块共享知识关系，概念以 `#concept/<id>` 统一跳转；问题判断与模型提供直接关系图链接，旧 `#learn/pc.11.x` 保留。可见界面移除独立教材类标签，来源、页码和审核状态仍保留。未修改科学计算模型，动力学数据仅修改总览摘要和领域显示名。
+
+新增 `tests/module-knowledge.test.cjs`，检查路径与关系引用、来源及链接。Chromium 测试新增五模块交互和问题判断链接，最终结果以 GitHub Actions CI 与 Pages 发布后的线上工作流为准。真实 Android/iOS 硬件验收另行进行。
+
 # 浏览器验收自动化（2026-11-18）
 
 新增 `.github/workflows/browser-acceptance.yml`：PR 环境用临时 HTTP 服务运行 Chromium/Playwright；当 GitHub Pages 发布工作流成功结束时，以相应部署版本 SHA 检出源码，并对线上 Pages 地址进行相同的交互测试。检查包括第11章原有固定链接、理论工具页加载与旧路由、知识图谱至教材点击、搜索、自测、浏览器后退/前进、三种 CSS 宽度、模型路由和 503 恢复。测试脚本使用 Playwright 管理的 Chromium，不代表真实 Android 或 iOS 设备验收。实际通过记录以 GitHub Actions 本次运行结果为准；未运行时不得标为成功。

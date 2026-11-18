@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.5.0-dev — shared knowledge across modules (2026-11-18)
+
+- Linked all five main modules through shared concept and conditional-relation IDs.
+- Added deep concept links from inquiry results, theory cards, electrochemical examples and scientific models.
+- Removed visible textbook feature framing while retaining provenance and legacy links.
+- Extended data and Chromium browser checks for cross-module interaction.
+
+
 ## v0.5.0-dev — consolidate curriculum under Theory Tools (2026-11-18)
 
 - Removed redundant '教材知识' top-level tab. Chapter 11 learning content, search, self-checks and links now appear inside '理论工具'.
