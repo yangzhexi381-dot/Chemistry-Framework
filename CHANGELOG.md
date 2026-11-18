@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.5.0-dev — restore screenshot-style knowledge network and touch gestures (2026-11-18)
+
+- Returned home to a single spiral node-link diagram with dotted grid, green/purple concept dots and all existing science nodes/relations; removed oversized six-panel segmentation.
+- Added collision-aware full label placement, while preserving reduced-density overviews and all detailed titles at closer zoom.
+- Enabled direct one-finger pan and two-finger pinch-to-zoom without a gesture toggle; buttons, mouse and canonical deep links remain functional.
+- Scientific JSON, formulas and computational models are unchanged.
+
+
 ## v0.5.0-dev — structural model boundary fixes (2026-11-18)
 
 - Plot only bound Morse levels and calculate both classical turning points in the scientific model.

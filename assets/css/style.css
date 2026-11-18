@@ -255,3 +255,59 @@ button, a, textarea, input { touch-action: manipulation; } .graph-wrap svg{max-w
 @media(max-width:440px){
  .connected-graph .network-viewport{height:450px}
 }
+
+/* Screenshot-style global spiral: one open dot-field, no boxed subject submaps. */
+.connected-graph.radial-graph .network-viewport{
+ background-color:#fcfdfa;
+ background-image:radial-gradient(circle,#e3e9e1 1.2px,transparent 1.4px);
+ background-size:31px 31px;background-position:center;
+}
+.connected-graph.radial-graph .network-svg{touch-action:none!important;cursor:grab}
+.connected-graph.radial-graph .network-svg:active{cursor:grabbing}
+.connected-graph.radial-graph .network-relation{
+ stroke:#a5b9a8;stroke-width:1.5;stroke-opacity:.3;
+}
+.connected-graph.radial-graph .network-relation.is-cross{
+ stroke:#6e9c83;stroke-width:2;stroke-opacity:.45;
+}
+.connected-graph.radial-graph .network-viewport.is-overview .network-relation.is-local:not(.is-connected){
+ opacity:1;stroke-opacity:.21;pointer-events:auto;
+}
+.connected-graph.radial-graph .network-relation.is-connected,
+.connected-graph.radial-graph .network-relation:hover{
+ stroke-opacity:.9!important;stroke:#418866;
+}
+.connected-graph.radial-graph .network-node circle:not(.network-hit-target){
+ stroke:#f8fbf8;stroke-width:4;filter:drop-shadow(0 1px 2px #284e3a30);
+}
+.connected-graph.radial-graph .network-node text{
+ font:15px 'Noto Sans SC',sans-serif;
+ stroke:#fffefa;stroke-width:4px;paint-order:stroke;
+ line-height:1.5;fill:#3f5348;pointer-events:none;
+}
+.connected-graph.radial-graph .network-viewport.is-overview .network-node .network-primary{
+ display:block!important;
+}
+.connected-graph.radial-graph .network-viewport.is-overview .network-node .network-secondary{
+ display:none!important;
+}
+.connected-graph.radial-graph .network-viewport.is-domain-zoom .network-node .network-primary,
+.connected-graph.radial-graph .network-viewport.is-detail-zoom .network-node .network-label{
+ display:block!important;
+}
+.connected-graph.radial-graph .network-viewport.is-detail-zoom .network-node .network-secondary{
+ display:block!important;
+}
+.connected-graph.radial-graph .network-viewport .network-node.selected .network-label{
+ display:block!important;
+}
+.connected-graph.radial-graph .network-viewport.is-overview .network-node.selected circle:not(.network-hit-target){
+ stroke:#d99b55;stroke-width:5;
+}
+.connected-graph.radial-graph .network-footnote{color:#748476}
+.connected-graph.radial-graph .network-controls button{min-height:40px}
+@media(max-width:760px){
+ .connected-graph.radial-graph .network-viewport{height:min(72vh,520px)}
+ .connected-graph.radial-graph .network-intro{padding:12px 15px}
+ .connected-graph.radial-graph .network-controls-right{font-size:11px}
+}
