@@ -76,6 +76,45 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict');
   await page.goto(base+'#electrochem');
   assert.ok(await page.locator('#workbench').evaluate(e=>e.classList.contains('active')));
   assert.equal(await page.locator('#electrochem .textbook-chapters').count(),0);
+  // Seven structure-chemistry modes share the same native workbench and knowledge routes.
+  await page.goto(base+'#theory');
+  await page.waitForFunction(()=>document.querySelectorAll('#sc-theory-grid .sc-theory-card').length===7);
+  assert.equal(await page.locator('#sc-theory-grid a[href^="#model.structure."]').count(),7);
+  for(const mode of ['well','orbitals','terms','coupling','spectra','symmetry','huckel']){
+    await page.goto(base+'#model.structure.'+mode);
+    await page.waitForFunction(expected=>document.querySelector('#workbench')?.classList.contains('active')&&document.querySelector('#structure-studio .sc-mode-tabs button.active')?.dataset.structureMode===expected,mode);
+    assert.equal(await page.locator('#structure-studio .sc-page:not([hidden])').count(),1);
+    const visible=page.locator('#structure-studio .sc-page:not([hidden])');
+    assert.ok(await visible.locator('canvas,svg').count()>0,mode);
+    assert.ok((await page.locator('#sc-mode-boundary').innerText()).length>10);
+    await page.locator('#sc-concept-link').click();
+    await page.waitForFunction(()=>document.querySelector('#explore')?.classList.contains('active'));
+  }
+  await page.goto(base+'#model.structure.well');
+  await page.locator('#nBox').evaluate(el=>{el.value='5';el.dispatchEvent(new Event('input',{bubbles:true}))});
+  assert.match(await page.locator('#boxEnergy').innerText(),/25 E/);
+  await page.goto(base+'#model.structure.orbitals');
+  await page.locator('#orbSelect').selectOption('3p');
+  assert.equal(await page.locator('#rNodes').innerText(),'1');
+  await page.goto(base+'#model.structure.terms');
+  await page.locator('#termConfig button[data-val="pp"]').click();
+  assert.equal(await page.locator('#termGrid button').count(),3);
+  await page.goto(base+'#model.structure.coupling');
+  await page.locator('#coupling').evaluate(el=>{el.value='1.2';el.dispatchEvent(new Event('input',{bubbles:true}))});
+  assert.equal(await page.locator('#couplingOut').innerText(),'1.20');
+  await page.goto(base+'#model.structure.spectra');
+  await page.locator('#vibModel button[data-val="morse"]').click();
+  assert.ok(await page.locator('#vibModel button[data-val="morse"]').evaluate(el=>el.classList.contains('on')));
+  await page.goto(base+'#model.structure.symmetry');
+  await page.locator('#irrepF').selectOption('B1');
+  assert.match(await page.locator('#selResult').innerText(),/A₁|允许|禁戒/);
+  await page.goto(base+'#model.structure.huckel');
+  await page.locator('#hN').evaluate(el=>{el.value='6';el.dispatchEvent(new Event('input',{bubbles:true}))});
+  assert.equal(await page.locator('#hNOut').innerText(),'6');
+  for(const width of [390,768,1280]){
+    await page.setViewportSize({width,height:850});
+    assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth),'structure studio overflow '+width);
+  }
   await page.goto(base+'#model.n2o4');assert.ok(await page.locator('#workbench').evaluate(e=>e.classList.contains('active')));
   await page.goto(base+'#learn/pc.unknown.0');await page.waitForFunction(()=>document.querySelector('.curriculum-route-warning'));
   let fail=true;
@@ -86,6 +125,6 @@ const {chromium}=require('playwright'),assert=require('node:assert/strict');
   fail=false;await page.getByRole('button',{name:'重试未加载内容',exact:true}).click();
   await page.waitForFunction(()=>document.querySelector('#curriculum-current h2')?.textContent.includes('化学动力学的任务和目的')&&document.querySelector('#curriculum-errors').hidden);
   assert.deepEqual(errors,[]);
-  console.log('PASS: four-tab layout, unified system/models and theory board, legacy electrochem/model routes, battery controls, theory search, graph and three widths');
+  console.log('PASS: seven structure models (routes, controls, 3 widths), unified theory, all previous CF features, hosted/browser acceptance');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;});
