@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.5.0-dev — readable node hierarchy and semantic zoom (2026-11-18)
+
+- Expanded six scientific domain regions to a three-column, five-tier hierarchy and retained all 64 nodes with 49 existing evidence relations.
+- Added full multiline node labels and semantic zoom: all dots visible on overview; featured labels at subject level; all names visible after deeper zoom, avoiding tiny overlapping text.
+- Kept cross-domain connections prominent at overview while suppressing interior line clutter; restored interior dependencies in detail and retained source/condition links.
+- Updated Chromium browser checks for mobile overview, subject zoom, detailed SVG text collision, and original deep links; unchanged knowledge JSON and scientific model code.
+
+
 ## v0.5.0-dev — readable hierarchical knowledge map (2026-11-18)
 
 - Replaced concentric node placement in each science region with a stable two-tier concept layout; centered sparse groups and spaced all 64 nodes without collision.
