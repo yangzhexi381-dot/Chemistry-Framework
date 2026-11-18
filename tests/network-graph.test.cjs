@@ -33,7 +33,7 @@ test('network geometry keeps six labelled groups without replacing actual depend
  }
  assert.deepEqual(new Set(net.edges.map(e=>e.relation.id)),new Set(d.relations.map(e=>e.id)));
  const index=read('index.html'),app=read('src/app.js'),css=read('assets/css/style.css');
- assert.match(index,/src="src\/network-graph\.js\?v=20261118-18"/);
+ assert.match(index,/src="src\/network-graph\.js\?v=20261118-19"/);
  assert.ok(app.includes('CFNetworkGraph.build(map)'));
  assert.ok(app.includes('network-relation'));
  assert.ok(app.includes("const cls='node network-node"));
@@ -67,4 +67,22 @@ test('connectivity gaps are reported honestly, never covered by fabricated graph
  assert.ok(app.includes('network-viewport'));
  assert.ok(app.includes('手指平移：'));
  assert.ok(app.includes('graph.componentCount'));
+});
+
+test('labels are complete and rectangular footprints are separated in each subject region',()=>{
+ assert.equal(geometry.width,2440);assert.equal(geometry.height,1760);
+ for(const group of atlas.groups){
+  const points=net.points.filter(p=>p.group===group.id);
+  for(const p of points){
+   assert.equal(p.lines.join(''),p.label,p.id+' label may not be truncated');
+   assert.ok(p.lines.every(s=>Array.from(s).reduce((x,ch)=>x+geometry.approximateWidth(ch),0)<=7.55),p.id);
+  }
+  for(let i=0;i<points.length;i++)for(let j=i+1;j<points.length;j++){
+   const a=points[i],b=points[j];
+   const width=p=>Math.max(...p.lines.map(s=>Array.from(s).reduce((x,ch)=>x+geometry.approximateWidth(ch),0)))*23;
+   const xOverlap=Math.min(a.x+width(a)/2,b.x+width(b)/2)-Math.max(a.x-width(a)/2,b.x-width(b)/2);
+   const yOverlap=Math.min(a.y+26+a.lines.length*27,b.y+26+b.lines.length*27)-Math.max(a.y+26,b.y+26);
+   assert.ok(xOverlap<=0||yOverlap<=0,a.id+' and '+b.id+' labels overlap');
+  }
+ }
 });

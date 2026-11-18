@@ -41,5 +41,5 @@ test('focused graph view and safe textbook link coexist with existing navigation
  assert.match(code,/curriculumLink=.*?pc\\.11/s);
  assert.ok(code.includes('深入推导、适用边界与自测'));
  assert.ok(code.includes('event.key===\'Enter\''));
- const html=read('index.html');assert.ok(html.includes('id="graph"')&&html.includes('src="src/app.js?v=20261118-18"'));
+ const html=read('index.html');assert.ok(html.includes('id="graph"')&&html.includes('src="src/app.js?v=20261118-19"'));
 });
