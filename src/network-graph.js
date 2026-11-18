@@ -16,12 +16,21 @@ function build(atlas){
   const rest=group.nodes.filter(n=>!group.highlights.includes(n.id));
   // A stable reading hierarchy. Main concepts occupy the upper two rows; dependent
   // concepts remain visible below them. No arbitrary spiral or overlapping rings.
-  const majorSlots=[[-137,-95],[0,-95],[137,-95],[-137,-9],[0,-9],[137,-9]];
-  const minorSlots=[];
-  for(let row=0;row<3;row++)for(let col=0;col<4;col++)
-   minorSlots.push([-156+104*col,89+47*row]);
-  if(featured.length>majorSlots.length||rest.length>minorSlots.length)
-   throw new Error('Too many graph nodes for region '+group.id);
+  const mainRows={
+    1:[[0,-48]],
+    2:[[-86,-48],[86,-48]],
+    3:[[-137,-48],[0,-48],[137,-48]],
+    4:[[-120,-95],[120,-95],[-120,-9],[120,-9]],
+    5:[[-137,-95],[0,-95],[137,-95],[-83,-9],[83,-9]],
+    6:[[-137,-95],[0,-95],[137,-95],[-137,-9],[0,-9],[137,-9]]
+  };
+  const majorSlots=mainRows[featured.length];
+  if(!majorSlots||rest.length>12)throw new Error('Too many graph nodes for region '+group.id);
+  const rowPositions={1:[0],2:[-86,86],3:[-132,0,132],4:[-156,-52,52,156]};
+  const minorSlots=rest.map((_,i)=>{
+    const row=Math.floor(i/4),index=i%4,count=Math.min(4,rest.length-row*4);
+    return [rowPositions[count][index],89+47*row];
+  });
   const assign=(nodes,slots,isMajor)=>{
    nodes.forEach((node,i)=>{
     const slot=slots[i],point={id:node.id,group:group.id,x:center[0]+slot[0],
