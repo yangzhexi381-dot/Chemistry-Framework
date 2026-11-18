@@ -127,6 +127,8 @@ git push -u origin main
 
 ## 结构、对称性与光谱 · 交互模型
 
+Morse 势能图按束缚态条件绘制能级。正交双态模型在小非零耦合下仍求解对应的本征矢。模型约定和验证范围见 [结构化学整合记录](docs/STRUCTURE_CHEMISTRY_INTEGRATION.md)。
+
 原结构化学交互实验室中的七个实验已转换为 CF 原生的共享结构模型：无限深势阱、类氢轨道、LS 光谱项、双能级耦合、振动光谱、C₂ᵥ 对称性、Hückel π 模型。理论工具中按知识点展示公式、假设、概念链接及交互入口；体系与模型中的“结构与光谱”实验区可操纵参数、观察图像。七个稳定模型链接 `#model.structure.<id>`；知识关系节点 `#concept/structure.*`。计算逻辑单列在 `src/models/structure-chemistry.js`，可单元测试；数值示意不等于实验预测。详见 [整合说明](docs/STRUCTURE_CHEMISTRY_INTEGRATION.md)。
 
 ## 反应与机理视角
