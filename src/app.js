@@ -2,6 +2,8 @@ const $=s=>document.querySelector(s), esc=s=>String(s??'').replace(/[&<>"']/g,c=
 let db, selectedDomain='全部视角', selectedNode=null, currentCase=null;
 const views=[['全部视角','全部']];
 const atlasExpanded=new Set();
+let networkData=null;
+let networkCamera={x:0,y:0,w:CFNetworkGraph.width,h:CFNetworkGraph.height};
 let cases=[];
 function domainOf(n){const d=n.domain||[];if(d.some(x=>x.includes('electro')))return '电化学与界面';if(d.some(x=>x.includes('analytical')))return '分析与表征';if(n.id.startsWith('chem.'))return '反应与机理';return '理论工具'}
 function visibleNodes(){let ns=db.nodes;if(selectedDomain==='全部视角')return ns;if(selectedDomain==='物质与组成')return ns.filter(CFGraphViews.matterCompositionNode);if(selectedDomain==='结构与成键')return ns.filter(n=>n.id.startsWith('qm.')||n.domain.includes('structure_bonding')||/结构|成键|轨道|电子/.test(n.title));if(selectedDomain==='反应与机理')return ns.filter(CFGraphViews.reactionMechanismNode);if(selectedDomain==='热力学与动力学')return ns.filter(n=>n.domain.includes('quantum_statistical_mechanics')||n.domain.includes('chemical_kinetics')||n.domain.includes('thermodynamics')||/动力学|平衡|自由能/.test(n.title));if(selectedDomain==='电化学与界面')return ns.filter(n=>n.domain.includes('electrochemistry'));return ns.filter(n=>n.domain.includes('analytical_chemistry'))}
@@ -9,39 +11,140 @@ function renderDomains(){
  const parts=CFUnifiedMap.groups;
  $('#domains').innerHTML='<div class="atlas-path-heading"><span>知识层级</span><small>同一张网络，按概念层次定位</small></div><div class="atlas-path">'+parts.map((g,i)=>'<button class="atlas-jump" type="button" data-group="'+esc(g.id)+'"><span>'+esc(g.number)+'</span>'+esc(g.label)+'</button>').join('<span class="atlas-path-arrow" aria-hidden="true">›</span>')+'</div>';
  $('#domains').querySelectorAll('.atlas-jump').forEach(button=>button.onclick=()=>{
-  const el=document.getElementById('atlas-'+button.dataset.group);
-  el?.scrollIntoView({block:'start',behavior:'smooth'});
+  networkFocusGroup(button.dataset.group);
+  document.getElementById('network-viewport')?.scrollIntoView({block:'nearest',behavior:'smooth'});
   $('#domains').querySelectorAll('.atlas-jump').forEach(b=>b.classList.toggle('active',b===button));
  });
 }
 
+
+const clampCamera=()=>{
+ const maxW=CFNetworkGraph.width,maxH=CFNetworkGraph.height;
+ networkCamera.w=Math.min(maxW,Math.max(280,networkCamera.w));
+ networkCamera.h=Math.min(maxH,Math.max(210,networkCamera.h));
+ networkCamera.x=CFNetworkGraph.clamp(networkCamera.x,0,maxW-networkCamera.w);
+ networkCamera.y=CFNetworkGraph.clamp(networkCamera.y,0,maxH-networkCamera.h);
+};
+function networkApplyCamera(){
+ clampCamera();
+ const svg=document.getElementById('network-svg');
+ if(svg)svg.setAttribute('viewBox',[networkCamera.x,networkCamera.y,networkCamera.w,networkCamera.h].join(' '));
+ const zoom=document.getElementById('network-zoom-label');
+ if(zoom)zoom.textContent=Math.round(CFNetworkGraph.width/networkCamera.w*100)+'%';
+}
+function networkZoom(factor){
+ const cx=networkCamera.x+networkCamera.w/2,cy=networkCamera.y+networkCamera.h/2;
+ const w=networkCamera.w/factor,h=networkCamera.h/factor;
+ networkCamera={x:cx-w/2,y:cy-h/2,w,h};networkApplyCamera();
+}
+function networkFocusGroup(id){
+ const pos=CFNetworkGraph.centers[id];if(!pos)return;
+ networkCamera={x:pos[0]-300,y:pos[1]-250,w:600,h:500};networkApplyCamera();
+}
+function networkFocusNode(id){
+ const n=networkData?.points.find(p=>p.id===id);if(!n)return;
+ networkCamera={x:n.x-235,y:n.y-195,w:470,h:390};networkApplyCamera();
+}
 function renderAtlas(){
  const map=CFUnifiedMap.build(db.nodes,db.relations);
- if(map.assignedCount!==map.nodeCount)throw new Error('有尚未归类的知识节点，禁止静默丢弃');
- const host=$('#graph');host.classList.remove('materials-graph');host.classList.add('unified-graph');
- const chip=node=>'<button class="node atlas-node'+(selectedNode===node.id?' selected':'')+'" type="button" data-node="'+esc(node.id)+'" title="'+esc(node.title)+'">'+esc(node.graph_label||node.title)+'</button>';
+ if(map.assignedCount!==map.nodeCount)throw new Error('知识节点有缺失分组');
+ const graph=CFNetworkGraph.build(map);
+ if(graph.count!==map.nodeCount||graph.relationCount!==map.relationCount)throw new Error('知识图谱几何与原始关系数据不一致');
+ networkData=graph;
+ const host=$('#graph');host.classList.remove('materials-graph');host.classList.add('unified-graph','connected-graph');
+ const byId=new Map(db.nodes.map(n=>[n.id,n]));
+ const colors={matter:'#5b9d7d',structure:'#829cb5',thermo:'#9a83b5',kinetics:'#b79265',electrochem:'#479786',analysis:'#899b90'};
+ const relationSelected=r=>selectedNode&&(r.conclusion===selectedNode||r.premises.includes(selectedNode));
+ const curved=(a,b,cross)=>{
+  const mx=(a.x+b.x)/2,my=(a.y+b.y)/2;
+  const length=Math.hypot(b.x-a.x,b.y-a.y)||1;
+  const deviation=Math.min(24,length*.065)*(cross?1.0:.55);
+  return 'M'+a.x.toFixed(1)+','+a.y.toFixed(1)+' Q'+(mx-(b.y-a.y)/length*deviation).toFixed(1)+','+(my+(b.x-a.x)/length*deviation).toFixed(1)+' '+b.x.toFixed(1)+','+b.y.toFixed(1);
+ };
+ const relationSVG=graph.edges.map(edge=>{
+   const r=edge.relation,active=relationSelected(r),dim=selectedNode&&!active;
+   const cls='network-relation'+(edge.cross?' is-cross':'')+(active?' is-connected':'')+(dim?' is-muted':'');
+   const limbs=edge.from.map(source=>'<path class="network-limb" d="'+curved(source,edge.joint||edge.end,edge.cross)+'"'+(edge.joint?'':' marker-end="url(#network-arrow)"')+'/>').join('');
+   const end=edge.joint?'<path class="network-final" d="'+curved(edge.joint,edge.end,edge.cross)+'" marker-end="url(#network-arrow)"/>':'';
+   const joint=edge.joint?'<circle class="network-junction" cx="'+edge.joint.x+'" cy="'+edge.joint.y+'" r="3.7"/>':'';
+   const title=r.claim+'；关系类型：'+r.type+'；条件：'+(r.conditions||[]).join('；');
+   return '<g class="'+cls+'" data-relation="'+esc(r.id)+'" role="button" tabindex="0" aria-label="'+esc(title)+'"><title>'+esc(title)+'</title>'+limbs+end+joint+'</g>';
+ }).join('');
+ const groupSVG=map.groups.map(g=>{
+  const c=CFNetworkGraph.centers[g.id];
+  return '<g class="network-group" data-group="'+esc(g.id)+'"><rect x="'+(c[0]-220)+'" y="'+(c[1]-235)+'" width="440" height="468" rx="30"/>'+
+    '<text class="network-group-title" x="'+(c[0]-189)+'" y="'+(c[1]-188)+'">'+esc(g.number+'  '+g.title)+'</text>'+
+    '<text class="network-group-subtitle" x="'+(c[0]-188)+'" y="'+(c[1]-163)+'">'+esc(g.subtitle)+'</text>'+
+    '<text class="network-group-count" x="'+(c[0]+181)+'" y="'+(c[1]-188)+'" text-anchor="end">'+g.nodes.length+' 节点</text></g>';
+ }).join('');
+ const activeIds=new Set();if(selectedNode)for(const e of graph.edges)if(relationSelected(e.relation))for(const id of [...e.relation.premises,e.relation.conclusion])activeIds.add(id);
+ const nodeSVG=graph.points.map(p=>{
+  const n=byId.get(p.id),chosen=selectedNode===p.id,related=activeIds.has(p.id);
+  const isDim=selectedNode&&!chosen&&!related;
+  const cls='node network-node'+(chosen?' selected':'')+(related?' is-related':'')+(isDim?' is-muted':'');
+  const label=p.label.length>10?p.label.slice(0,9)+'…':p.label;
+  return '<g class="'+cls+'" data-node="'+esc(p.id)+'" data-group="'+esc(p.group)+'" role="button" tabindex="0" aria-label="'+esc(n.title)+'"><title>'+esc(n.title)+'</title>'+
+    '<circle cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="'+(chosen?12:p.featured?10:7)+'" fill="'+colors[p.group]+'"/>'+
+    '<text class="network-label'+(p.featured||chosen?'':' network-secondary')+'" x="'+p.x.toFixed(1)+'" y="'+(p.y+24).toFixed(1)+'">'+esc(label)+'</text></g>';
+ }).join('');
+ const diagram='<svg id="network-svg" class="network-svg" viewBox="0 0 '+graph.width+' '+graph.height+'" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="64 个化学知识节点与 49 条带条件关系的统一交互网络"><defs><marker id="network-arrow" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L6 3 L0 6" fill="none" stroke="#6f9c81" stroke-width="1.3"/></marker></defs>'+groupSVG+relationSVG+nodeSVG+'</svg>';
+ const chip=node=>'<button class="atlas-node'+(selectedNode===node.id?' selected':'')+'" type="button" data-node="'+esc(node.id)+'" title="'+esc(node.title)+'">'+esc(node.graph_label||node.title)+'</button>';
  const sections=map.groups.map(g=>{
   const featured=g.nodes.filter(n=>g.highlights.includes(n.id)),rest=g.nodes.filter(n=>!g.highlights.includes(n.id)),open=atlasExpanded.has(g.id);
-  const chips=featured.map(chip).join('');
-  const more=rest.length?'<details class="atlas-more" data-group="'+esc(g.id)+'"'+(open?' open':'')+'><summary>查看其余 '+rest.length+' 个知识点</summary><div class="atlas-nodes">'+rest.map(chip).join('')+'</div></details>':'';
+  const more=rest.length?'<details class="atlas-more" data-group="'+esc(g.id)+'"'+(open?' open':'')+'><summary>其余 '+rest.length+' 个概念</summary><div class="atlas-nodes">'+rest.map(chip).join('')+'</div></details>':'';
   return '<section class="atlas-cluster atlas-'+esc(g.id)+'" id="atlas-'+esc(g.id)+'" data-atlas-group="'+esc(g.id)+'">'+
    '<div class="atlas-cluster-head"><span class="atlas-number">'+esc(g.number)+'</span><div><h3>'+esc(g.title)+'</h3><p>'+esc(g.subtitle)+'</p></div></div>'+
    '<div class="atlas-metrics"><span>'+g.nodes.length+' 个节点</span><span>'+g.relations.length+' 条内部关系</span></div>'+
-   '<div class="atlas-nodes">'+chips+'</div>'+more+'<p class="atlas-context">'+esc(g.note)+'</p></section>';
+   '<div class="atlas-nodes">'+featured.map(chip).join('')+'</div>'+more+'<p class="atlas-context">'+esc(g.note)+'</p></section>';
  }).join('');
  const relationText=relation=>{
-  const label=relation.groups.map(id=>CFUnifiedMap.groups.find(g=>g.id===id)?.label||id).join(' · ');
-  const c=db.nodes.find(n=>n.id===relation.conclusion);
-  return '<a class="atlas-bridge edge" data-relation="'+esc(relation.id)+'" href="#concept/'+esc(relation.conclusion)+'"><span class="atlas-bridge-domain">'+esc(label)+'</span><b>'+esc(c?.title||relation.conclusion)+'</b><span class="atlas-bridge-claim">'+esc(relation.claim)+'</span><small>关系类型：'+esc(relation.type)+' · '+esc((relation.conditions||[]).slice(0,2).join('；')||'参见完整条件')+'</small></a>';
+  const groupNames=relation.groups.map(id=>CFUnifiedMap.groups.find(g=>g.id===id)?.label||id).join(' · ');
+  return '<a class="atlas-bridge" data-relation="'+esc(relation.id)+'" href="#concept/'+esc(relation.conclusion)+'"><span class="atlas-bridge-domain">'+esc(groupNames)+'</span><b>'+esc(byId.get(relation.conclusion)?.title||relation.conclusion)+'</b><span class="atlas-bridge-claim">'+esc(relation.claim)+'</span><small>类型：'+esc(relation.type)+' · '+esc((relation.conditions||[]).slice(0,2).join('；')||'详见适用条件')+'</small></a>';
  };
- host.innerHTML='<div class="atlas-hero"><div><span class="atlas-kicker">CHEMISTRY · ONE CONNECTED NETWORK</span><h3>从物质出发，沿着规律前进</h3><p>六个知识层次共享一张关系网。点击知识点查看理论、条件和交互模型；跨领域连接只显示已记录的真实关系。</p></div><div class="atlas-total"><strong>'+map.nodeCount+'</strong><small>全部知识节点</small><em>'+map.relationCount+' 条可追溯关系</em></div></div>'+
-  '<div class="atlas-grid">'+sections+'</div>'+
-  '<section class="atlas-links"><div class="atlas-links-head"><div><h3>跨领域的理论联系</h3><p>这些是实际编码的跨层关系，不意味着所有领域都可以直接数学推导。</p></div><span>'+map.bridges.length+' 条</span></div><div class="atlas-link-grid">'+map.bridges.map(relationText).join('')+'</div></section>';
+ host.innerHTML='<div class="network-intro"><div><strong>一张网络，保留每一个节点</strong><p>全部 64 个节点、49 条既有关系都在图中。浅色为领域内部关系，深色为真实跨领域联系；多前提关系通过汇合点指向结论。</p></div><span>6 个领域 · 8 条跨领域关系</span></div>'+
+  '<div class="network-controls"><div class="network-controls-left"><button type="button" id="network-zoom-in" aria-label="放大网络">放大 ＋</button><button type="button" id="network-zoom-out" aria-label="缩小网络">缩小 −</button><button type="button" id="network-reset">完整网络</button></div><div class="network-controls-right"><span id="network-zoom-label">100%</span><span>拖动可平移 · 点击节点可查看详情</span></div></div>'+
+  '<div id="network-viewport" class="network-viewport" aria-label="可拖动和缩放的化学知识网络">'+diagram+'</div>'+
+  '<div class="network-footnote">图中连线仅表示已有的、有条件的知识关系，不表示六个领域之间存在尚未验证的推导。点击节点或跨域关系可查看完整依据。</div>'+
+  '<details class="network-index"><summary><span>按领域查阅所有知识点</span><small>六组辅助索引，不会从网络中移除节点</small></summary><div class="atlas-grid">'+sections+'</div></details>'+
+  '<section class="atlas-links"><div class="atlas-links-head"><div><h3>跨领域的真实联系</h3><p>八条已有跨领域关系均可回到网络中的具体节点，并保留前提和适用范围。</p></div><span>'+map.bridges.length+' 条</span></div><div class="atlas-link-grid">'+map.bridges.map(relationText).join('')+'</div></section>';
+ networkApplyCamera();
+ host.querySelector('#network-zoom-in').onclick=()=>networkZoom(1.32);
+ host.querySelector('#network-zoom-out').onclick=()=>networkZoom(1/1.32);
+ host.querySelector('#network-reset').onclick=()=>{networkCamera={x:0,y:0,w:graph.width,h:graph.height};networkApplyCamera();};
  host.querySelectorAll('details.atlas-more').forEach(d=>d.addEventListener('toggle',()=>{if(d.open)atlasExpanded.add(d.dataset.group);else atlasExpanded.delete(d.dataset.group)}));
- host.querySelectorAll('.atlas-node').forEach(button=>{
-  button.onclick=()=>{selectedNode=button.dataset.node;showNode(selectedNode);const target=$('#detail');if(window.matchMedia('(max-width:780px)').matches)target.scrollIntoView({block:'start',behavior:'smooth'});};
+ const handleNode=id=>{
+  selectedNode=id;showNode(id);
+  if(window.matchMedia('(max-width:780px)').matches)$('#detail').scrollIntoView({block:'start',behavior:'smooth'});
+ };
+ host.querySelectorAll('.network-node,.atlas-node').forEach(el=>{
+  el.onclick=()=>handleNode(el.dataset.node);
+  el.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();handleNode(el.dataset.node)}};
  });
- $('#node-count').textContent=map.nodeCount+' 个节点 · '+map.relationCount+' 条关系';
+ host.querySelectorAll('.network-relation').forEach(el=>{
+  const click=()=>{const relation=db.relations.find(r=>r.id===el.dataset.relation);if(relation)handleNode(relation.conclusion)};
+  el.onclick=click;el.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();click()}};
+ });
+ const svg=host.querySelector('#network-svg');let drag=null;
+ svg.addEventListener('pointerdown',event=>{
+  if(event.target.closest('.network-node,.network-relation'))return;
+  if(event.button!==0)return;
+  drag={id:event.pointerId,x:event.clientX,y:event.clientY,camX:networkCamera.x,camY:networkCamera.y};
+  svg.setPointerCapture(event.pointerId);
+ });
+ svg.addEventListener('pointermove',event=>{
+  if(!drag||drag.id!==event.pointerId)return;
+  const rect=svg.getBoundingClientRect();
+  networkCamera.x=drag.camX-(event.clientX-drag.x)*networkCamera.w/rect.width;
+  networkCamera.y=drag.camY-(event.clientY-drag.y)*networkCamera.h/rect.height;
+  networkApplyCamera();
+ });
+ const stopDrag=()=>{drag=null};
+ svg.addEventListener('pointerup',stopDrag);svg.addEventListener('pointercancel',stopDrag);svg.addEventListener('lostpointercapture',stopDrag);
+ svg.addEventListener('wheel',event=>{
+  if(!event.ctrlKey)return;
+  event.preventDefault();networkZoom(event.deltaY<0?1.2:1/1.2);
+ },{passive:false});
+ $('#node-count').textContent=graph.count+' 个节点 · '+graph.relationCount+' 条关系';
 }
 
 function renderGraph(){if(selectedDomain==='全部视角'){renderAtlas();return;}const ns=visibleNodes(), focusedReaction=selectedDomain==='反应与机理',focusedMatter=selectedDomain==='物质与组成', W=focusedMatter?900:(focusedReaction?820:760),H=focusedMatter?560:(focusedReaction?480:420),cx=W/2,cy=H/2;
@@ -102,8 +205,10 @@ function focusKnowledgeNode(raw){
  let id;try{id=decodeURIComponent(raw)}catch(_){return false}
  if(!/^[a-z0-9._-]+$/i.test(id)||!db.nodes.some(n=>n.id===id))return false;
  selectedDomain='全部视角';renderDomains();showNode(id);renderRelations();
- const node=Array.from(document.querySelectorAll('#graph .node')).find(el=>el.dataset.node===id);
- if(node){const more=node.closest('details.atlas-more');if(more&&!more.open){atlasExpanded.add(more.dataset.group);renderGraph();}const active=Array.from(document.querySelectorAll('#graph .node')).find(el=>el.dataset.node===id);active?.scrollIntoView({block:'nearest',inline:'nearest'});}return true;
+ networkFocusNode(id);
+ const el=document.getElementById('network-viewport');
+ el?.scrollIntoView({block:'nearest'});
+ return true;
 }
 
 function renderStructureTheory(){

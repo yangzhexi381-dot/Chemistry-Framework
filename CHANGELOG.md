@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.5.0-dev — connected scientific knowledge map (2026-11-18)
+
+- Replaced the card-only primary atlas with an actual 64-node, 49-hyperrelation connected SVG visual network in six meaningful spatial regions.
+- Distinguish eight real cross-domain relations; show joint points for multi-premise relations without inventing any missing science links.
+- Keep entire node graph visible with zoom/pan and same-graph domain navigation; relegate grouped cards to an optional auxiliary index.
+- Preserve all science JSON, concept IDs and theoretical/model routes; test geometry, relation endpoints, zoom, domain navigation and mobile widths.
+
+
 ## v0.5.0-dev — unified chemistry knowledge atlas (2026-11-18)
 
 - Replaced seven disjoint graph-perspective buttons and overlapping spiral plot with one unified six-layer knowledge atlas, presenting all 64 science nodes and 49 existing relations in a coherent page.
